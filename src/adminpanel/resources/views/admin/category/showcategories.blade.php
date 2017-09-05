@@ -1,0 +1,1 @@
+showcategories.blade.php
