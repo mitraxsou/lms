@@ -35,14 +35,36 @@ class ReviewController extends Controller
        
        return view('admin.review.reviewshow', compact('course1'));
     }
-    public function review($id)
+    public function review($id,$id1)
     {
         
          $course1 = DB::table('content')->where(
-            'content_id',$id
+            'content_id',$id1
          )->first();
+         $subtopic=DB::table('subtopics')->where(
+            'sub_tid',$id
+         )->first();
+         $topic= DB::table('topic')->where(
+            'course_id',$subtopic->course_id
+         )->get();
+         $coursearr=DB::table('subtopics')->where(
+            'course_id',$subtopic->course_id
+         )->get();
+         $course= $courses = DB::table('courses')->join('course_structure','courses.id','=','course_structure.course_id')->select('courses.id','courses.name','courses.description','course_structure.fixedstructure','course_structure.tempstructure')
+         ->where(
+            'course_structure.course_id',$subtopic->course_id
+         )->first();
+
         //dd($course1);
-       return view('admin.review.contentshow', compact('course1'));
+       return view('admin.review.contenthierarchy', compact('course1','subtopic','topic','coursearr','course'));
+    }
+    public function content($id1)
+    {
+        
+         $course1 = DB::table('content')->join('subtopics','subtopics.content_id','=','content.content_id')->select('subtopics.sub_tid','subtopics.name','subtopics.description','content.content','content.content_id')->where(
+            'content.content_id',$id1
+         )->first();
+         return view('admin.review.contentshow', compact('course1'));
     }
     public function feedback(Request $request)
     {

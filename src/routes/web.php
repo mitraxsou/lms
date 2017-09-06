@@ -183,7 +183,8 @@ Route::group(['middleware' => 'adminauth'], function()
 
 	/***************Reviewing - Soumi********/
 	Route::get('/admin/reviewcourse', 'Admin\ReviewController@create');
-	Route::get('/admin/review/{review}', 'Admin\ReviewController@review');
+	Route::get('/admin/review/{stid}/{review}', 'Admin\ReviewController@review');
+	Route::get('/admin/contentreview/{id}','Admin\ReviewController@content');
 	Route::post('/admin/reviewfeedback/{review}', 'Admin\ReviewController@feedback');
 	Route::post('/admin/reviewcorrect/{review}', 'Admin\ReviewController@correct');
 	Route::get('/admin/reviewstr','Admin\ReviewController@reviewstructure');
