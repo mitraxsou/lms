@@ -93,7 +93,8 @@ class CourseController extends Controller
         
         DB::table('admin_course')->insert(['course_id' =>request('id'),'admin_id'=>$var,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
 
-        return redirect('/admin/course')->with('message','Course Added !');
+        DB::table('course_structure')->insert(['course_id' =>request('id'),'fixedstructure'=>null,'tempstructure'=>null]);
+        return redirect('/admin/mycourse')->with('message','Course Added !');
     }
 
     public function edit($id)

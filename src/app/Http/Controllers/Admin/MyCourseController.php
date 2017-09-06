@@ -64,34 +64,41 @@ class MyCourseController extends Controller
     }
     public function show($id)
     {
+        $index=DB::table('course_structure')->where('course_id', $id)->first();
         $course = Course::find($id);
         $adm=Auth::guard('admin')->user();
-        foreach($course->admins as $cor)
+        if($index->review_status=='Okay')
         {
-            if($adm->id == $cor->pivot->admin_id)
-            {
-                $indexes = DB::table('topic')->where('course_id', $id)->orderBy('tid')->get();
-                $indexes_sub = DB::table('subtopics')->where([['course_id', $id]
-                                                            ])->get();
-    	       return view('admin.course.topic.topic' , compact('course','indexes','indexes_sub'));
-            }
-            else
-            {
-                abort(403,'Not Authorized');
-            }
+                foreach($course->admins as $cor)
+                {
+                    if($adm->id == $cor->pivot->admin_id)
+                    {
+                        $indexes = DB::table('topic')->where('course_id', $id)->orderBy('tid')->get();
+                        $indexes_sub = DB::table('subtopics')->where([['course_id', $id]
+                                                                    ])->get();
+            	       return view('admin.course.topic.topic' , compact('course','indexes','indexes_sub','index'));
+                    }
+                    else
+                    {
+                        abort(403,'Not Authorized');
+                    }
+                }
+        }
+        else{
+             return view('admin.course.topic.topic' , compact('course','index'));
         }
     
     }
     
-    public function reviewstructure($id)
+    public function reviewstructure(Request $request)
     {
 
-          $updte = DB::table('topic')->where([
-                 ['course_id', '=', $id]
-         ])->update(['review_status' => 'Reviewing']);
+          $updte = DB::table('course_structure')->where([
+                 ['course_id', '=', request('cid')]
+         ])->update(['review_status' => 'Reviewing','tempstructure'=> request('summernote')]);
           alert()->success('Sent for Reviewing!');
           $status=true;
-          return redirect('/admin/mycourse/'.$id)->with(compact('status'));;
+          return redirect('/admin/mycourse/'.request('cid'))->with(compact('status'));;
     }
 
     public function showSubTopic($cid,$tid)

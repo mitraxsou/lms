@@ -117,16 +117,37 @@ class ReviewController extends Controller
     }
     public function reviewstructure()
     {
-        $course=DB::table('topic')
+        $course=DB::table('course_structure')
             ->where('review_status','=','Reviewing')
-            ->groupBy('course_id')
-            ->pluck('course_id');
-           
-        $courses=DB::table('courses')
-            ->whereIn('id',$course)
             ->get();
+        $courses = DB::table('courses')->join('course_structure','courses.id','=','course_structure.course_id')->select('courses.id','courses.name','courses.description','courses.cfilename','course_structure.tempstructure')->where('course_structure.review_status', 'Reviewing')->get();
+           
+        /*$courses=DB::table('courses')
+            ->whereIn('id',$course->course_id)
+            ->get();*/
          //dd($courses);
-         return view('admin.review.structureshow', compact('courses'));
+         return view('admin.review.structureshow', compact('course','courses'));
           
+    }
+    public function comment(Request $request)
+    {
+
+          $updte = DB::table('course_structure')->where([
+                    ['course_id', '=', request('id')]
+         ])->update(['feedback' => request('feedback'),'review_status'=>'Edit Required']);
+        alert()->success('Feedback Sent Successfully');
+          return redirect('/admin/reviewstr');
+    }
+
+    public function structuresuccess($id)
+    {
+        $temp=DB::table('course_structure')->where('course_id', $id)->first();
+        //dd($temp->tempstructure);
+          $updte = DB::table('course_structure')->where([
+                    ['course_id', '=', $id]
+         ])->update(['fixedstructure' => $temp->tempstructure ,'review_status'=>'Okay']);
+         //dd($updte);
+        alert()->success('Reviewed Successfully');
+          return redirect('/admin/reviewstr');
     }
 }
