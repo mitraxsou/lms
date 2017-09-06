@@ -165,7 +165,7 @@ Route::group(['middleware' => 'adminauth'], function()
 	Route::get('/admin/mycourse/{course}','Admin\MyCourseController@show');
 	Route::get('/admin/mycourse/{course}/{topic}' , 'Admin\MyCourseController@showSubTopic');
 	Route::get('/admin/mycourse/{course}/{topic}/{subtid}','Admin\MyCourseController@contentshow');
-
+	Route::post('/admin/reviewstructure','Admin\MyCourseController@reviewstructure');
 
 
 	/**Video part**/
@@ -183,12 +183,16 @@ Route::group(['middleware' => 'adminauth'], function()
 
 	/***************Reviewing - Soumi********/
 	Route::get('/admin/reviewcourse', 'Admin\ReviewController@create');
-	Route::get('/admin/review/{review}', 'Admin\ReviewController@review');
+	Route::get('/admin/review/{stid}/{review}', 'Admin\ReviewController@review');
+	Route::get('/admin/contentreview/{id}','Admin\ReviewController@content');
 	Route::post('/admin/reviewfeedback/{review}', 'Admin\ReviewController@feedback');
 	Route::post('/admin/reviewcorrect/{review}', 'Admin\ReviewController@correct');
 	Route::get('/admin/reviewstr','Admin\ReviewController@reviewstructure');
+	Route::post('/admin/reviewcomment', 'Admin\ReviewController@comment');
+	Route::get('/admin/structuresuccess/{id}','Admin\ReviewController@structuresuccess');
 	/***************/
 	Route::get('/dummy', 'Admin\CategoryController@dummy');
+
 
 
 });
