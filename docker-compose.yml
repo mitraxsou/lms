@@ -51,9 +51,9 @@ services:
     # setting some envvars to create the DB
     
     environment:
-      - MYSQL_ROOT_PASSWORD=
+      - MYSQL_ROOT_PASSWORD=S3cr3tpassowrd
       - MYSQL_DATABASE=adminpanel
-      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_ALLOW_EMPTY_PASSWORD=no
     
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:4.6
@@ -68,4 +68,4 @@ services:
       - PMA_PASSWORD=S3cr3tpassowrd
   
 volumes:  
-    db_data:
+    db_data_release:
