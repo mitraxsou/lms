@@ -55,6 +55,8 @@ services:
       - MYSQL_DATABASE=adminpanel
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
       - MYSQL_PORT=3307
+    ports:
+      - "3307"
     
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:4.6
