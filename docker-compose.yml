@@ -65,7 +65,7 @@ services:
       - PMA_HOST=mysqlrelease
       - PMA_PORT=3306
       - PMA_USER=root
-      - PMA_PASSWORD=S3cr3tpassowrd
+      - PMA_PASSWORD=
   
 volumes:  
     db_data_release:
