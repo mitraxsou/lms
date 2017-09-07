@@ -9,11 +9,6 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-        <link href="/css/app.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-        <link href="/css/multipicker.min.css" rel="stylesheet">
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
         <!-- Styles -->
         <style>
@@ -70,88 +65,30 @@
         </style>
     </head>
     <body>
-        <div class="container">
-            
+        <div class="flex-center position-ref full-height">
+            @if (Route::has('login'))
                 <div class="top-right links">
-                    
-                        @if(Auth::guard('admin')->check())
-                        <a href="{{ url('/adminhome') }}">Admin Home</a>
-                         @else
-                        <a href="{{ url('/adminlogin') }}">Admin Login</a>
-                         @endif
-                         @if(Auth::check())
-                        <a href="{{ url('/home') }}">Student Home</a>
-                         @else
-                        <a href="{{ url('/login') }}">Student Login</a>
-                         @endif
-                
+                    @if (Auth::check())
+                        <a href="{{ url('/home') }}">Home</a>
+                    @else
+                        <a href="{{ url('/login') }}">Login</a>
+                    @endif
                 </div>
-          
+            @endif
 
             <div class="content">
                 <div class="title m-b-md">
-                    I and We
+                    Laravel
                 </div>
 
-                                
-                 <div class="container">
-                    <div class="row">
-                        <div class="col-md-8 col-md-offset-2">
-                            <div class="panel panel-success">
-                                <div class="panel-heading">Our Courses</div>
-
-                                <div class="panel-body">
-                               <fieldset>
-                                     
-                                      <table class="table table-striped" data-effect="fade" style="color:black;">
-                                        <thead>
-                                          <tr>
-                                              <th>Course</th>
-                                              <th>Description</th>
-                                              <th>Register</th>
-                                            
-                                            
-                                          </tr>
-                                        </thead>
-                                        <tbody>
-                                          @if(count($course) >0 )
-                                            @foreach ($course as $index)
-                                            <tr>
-                                              
-                                                <td>{{ $index -> name }}</td>
-                                                <td>{{ $index -> description}}</td>
-                                               
-                                                 <td>
-                                                    <a class='btn btn-primary' href='/studentreg/{{$index->id}}'>Register</a>
-                                                 </td> 
-                                                
-                                                
-                                               
-                                                  
-                                            </tr>    
-                                           
-                                                
-                                            @endforeach
-                                          @else
-                                            <p>Not any indexes yet</p>
-                                          @endif
-                                          </tbody>
-                                        </table>
-                                    </fieldset>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="links">
+                    <a href="https://laravel.com/docs">Documentation</a>
+                    <a href="https://laracasts.com">Laracasts</a>
+                    <a href="https://laravel-news.com">News</a>
+                    <a href="https://forge.laravel.com">Forge</a>
+                    <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
-
-
-
-
-
-
             </div>
-
         </div>
     </body>
 </html>

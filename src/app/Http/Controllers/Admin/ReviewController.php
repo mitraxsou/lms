@@ -68,10 +68,6 @@ class ReviewController extends Controller
     }
     public function feedback(Request $request)
     {
-        $this->validate(request(),[
-            'feedback' => 'required',
-            
-            ]);
         $id=request('content_id');
         $updte = DB::table('subtopics')->where([
                  ['content_id' ,'=', $id]
@@ -87,7 +83,6 @@ class ReviewController extends Controller
             'content_id',$id
          )->first();
          //create();
-         alert()->info('Feedback taken');
          return redirect('/admin/reviewcourse');
        //return view('admin.review.contentshow', compact('course1'));
     }
@@ -108,7 +103,6 @@ class ReviewController extends Controller
             'content_id',$id
          )->first();
         //dd($course1);
-          alert()->success('Content Corrected');
        return redirect('/admin/reviewcourse');
     }
      public function editstore(Request $request)
@@ -134,9 +128,9 @@ class ReviewController extends Controller
                  ['course_id', '=', request('course_id')]
          ])->update(['review_status' => 'Not Reviewed']);
        // return view('editsummer');
-           alert()->success('Updated Successfully');
         return redirect('admin/mycourse/'.request('course_id').'/'.request('tid'))->with(compact('course','indexes'));
     }
+    
     public function reviewstructure()
     {
         $course=DB::table('course_structure')
@@ -172,4 +166,5 @@ class ReviewController extends Controller
         alert()->success('Reviewed Successfully');
           return redirect('/admin/reviewstr');
     }
+
 }

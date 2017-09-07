@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePublishcourse extends Migration
+class CreatePublishCourseTable extends Migration
 {
     /**
      * Run the migrations.
@@ -29,6 +29,6 @@ class CreatePublishcourse extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('publish_course');
     }
 }

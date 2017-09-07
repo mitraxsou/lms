@@ -15,14 +15,17 @@ class CreateSubtopicsTable extends Migration
     {
         Schema::create('subtopics', function(Blueprint $table){
             $table->integer('sub_tid');
-            $table->integer('tid')->references('tid')->on('topic')->onDelete('cascade');
-            $table->integer('course_id')->references('id')->on('courses')->onDelete('cascade');
+            $table->integer('tid');
+            $table->foreign('tid')->references('tid')->on('topic')->onDelete('cascade');
+            $table->integer('course_id');
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
             $table->string('name');
             $table->string('description');
-            $table->integer('content_id');            
+            $table->string('content_id');
             $table->string('review_status')->default('Not Reviewed');
             $table->timestamps();
             $table->primary(['sub_tid','tid','course_id']);
+            $table->unique('content_id');
         });
     }
 

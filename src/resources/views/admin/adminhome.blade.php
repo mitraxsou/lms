@@ -2,7 +2,6 @@
 
 @section('content')
 @inject('countera','App\Counter')
-
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -31,6 +30,7 @@
                     </div>
                 </div>
                 
+
                 <!-- <div class="col-sm-4">
                     <div class="panel panel-success">
                     <div class="panel-heading">Student &amp; Enrollments</div>
@@ -44,6 +44,7 @@
                     </div>
                 </div> -->
                 <div class="col-sm-6">
+
                     <div class="panel panel-success">
                     <div class="panel-heading">Course </div>
                         <div class="panel-body">
@@ -71,10 +72,10 @@
                                 @endif
                                 <li><a href="/admin/course">Show all Courses</a></li>
                                 <li><a href="/admin/mycourse">My Courses</a></li>
-                                <li><a href="/admin/categories">Categories</a></li>
+                                
                                   @if(Auth::guard('admin')->user()->hasRole('review admin'))
                                   
-                                <li><a href="/admin/reviewcourse">Review Content
+                                <li><a href="/admin/reviewcourse">Review Course
                                  @if($countera->lesson()>0)
                                 <span style="border-radius: 25px;
                                     display: inline;
@@ -90,22 +91,9 @@
                                     ">{{$countera->lesson()}}</span>
                                 @endif
                                 </a></li>
-                                <li><a href="/admin/reviewstr">Review Structure
-                                 @if($countera->lessonstr()>0)
-                                <span style="border-radius: 25px;
-                                    display: inline;
-                                    background-color: red;
-                                    width: auto;
-                                    padding: 0 4px;
-                                    line-height: 21px;
-                                    color: #fff;
-                                    -moz-animation: blink 4s ease-in-out infinite;
-                                    animation: blink 4s ease-in-out infinite;
-                                    left: 44px;
-                                    top: 17px;
-                                    ">{{$countera->lessonstr()}}</span>
                                 @endif
-                                </a></li>
+                                @if(Auth::guard('admin')->user()->hasRole('super'))
+                                    <li><a href="/admin/categories">Categories</a></li>
                                 @endif
                             </ul>
                         </div>    

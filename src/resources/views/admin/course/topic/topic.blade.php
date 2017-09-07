@@ -1,16 +1,16 @@
 @extends('admin.layouts')
 
 @section('content')
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
  
 <div class="container">
-      @include('sweet::alert')
     <div class="row">
     <article>
         <p><a href='/admin/mycourse'>&larr; back to my courses</a></p>
       </article>
-     
+
       @if($index->review_status!='Okay')
       <div class="row">
         <div class="col-md-8">
@@ -57,6 +57,7 @@
             </div>
        
         </div>
+
       </div>
     @else
     <div class="row">
@@ -81,7 +82,6 @@
       <div class="panel-heading">
                 Index List
                 <p><a href="/admin/{{$course->id}}/createtopic">+add more indexes</a></p>
-
       </div>
       <div class="panel-body">
       
@@ -92,12 +92,14 @@
                           <th>Name</th>
                         <th>Description</th>
                         <th>See Sub-Topics</th>
+                        <th>See Questions</th>
                       </tr>
                     </thead>
                     <tbody>
                       @if(count($indexes) >0 )
                         @foreach ($indexes as $index)
                         <tr>
+
                             <td><a class='btn btn-primary' onclick="editshow({{$index -> tid}})">+</a></td>
                             
                             <td>{{ $index -> name }}</td>
@@ -150,6 +152,14 @@
                            
                         
                         </div>
+
+                           <!--  <td>{{ $index -> tid }}</td>
+                            <td>{{ $index -> name }}</td>
+                            <td>{{ $index -> description}}</td>
+                            <td><a class='btn btn-primary' href='/admin/mycourse/{{$course->id}}/{{ $index -> tid }}'>View</a></td> <!--course chnging-->
+                            <!--<td><a class="btn btn-warning" href="/admin/course/{{$course->id}}/topic/{{$index->tid}}/edit">Edit</a></td>
+                            <td><a class="btn btn-default" href="/admin/{{$course->id}}/{{$index->tid}}/quiz">Quiz</a></td> -->
+
                         </tr>    
                         @endforeach
                       @else
@@ -158,6 +168,7 @@
                       </tbody>
                     </table>
                 </div>
+
             </div>
           @endif
           
@@ -172,6 +183,7 @@
       }
       </script>
       
+
     </div>
 </div>
 @endsection

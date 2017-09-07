@@ -4,54 +4,56 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+   <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
   <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.6/summernote.css" rel="stylesheet">
   <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.6/summernote.min.js"></script>
+
 </head>
 <body>
 <div class="container">
 
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.6/summernote.js"></script>
-    <div class="row">
-    	<article>
-    		<p><a href='/admin/mycourse/{{$topic->course_id}}'>&larr; back to Course</a></p>
-    	</article>
+   <div class="row">
+        <article>
+            <p><a href='/admin/course/{{$course->tid}}'>&larr; back to Course</a></p>
+        </article>
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-success">
                 <div class="panel-heading">
                     <h3>Course : {{ $course ->name }}</h3>
 
-                
-                        <h4>Topic : {{$topic->name}}</h4>
-                   
+                @if(count($topic)>0)
+                    @foreach($topic as $top)
+                        <h4>Topic : {{$top->name}}</h4>
+                    @endforeach
+                @endif
                 </div>
-            
+                @if(count($topic)>0)
+                    @foreach($topic as $top)
                     <div class="panel-body">
-                    	<form method="POST" id="videoUpload" action="/admin/{{$topic->course_id}}/{{$topic->tid}}/createsubtopic" enctype="multipart/form-data">
-                    	{{ csrf_field() }}
-                    		<div class="form-group">
-                    			<label>Sub Topic ID <i style="color:red;"> *  </i></label>
-                    			<input type="number" name="stid" class="form-control">
-                    		</div>
+                        <form method="POST" id="videoUpload" action="/admin/{{$top->course_id}}/{{$top->tid}}/createsubtopic" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                            <div class="form-group">
+                                <label>Sub Topic ID <i style="color:red;"> *  </i></label>
+                                <input type="number" name="stid" class="form-control">
+                            </div>
                            <div class="form-group">
                                 <label>Topic ID </label>
-                                <input type="number" name="tid" value= "{{$topic->tid}}" class="form-control" readonly>
+                                <input type="number" name="tid" value= "{{$top->tid}}" class="form-control" readonly>
                             </div>
                             <div class="form-group">
                                 <label>Course ID</label>
-                                <input type="number" name="cid" value= "{{$topic->course_id}}" class="form-control" readonly>
+                                <input type="number" name="cid" value= "{{$top->course_id}}" class="form-control" readonly>
                             </div>
-                    		<div class="form-group">
-                    			<label>Chapter Name  <i style="color:red;"> * </i></label>
-                    			<input type="text" name="name" id="name" class="form-control">
-                    		</div>
-                    		<div class="form-group">
-                    			<label>Chapter Description  <i style="color:red;"> * </i></label>
-                    			<input type="textarea" name="description" id="description" class="form-control">
-                    		</div>
-                            @if($topic->review_status!='Not Reviewed')
+                            <div class="form-group">
+                                <label>Chapter Name  <i style="color:red;"> * </i></label>
+                                <input type="text" name="name" id="name" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Chapter Description  <i style="color:red;"> * </i></label>
+                                <input type="textarea" name="description" id="description" class="form-control">
+                            </div>
                             <div class="form-group">
                                 <!-- <label>Select Content Type</label>
                                <select name="type">
@@ -64,13 +66,12 @@
                                 <input type="button" id="vdo" class="btn btn-default" value="Video" ></input>
                                 
                             </div>
-                            @endif
                             <div class="form-group" style="display: none" id="oth">
                                     
-                                    <textarea id="summernote" name="summernote"  ></textarea>
+                                <textarea id="summernote" name="summernote" class="form-control"></textarea>
                                    
                             </div>
-                             <div class="form-group" style="display: none" id="vd">
+                            <div class="form-group" style="display: none" id="vd">
                                 <div class="form-group">
                                     <label>Title</label>
                                     <input type="text" name="title" class="form-control">
@@ -79,15 +80,11 @@
                                     <label>Video</label>
                                     <input type="file" name="video" id="fileUpload" class="form-control">
                                  </div>
-                             </div>
-
+                            </div>
                             
-                    		<div class="form-group">
-                            
-
-                    				<button type="submit" class="btn btn-primary pull-right">Submit</button>
-                    			
-                    		</div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                            </div>
                             @if(count($errors))
                                 <div class="alert alert-danger">
                                    <ul>
@@ -97,9 +94,9 @@
                                     </ul>
                                 </div>
                             @endif
-                    	</form>
-                    </div>
-                    
+                        </form>
+                    @endforeach
+                @endif
             </div>
         </div>
     </div>
@@ -118,8 +115,10 @@ $('#other').click(function(){
             document.getElementById("vdo").className = "btn btn-default"
             document.getElementById("other").className = "btn btn-primary"
          });
+</script>
+<script type="text/javascript">
     $(document).ready(function() {
- 
+
         $('#summernote').summernote({
         toolbar: [
                 ["style", ["style"]],

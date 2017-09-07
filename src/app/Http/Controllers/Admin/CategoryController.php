@@ -16,7 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::all()->where('parent_id','=',0);
+        //dd($cat);
         return view('admin.category.category',compact('categories'));
     }
 
@@ -98,10 +99,5 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         //
-    }
-    public function dummy()
-    {
-        $v=phpinfo();
-        dd($v);
     }
 }

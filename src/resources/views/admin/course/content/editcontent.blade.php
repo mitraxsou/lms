@@ -7,20 +7,15 @@
   <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-  <link rel="stylesheet" href="sass/sweetalert.css">
-    <!-- CSRF Token -->
-  
-    <script src="js/sweetalert.min.js"></script>
   <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.6/summernote.css" rel="stylesheet">
   <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.6/summernote.min.js"></script>
 </head>
 <body>
-@include('sweet::alert')
 
 <div class="container">
     <div class="row">
     <article>
-        <p><a href='/admin/mycourse/{{$course1->course_id}}'>&larr; back to Topic</a></p>
+        <p><a href='/admin/course/topic/{{$course1->tid}}'>&larr; back to Topic</a></p>
       </article>
       <!-- <div class="panel panel-success">
 
@@ -32,14 +27,13 @@
               
               <div class="col-sm-8"><h3>{{ $course1->name }}</h3>
                <p><b>Description :</b> {{$course1->description}}</p></div>
-               <!-- -->
           </div>
                   
                  
          </div>
       <div class="panel-body">
       <fieldset>
-     
+
      
         <form method="POST" action="/admin/editsubtopic/{{$course1->content_id}}" >
                   {{ csrf_field() }}

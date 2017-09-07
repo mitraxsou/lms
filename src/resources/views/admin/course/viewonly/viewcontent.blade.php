@@ -5,7 +5,7 @@
  <div class="container">
     <div class="row">
     <article>
-        <p><a href='/admin/course/{{$course1->course_id}}'>&larr; back to Topic</a></p>
+        <p><a href='/admin/course/{{$course1->course_id}}/{{ $course1 -> tid }}'>&larr; back to Topic</a></p>
       </article>
       <!-- <div class="panel panel-success">
 
