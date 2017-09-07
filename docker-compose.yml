@@ -33,7 +33,7 @@ services:
       #- ./laravel2:/var/www/html
     environment:
       - DB_CONNECTION=mysqlrelease
-      - DB_HOST=mysqlRelease
+      - DB_HOST=mysqlrelease
       - DB_PORT=3306
       - DB_DATABASE=adminpanel
       - DB_USERNAME=root
