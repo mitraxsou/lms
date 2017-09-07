@@ -64,7 +64,6 @@ services:
     environment:
       - PMA_HOST=mysqlrelease
       - PMA_PORT=3306
-      - PMA_USER=root
      
   
 volumes:  
