@@ -17,7 +17,7 @@ services:
       - DB_PORT=3307
       - DB_DATABASE=adminpanel
       - DB_USERNAME=root
-      - DB_PASSWORD=S3cr3tpassowrd
+      - DB_PASSWORD=
     restart: always
 # creating laravel server2
   laravelrelease2:
@@ -37,7 +37,7 @@ services:
       - DB_PORT=3307
       - DB_DATABASE=adminpanel
       - DB_USERNAME=root
-      - DB_PASSWORD=S3cr3tpassowrd
+      - DB_PASSWORD=
     restart: always
     
 #mysql server 
@@ -51,9 +51,9 @@ services:
     # setting some envvars to create the DB
     
     environment:
-      - MYSQL_ROOT_PASSWORD=S3cr3tpassowrd
+      - MYSQL_ROOT_PASSWORD=
       - MYSQL_DATABASE=adminpanel
-      - MYSQL_ALLOW_EMPTY_PASSWORD=no
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
     
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:4.6
@@ -65,7 +65,7 @@ services:
       - PMA_HOST=mysqlrelease
       - PMA_PORT=3307
       - PMA_USER=root
-      - PMA_PASSWORD=S3cr3tpassowrd
+      - PMA_PASSWORD=
   
 volumes:  
     db_data_release:
