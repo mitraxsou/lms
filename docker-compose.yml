@@ -12,12 +12,12 @@ services:
     depends_on:
       - mysqlrelease
     environment:
-      - DB_CONNECTION=mysqlrelease
+      - DB_CONNECTION=mysql
       - DB_HOST=mysqlrelease
-      - DB_PORT=3307
+      - DB_PORT=3306
       - DB_DATABASE=adminpanel
       - DB_USERNAME=root
-      - DB_PASSWORD=
+      - DB_PASSWORD=S3cr3tpassowrd
     restart: always
 # creating laravel server2
   laravelrelease2:
@@ -32,12 +32,12 @@ services:
     #volumes:
       #- ./laravel2:/var/www/html
     environment:
-      - DB_CONNECTION=mysqlrelease
+      - DB_CONNECTION=mysql
       - DB_HOST=mysqlrelease
-      - DB_PORT=3307
+      - DB_PORT=3306
       - DB_DATABASE=adminpanel
       - DB_USERNAME=root
-      - DB_PASSWORD=
+      - DB_PASSWORD=S3cr3tpassowrd
     restart: always
     
 #mysql server 
@@ -51,12 +51,9 @@ services:
     # setting some envvars to create the DB
     
     environment:
-      - MYSQL_ROOT_PASSWORD=
+      - MYSQL_ROOT_PASSWORD=S3cr3tpassowrd
       - MYSQL_DATABASE=adminpanel
-      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-      - MYSQL_PORT=3307
-    ports:
-      - "3307"
+      - MYSQL_ALLOW_EMPTY_PASSWORD=no
     
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:4.6
@@ -66,9 +63,9 @@ services:
       - "8190:80"
     environment:
       - PMA_HOST=mysqlrelease
-      - PMA_PORT=3307
+      - PMA_PORT=3306
       - PMA_USER=root
-      - PMA_PASSWORD=
+      - PMA_PASSWORD=S3cr3tpassowrd
   
 volumes:  
     db_data_release:
