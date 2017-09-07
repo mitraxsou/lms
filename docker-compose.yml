@@ -1,0 +1,71 @@
+version: '2.0'  
+# define all services
+services: 
+#creating larvel server1
+  laravelRelease1:
+    # we want to use the image which is build from our Dockerfile
+    build: .
+    # apache is running on port 80 but we want to expose this to port 4000 on our local machine
+    ports:
+      - "4010:80"
+    # we are depending on the mysql backend
+    depends_on:
+      - mysqlRelease
+    environment:
+      - DB_CONNECTION=mysqlRelease
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=adminpanel
+      - DB_USERNAME=root
+      - DB_PASSWORD=S3cr3tpassowrd
+    restart: always
+# creating laravel server2
+  laravelRelease2:
+    # we want to use the image which is build from our Dockerfile
+    build: .
+    # apache is running on port 80 
+    ports:
+      - "4011:80"
+    # we are depending on the mysql backend
+    depends_on:
+      - mysqlRelease
+    #volumes:
+      #- ./laravel2:/var/www/html
+    environment:
+      - DB_CONNECTION=mysqlRelease
+      - DB_HOST=mysqlRelease
+      - DB_PORT=3306
+      - DB_DATABASE=adminpanel
+      - DB_USERNAME=root
+      - DB_PASSWORD=S3cr3tpassowrd
+    restart: always
+    
+#mysql server 
+
+  mysqlRelease:
+    # we use the mysql base image, version 5.6.36
+    image: mysql:5.6.36
+    # we mount a datavolume to make sure we don't loose data
+    volumes:
+       - ./db_data:/var/lib/mysql
+    # setting some envvars to create the DB
+    
+    environment:
+      - MYSQL_ROOT_PASSWORD=
+      - MYSQL_DATABASE=adminpanel
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:4.6
+    depends_on:
+      - mysqlRelease
+    ports:
+      - "8190:80"
+    environment:
+      - PMA_HOST=mysqlRelease
+      - PMA_PORT=3306
+      - PMA_USER=root
+      - PMA_PASSWORD=S3cr3tpassowrd
+  
+volumes:  
+    db_data:
