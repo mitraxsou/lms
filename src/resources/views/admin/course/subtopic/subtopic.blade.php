@@ -1,14 +1,7 @@
 @extends('admin.layouts')
 
 @section('content')
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-
-    <div class="container">
- 
-                           @include('sweet::alert')
-                        
+<div class="container">
     <div class="row">
     <article>
         <p><a href='/admin/mycourse/{{$course->id}}'>&larr; back to {{$course->name}}</a></p>
@@ -30,12 +23,7 @@
       <div class="panel panel-default">
        <div class="panel-heading">
                     <h3> Index List</h3>
-                    @if (session('sweetalert'))
-                        <div class="alert alert-success">
-                            {{ session('sweetalert') }}
-                        </div>
-                    @endif
-                         <p><a href="/admin/course/{{$top->course_id}}/{{$top->tid}}/createsubtopic">+add more subindexes</a></p>
+                   <p><a href="/admin/course/{{$top->course_id}}/{{$top->tid}}/createsubtopic">+add more subindexes</a></p>
         </div>
                
                 
@@ -44,17 +32,6 @@
           @endif
       <div class="panel-body">
       <fieldset>
-                  <!--  @if(Session::has('sweetalert'))
-                      <div class="alert alert-success">
-                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      <strong>Success!</strong> {{ Session::get('sweetalert', '') }}
-                      </div>
-                  @endif -->
-                  @if (session('sweetalert'))
-                      <div class="alert alert-success">
-                          {{ session('sweetalert') }}
-                      </div>
-                  @endif
                   <table class="table table-striped" data-effect="fade">
                     <thead>
                       <tr>
@@ -65,6 +42,7 @@
                         <th>Content</th>
                         <th>Edit Content</th>
                         <th>Review Content</th>
+                        <th>Delete</th>
                         
                       </tr>
                     </thead>
@@ -77,30 +55,30 @@
                             <td>{{ $index -> description}}</td>
                             <td>{{ $index -> review_status}}</td>
                           
-                             <td><a class='btn btn-primary' href='/admin/mycourse/{{$index->course_id}}/{{$index->tid}}/{{ $index -> sub_tid }}'>View Content</a></td> 
+                             <td><a class='btn btn-primary' href='/admin/mycourse/{{$index->course_id}}/{{$index->tid}}/{{ $index -> sub_tid }}'>View</a></td> 
                             
                              <!-- <td><a class="btn btn-warning" href="/admin/course/{{$index->course_id}}/{{$index->tid}}/{{$index->sub_tid}}/edit">Edit</a></td> -->
 
                            <!-- course chnging-->
                             @if($index -> review_status == 'Not Reviewed')
 
-                                    <td><a class='btn btn-primary' href='/admin/mycourse/editmaking/{{$index->course_id}}/{{$index->tid}}/{{ $index -> sub_tid }}'>Edit Content</a></td> 
-                                    <td><a class='btn btn-primary' href='/admin/mycourse/review/{{ $index -> course_id }}/{{ $index -> tid }}/{{ $index -> sub_tid }}'>Review Content</a></td> 
+                             <td><a class='btn btn-primary' href='/admin/mycourse/editmaking/{{$index->course_id}}/{{$index->tid}}/{{ $index -> sub_tid }}'>Edit</a></td> 
+                             <td><a class='btn btn-primary' href='/admin/mycourse/review/{{ $index -> course_id }}/{{ $index -> tid }}/{{ $index -> sub_tid }}'>Review</a></td> 
 
-                                    @elseif($index -> review_status == 'Edit Required')
-                                    <td><a class='btn btn-primary' href='/admin/mycourse/editmaking/{{$index->course_id}}/{{$index->tid}}/{{ $index -> sub_tid }}' disabled>Edit Content</a></td> 
-                                    <td><a class='btn btn-danger' href='/admin/mycourse/edit/{{ $index -> course_id }}/{{ $index -> tid }}/{{ $index -> sub_tid }}'>View to Edit</a></td>
-
-
-                                    @elseif($index -> review_status == 'Correct')
-                                    <td><a class='btn btn-primary' href='/admin/mycourse/editmaking/{{$index->course_id}}/{{$index->tid}}/{{ $index -> sub_tid }}' disabled>Edit Content</a></td> 
-                                    <td><a class='btn btn-success' disabled href='#'>Reviewed</a></td>
+                                 @elseif($index -> review_status == 'Edit Required')
+                                  <td><a class='btn btn-primary' href='/admin/mycourse/editmaking/{{$index->course_id}}/{{$index->tid}}/{{ $index -> sub_tid }}' disabled>Edit Content</a></td> 
+                                <td><a class='btn btn-danger' href='/admin/mycourse/edit/{{ $index -> course_id }}/{{ $index -> tid }}/{{ $index -> sub_tid }}'>View to Edit</a></td>
 
 
-                                    @elseif($index -> review_status == 'Reviewing')
-                                    <td><a class='btn btn-primary' href='/admin/mycourse/editmaking/{{$index->course_id}}/{{$index->tid}}/{{ $index -> sub_tid }}' disabled>Edit Content</a></td> 
-                                    <td><a class='btn btn-default' disabled href='/admin/mycourse/{{ $index -> course_id }}/{{ $index -> tid }}/{{ $index -> sub_tid }}'>Reviewing</a></td>
-                             @endif
+                                @elseif($index -> review_status == 'Correct')
+                                 <td><a class='btn btn-primary' href='/admin/mycourse/editmaking/{{$index->course_id}}/{{$index->tid}}/{{ $index -> sub_tid }}' disabled>Edit Content</a></td> 
+                                <td><a class='btn btn-success' disabled href='#'>Reviewed</a></td>
+
+
+                                @elseif($index -> review_status == 'Reviewing')
+                                 <td><a class='btn btn-primary' href='/admin/mycourse/editmaking/{{$index->course_id}}/{{$index->tid}}/{{ $index -> sub_tid }}' disabled>Edit Content</a></td> 
+                                <td><a class='btn btn-default' disabled href='/admin/mycourse/{{ $index -> course_id }}/{{ $index -> tid }}/{{ $index -> sub_tid }}'>Reviewing</a></td>
+                            @endif
                               <td><a class="btn btn-danger" href="/admin/mycourse/delete/{{ $index -> course_id }}/{{ $index -> tid }}/{{ $index -> sub_tid }}">Delete</a></td>
                         </tr>    
                            <!-- course chnging-->

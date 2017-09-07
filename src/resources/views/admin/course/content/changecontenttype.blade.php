@@ -15,7 +15,7 @@
 <div class="container">
   <div class="row">
     <article>
-        <p><a href='/admin/mycourse/{{$course1->course_id}}'>&larr; back to {{$course1->name}}</a></p>
+        <p><a href='/admin/mycourse/{{$course1->course_id}}/{{$course1->tid}}'>&larr; back to {{$course1->name}}</a></p>
       </article>
         <div class="panel panel-success">
             <div class="panel-heading">

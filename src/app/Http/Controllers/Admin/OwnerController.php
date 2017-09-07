@@ -135,4 +135,9 @@ class OwnerController extends Controller
     {
         Admin::find($id)->delete();
     }
+
+    public function assignCategory()
+    {
+        
+    }
 }

@@ -1,15 +1,10 @@
 @extends('admin.layouts')
 
 @section('content')
-<link rel="stylesheet" href="{{ URL::asset('css/sweetalert.css')}}">
-
 <div class="container">
- <script href="{{ URL::asset('js/sweetalert.min.js')}}">
-                           @include('sweet::alert')
-                        </script>
     <div class="row">
     	<article>
-    		<p><a href='/admin/mycourse'>&larr; back to owners</a></p>
+    		<p><a href='/admin/course'>&larr; back to owners</a></p>
     	</article>
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-success">
@@ -26,7 +21,6 @@
                 		<div class="form-group">
                 			<label>Description</label>
                 			<input type="text" name="description" id="description" value="{{$course->description}}" class="form-control">
-                            <input type="hidden" name="cid" id="cid" value="{{$course->id}}">
                 		</div>
                         <div class="form-group">
                 			<div class="col-md-offset-4 ">

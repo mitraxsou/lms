@@ -13,7 +13,9 @@
 
 use App\Course;
 
-Route::get('/', 'Welcome@show');
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Auth::routes();
 
@@ -91,6 +93,7 @@ Route::group(['middleware' => 'adminauth'], function()
 		Route::post('/admin/createrole','Admin\RoleController@store');
 		Route::get('/admin/roles/{role}/edit','Admin\RoleController@edit');
 		Route::patch('/admin/roles/{role}','Admin\RoleController@update');
+		Route::get('/admin/roles/delete/{role}','Admin\RoleController@destroy');
 	});
 
 
@@ -132,11 +135,8 @@ Route::group(['middleware' => 'adminauth'], function()
 	Route::get('/admin/course/{course}/{topic}/{subtid}','Admin\SubTopicController@contentshow');
 	Route::get('/admin/course/{course}/{topic}/{subtopic}/edit','Admin\SubTopicController@edit');
 	Route::patch('/admin/course/{course}/{topic}/{subtopic}','Admin\SubTopicController@update');
+	Route::get('/admin/mycourse/delete/{course}/{topic}/{subtopic}','Admin\SubTopicController@destroy');
 
-
-//	Route::get('/admin/course/{course}/{topic}/createsubtopic','Admin\SubTopicController@create');
-//	Route::post('/admin/{course}/createsubtopic' , 'Admin\SubTopicController@store');
-//	Route::get('/admin/course/{course}/topic/{topic}/content/{subtid}','Admin\SubTopicController@contentshow');
 
 	Route::get('/admin/mycourse/review/{course}/{topic}/{subtid}','Admin\SubTopicController@reviewcontent');
 	//Route::get('/admin/course/{course}/topic/{topic}/editcontent/{subtid}','Admin\SubTopicController@editcontent');
@@ -148,17 +148,16 @@ Route::group(['middleware' => 'adminauth'], function()
 	Route::get('/admin/mycourse/contentselection/{course}/{topic}/{subtid}','Admin\ContentController@changeContent');
 	Route::get('/admin/mycourse/contentdelete/{contid}','Admin\ContentController@deleteContent');
 	Route::post('/admin/mycourse/contentAdd/{contid}','Admin\ContentController@storeContent');
-	Route::get('/admin/mycourse/delete/{course}/{topic}/{subtopic}','Admin\SubTopicController@destroy');
 
-	/*************/
-
+	/**Video removal**/
+	Route::get('/admin/vidremove/{course}/{topic}/{subtid}','Admin\SubTopicController@removeVideo');
+	
 	/*********Admin Publish - Soumi**********/
 	Route::get('/admin/publishcourse' , 'Admin\PublishController@create');
 	Route::post('/admin/feedbackcorrect', 'Admin\PublishController@feedbackcorrect');
 	Route::post('/admin/feedbackedit', 'Admin\PublishController@feedbackedit');
 	Route::get('/admin/publishedit/{id}' , 'Admin\MyCourseController@publishedit');
 	Route::post('/admin/unpublish' , 'Admin\PublishController@unpublish');
-	/*************************************/
 
 	/*****Courses created by the admin****/
 	Route::get('/admin/mycourse','Admin\MyCourseController@index');
@@ -167,13 +166,6 @@ Route::group(['middleware' => 'adminauth'], function()
 	Route::get('/admin/mycourse/{course}/{topic}/{subtid}','Admin\MyCourseController@contentshow');
 	Route::post('/admin/reviewstructure','Admin\MyCourseController@reviewstructure');
 
-
-	/**Video part**/
-	Route::get('/admin/vidremove/{course}/{topic}/{subtid}','Admin\SubTopicController@removeVideo');
-	Route::get('/admin/vupload', 'Admin\UploadController@videoUpload');
-	Route::post('/admin/vupload','Admin\UploadController@videoUploadPost');
-	Route::get('/admin/listfiles','Admin\UploadController@showUploads');
-	Route::get('/admin/files/{id}','Admin\UploadController@showFile');
 	/*************Categories**********/
 	Route::get('/admin/createcategory',['middleware'=>['adminrole:super'],'uses'=> 'Admin\CategoryController@create']);
 	Route::get('/admin/categories', 'Admin\CategoryController@index');
@@ -181,12 +173,20 @@ Route::group(['middleware' => 'adminauth'], function()
 	Route::get('/admin/removecategory/{id}',['middleware'=>['adminrole:super'],'uses'=> 'Admin\CategoryController@destroy']);
 	Route::get('/admin/category/{category}', 'Admin\CategoryController@show');
 
+	//S3 video upload
+	Route::get('/admin/vupload', 'Admin\UploadController@videoUpload');
+	Route::post('/admin/vupload','Admin\UploadController@videoUploadPost');
+	Route::get('/admin/listfiles','Admin\UploadController@showUploads');
+	Route::get('/admin/files/{id}','Admin\UploadController@showFile');
+
+
 	/***************Reviewing - Soumi********/
 	Route::get('/admin/reviewcourse', 'Admin\ReviewController@create');
 	Route::get('/admin/review/{stid}/{review}', 'Admin\ReviewController@review');
 	Route::get('/admin/contentreview/{id}','Admin\ReviewController@content');
 	Route::post('/admin/reviewfeedback/{review}', 'Admin\ReviewController@feedback');
 	Route::post('/admin/reviewcorrect/{review}', 'Admin\ReviewController@correct');
+
 	Route::get('/admin/reviewstr','Admin\ReviewController@reviewstructure');
 	Route::post('/admin/reviewcomment', 'Admin\ReviewController@comment');
 	Route::get('/admin/structuresuccess/{id}','Admin\ReviewController@structuresuccess');
@@ -195,13 +195,16 @@ Route::group(['middleware' => 'adminauth'], function()
 
 
 
-});
+	/***********Quiz*********/
+	Route::get('/admin/{course}/{topic}/quiz','Admin\QuizController@index');
+	Route::get('/admin/{course}/{topic}/{subtid}/showquiz','Admin\QuizController@show');
+	Route::get('/admin/{course}/{topic}/{subtopic}/createquiz','Admin\QuizController@create');
+	Route::post('/admin/{course}/{topic}/{subtopic}/quiz','Admin\QuizController@store');
 
-Route::group(['middleware' => 'guestauth'], function()
-{
-	Route::get('/studentreg/{course}', 'Student\CourseController@create');
-	Route::post('/coursereg', 'Student\CourseController@store');
-	Route::get('/course/{course}', 'Student\CourseController@view');
-	Route::get('/student/read/{id}','Student\StudentController@read');
+	/***********Questions************/
+	Route::get('/admin/quiz/{quiz}/questions','Admin\QuestionController@index');
+	Route::get('/admin/quizid/{quiz}/{question}','Admin\QuestionController@show');
+	Route::get('/admin/{quiz}/createquestion','Admin\QuestionController@create');
+	Route::post('/admin/ques/{quiz}/storequestion','Admin\QuestionController@store');
 
 });

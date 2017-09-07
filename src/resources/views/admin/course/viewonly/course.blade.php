@@ -39,7 +39,7 @@
                   				<td>{{ $course -> name }}</td>
                   				<td>{{ $course -> description}}</td>
                           <td><img src = "<?php echo $course->cfilename ?>" height="50px" width="50px"></img></td>
-                          <td><a class='btn btn-primary' href='/admin/course/{{ $course -> id }}' on>View</a></td>
+                          <td><a class='btn btn-primary' href='/admin/course/{{ $course -> id }}'>View</a></td>
                           
                          @if( ! empty($publish))
                           <td>  

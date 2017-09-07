@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserCourseEnrollTable extends Migration
+class CreateTopicsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreateUserCourseEnrollTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_course_enroll' , function(Blueprint $table)
-        {
-            $table->integer('user_id')->unsigned()->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->integer('course_id')->unsigned()->nullable();
+        //
+         Schema::create('topic', function(Blueprint $table){
+            $table->integer('tid');
+            $table->string('name');
+            $table->integer('course_id');
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
-            $table->boolean('enrolled')->default(false);
+            $table->string('description');
             $table->timestamps();
+            $table->primary(['tid','course_id']);
         });
     }
 
@@ -31,7 +32,6 @@ class CreateUserCourseEnrollTable extends Migration
      */
     public function down()
     {
-        //
-        Schema::dropIfExists('user_course_enroll');
+        Schema::dropIfExists('topic');
     }
 }

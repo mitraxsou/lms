@@ -4,15 +4,15 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="sass/sweetalert.css">
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <script src="js/sweetalert.min.js"></script>
-    <title>I and We  @yield('title')</title>
+
+    <title>I and We - @yield('title')</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    
+ 
      <!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode([
@@ -79,7 +79,7 @@
 
         @yield('content')
     </div>
-
+    @yield('scripts')
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
 </body>

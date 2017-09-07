@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 
 use App\Role;
@@ -14,7 +15,7 @@ class RoleController extends Controller
 {
     function __construct()
     {
-        $this->middleware('role:super')->only('create');
+        //$this->middleware('role:super')->only('create');
     }
 	//Display all the roles
 
@@ -32,7 +33,7 @@ class RoleController extends Controller
     	return view('admin.roles.createrole',compact('permissions'));
     }
 
-    //Store a newly created roles in storage 
+    //Store a newly created roles in storage
     public function store(Request $request)
     {
     	$this->validate($request,[
@@ -105,6 +106,23 @@ class RoleController extends Controller
 
     public function destroy($id)
     {
+        $role = Role::find($id);
+
+        if(count($role)>1)
+        {
+            $owners = $role->admins;
+            if(count($owners)>1)
+            {
+                foreach ($owners as $own) {
+                    $own->detachRole($role);
+                }
+            }
+            DB::table('roles')->where('id','=',$id)->delete();
+            return redirect('/admin/roles')->with('success','Role successfully deleted');
+        }
+        else{
+            return redirect('/admin/roles')->with('failure','Role does not exists');
+        }
 
     }
 }
