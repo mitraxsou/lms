@@ -61,6 +61,7 @@ class Kernel extends HttpKernel
          //add custom middlewares for admin here as key and value pair.
         'adminauth' => \App\Http\Middleware\AuthenticateAdmin::class,
         'adminguest' => \App\Http\Middleware\RedirectIfAdminAuthenticated::class,
+        'guestauth' => \App\Http\Middleware\Authenticatestudent::class,
 
         //zizaco entrust
         'role' => \Zizaco\Entrust\Middleware\EntrustRole::class,

@@ -1,6 +1,7 @@
 @extends('admin.layouts')
 
 @section('content')
+
 <div class="container">
     <div class="row">
     	<article>

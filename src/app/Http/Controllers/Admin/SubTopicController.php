@@ -6,12 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Course;
-use App\Admin;
-
+use App;
 use DateTime;
-use Carbon\Carbon;
 use Storage;
+use Carbon\Carbon; 
 use App\Notifications\ReviewContent;
+
 
 class SubTopicController extends Controller
 {
@@ -19,7 +19,7 @@ class SubTopicController extends Controller
     public function create($cid,$tid)
     {
         $course=Course::find($cid);
-        $topic = DB::table('topic')->where([['tid', $tid],['course_id',$cid]])->get();
+        $topic = DB::table('topic')->where([['tid', $tid],['course_id',$cid]])->first();
         return view('admin.course.subtopic.createsubtopic', compact('course','topic'));
     }
 
@@ -27,6 +27,7 @@ class SubTopicController extends Controller
     {
         $indexes = DB::table('subtopics')->where([['tid', $tid],['course_id',$cid],['sub_tid',$stid]])->get();
         //dd($indexes);
+        
         return view('admin.course.subtopic.editsubtopic',compact('indexes'));
     }
 
@@ -36,21 +37,24 @@ class SubTopicController extends Controller
             'name'=>'required',
             'description'=>'required'
         ]);
-
-
+      
          DB::table('subtopics')->where([['Sub_tid',$stid],['tid', $tid],['course_id',$cid]])->update(['name'=>request('name'),'description'=>request('description'),'updated_at'=>Carbon::now()]);
-        
-        return redirect('/admin/mycourse/'.$cid.'/'.$tid)->with('success','Subtopic updated successfully.');
+        alert()->success('Content updated successfully');
+        return redirect('/admin/mycourse/'.$cid.'/'.$tid);//->with('sweetalert','Subtopic updated successfully.');
     }
 
-    public function contentshow($cid,$tid,$stid)
-    {
+    public function contentshow($id,$id1,$id2)
+    {/*
+        $cont = DB::table('subtopics')->where([['course_id',$cid],['tid',$tid],['sub_tid', $stid]])->first();
+        $course=Course::find($cid);
+        $topic = DB::table('topic')->where([['tid', $tid],['course_id',$cid]])->first();
+        return view('admin.course.viewonly.viewcontent', compact('course','topic','cont'));*/
          $course1 = DB::table('subtopics')->where([
-                 ['sub_tid', '=', $stid],
-                 ['tid', '=', $tid],
-                 ['course_id', '=', $cid]
+                 ['sub_tid', '=', $id2],
+                 ['tid', '=', $id1],
+                 ['course_id', '=', $id]
          ])->first();
-         //dd($course1->name);
+         //dd($course1->content_id);
          $course=  DB::table('content')->where([
                  ['content_id', '=', $course1->content_id],
          ])->first();
@@ -58,6 +62,8 @@ class SubTopicController extends Controller
     }
        public function store(Request $request)
     {
+        
+
         $this->validate(request(),[
             'stid' => 'required',
             'tid'=> 'required',
@@ -65,7 +71,7 @@ class SubTopicController extends Controller
             'name' => 'required',
             'description'=>'required',
             ]);
-
+         
         $course=Course::find(request('cid'));
         $c_name=$course->name;
         $topic = DB::table('topic')->where([['tid', request('tid')],['course_id',request('cid')]])->first();
@@ -88,10 +94,10 @@ class SubTopicController extends Controller
             ]);
             ini_set('memory_limit','256M');
            $imageName = request('title').'.'. $request->file('video')->getClientOriginalExtension();
-        $path=$c_name.'/'.$t_name.'/'.$st_name.'/'.$imageName;
-        $s3=Storage::disk('s3');
-        $source=fopen($request->file('video'), 'r+');
-        $s3->put($path,$source,'public');
+            $path=$c_name.'/'.$t_name.'/'.$st_name.'/'.$imageName;
+            $s3=Storage::disk('s3');
+            $source=fopen($request->file('video'), 'r+');
+            $s3->put($path,$source,'public');
 
            
             $content=$path;
@@ -103,30 +109,31 @@ class SubTopicController extends Controller
             'summernote'=>'required',
             ]);
         }
-             $uuid = uniqid();   
+                
+
+        $current = abs( crc32( uniqid() ) ); //1551585806
 
         
-        DB::table('subtopics')->insert([
+         DB::table('subtopics')->insert([
             'tid'=>request('tid'),
             'course_id'=>request('cid'),
             'sub_tid'=>request('stid'),
             'name'=>request('name'),
             'description'=>request('description'),
             //'stfilename'=>request('description'),
-            'content_id'=>$uuid,
+            'content_id'=>$current,
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
             
             ]);
-
-
-         DB::table('content')->insert([
-            'content_id'=>$uuid,
+        DB::table('content')->insert([
+            'content_id'=>$current,
             'content'=>$content,
             'content_type'=>$contentType
             ]);
-        fclose($source);
-          return redirect('/admin/mycourse/'.request('cid').'/'.request('tid'));
+
+            alert()->success('Successful!!You will find your subtopic in this list.')->persistent("Close this");
+          return redirect('/admin/mycourse/'.request('cid'));
     }
 
     public function destroy($cid, $tid, $stid)
@@ -165,11 +172,10 @@ class SubTopicController extends Controller
                  ['tid', '=', $tid],
                  ['course_id', '=', $cid]
          ])->delete();
-
+        alert()->success('Content deleted successfully');
         return redirect('/admin/mycourse/'.$cid.'/'.$tid);
     }
-
-    public function editcontent($id,$id1,$id2)
+     public function editcontent($id,$id1,$id2)
     {
          $course1 = DB::table('subtopics')->where([
                  ['sub_tid', '=', $id2],
@@ -182,7 +188,6 @@ class SubTopicController extends Controller
          ])->first();
         return view('admin.course.content.editcontent', compact('course','course1'));
     }
-
     public function editmaking($id,$id1,$id2)
     {
          $course1 = DB::table('subtopics')->where([
@@ -194,8 +199,7 @@ class SubTopicController extends Controller
          $course=  DB::table('content')->where([
                  ['content_id', '=', $course1->content_id],
          ])->first();
-
-        $s3=Storage::disk('s3');
+          $s3=Storage::disk('s3');
 
         $kp = env('CLOUDFRONT_KEY_PAIRID');
         $cloudfront=\Aws\CloudFront\CloudFrontClient::factory([
@@ -210,7 +214,8 @@ class SubTopicController extends Controller
             'private_key' =>base_path('/pk-APKAJZNXFGELO6O2EZMQ.pem'),
             'key_pair_id' =>'APKAJZNXFGELO6O2EZMQ'
             ]);
-        return view('admin.course.editmaking', compact('course','course1','video'));
+        // alert()->message('Sweet Alert with message.');
+        return view('admin.course.editmaking', compact('course','course1'));
     }
      public function editcontentmaking(Request $request)
     {
@@ -226,6 +231,7 @@ class SubTopicController extends Controller
          ])->get();
         
        // return view('editsummer');
+        alert()->success('Edit done Successfully');
         return redirect('admin/mycourse/'.request('course_id').'/'.request('tid'))->with(compact('course','indexes'));
     }
 
@@ -249,7 +255,7 @@ class SubTopicController extends Controller
                  ['course_id', '=', $id]
          ])->get();
         /**************Ends here****************/
-        $user=Admin::find(1);
+        $user=App\Admin::where('id',1)->first();
         $user->notify(new ReviewContent($course1));
           $updte = DB::table('subtopics')->where([
                  ['sub_tid', '=', $id2],
@@ -258,9 +264,9 @@ class SubTopicController extends Controller
          ])->update(['review_status' => 'Reviewing']);
        // return view('editsummer');
         /*return redirect('admin/mycourse/'.$id.$id1)->with(compact('course','indexes'));*/
+        alert()->success('Content Sent for Reviewing!!');
          return redirect('admin/mycourse/'.$id.'/'.$id1)->with(compact('course','indexes'));
     }
-
     public function removeVideo($cid, $tid, $stid)
     {
         $course1 = DB::table('subtopics')->where([
@@ -286,5 +292,4 @@ class SubTopicController extends Controller
         }
         return redirect()->back()->with('success','file deletion successfully');
     }
-
 }

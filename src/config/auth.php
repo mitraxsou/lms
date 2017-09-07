@@ -51,6 +51,10 @@ return [
             'provider'=> 'admins',
         ],
 
+        //'guest' => [
+         //   'driver'=> 'session',
+         //   'provider'=> 'guest',
+        //],
         'trainer' => [
             'driver' =>'session',
             'provider' => 'trainers',
@@ -75,7 +79,7 @@ return [
     */
 
     'providers' => [
-        'users' => [
+       'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
@@ -84,6 +88,10 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+       // 'guest' => [
+        //    'driver' => 'eloquent',
+        //    'model' => App\User::class,
+        //],
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Admin::class,

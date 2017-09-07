@@ -16,4 +16,5 @@ class Controller extends BaseController
     // {
     // 	$this->currentUser = $auth->user();
     // }
+    
 }

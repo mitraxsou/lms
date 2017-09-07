@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
     <article>
-        <p><a href='/admin/mycourse/{{$course1->course_id}}/{{$course1->tid}}'>&larr; back to {{$course1->name}}</a></p>
+        <p><a href='/admin/mycourse/{{$course1->course_id}}'>&larr; back to {{$course1->name}}</a></p>
       </article>
       <!-- <div class="panel panel-success">
 
@@ -35,8 +35,8 @@
       <div class="panel-body">
       <fieldset>
         @if($course->content_type=="video")
-          <video controls>
-            <source src="{{$video}}" type="">
+          <video controls >
+            <source src="{{$video}}" type="" >
           </video>
         @else
           {!!$course->content!!}
@@ -45,6 +45,7 @@
       </div>
        </div>
        </div>
+
     </div>
 </div>
 @endsection

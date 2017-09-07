@@ -70,7 +70,8 @@ class TopicController extends Controller
 
         DB::table('topic')->insert(['course_id'=>request('cid'),'tid'=>request('tid'),'name'=>request('name'),'description'=>request('description'),'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]
             );
-
+    alert()->success('Successful!!
+        You will find the topic in this list.')->persistent("Close this");
        return redirect('/admin/mycourse/'.$cid);
     }
 
@@ -80,13 +81,31 @@ class TopicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($cid, $tid)
+    public function show(Request $request)
     {
         //
+        $html='';
+        $cid=request('course_id');
+        $tid= request('tid');//$_GET['tid'];
         $course = Course::find($cid);
         $topic = DB::table('topic')->where([['tid', $tid],['course_id',$cid]])->first();
         $indexes = DB::table('subtopics')->where([['tid', $tid],['course_id',$cid]])->orderBy('sub_tid')->get();
-        return view('admin.course.viewonly.subtopic' , compact('course','indexes','topic'));
+        
+        foreach ($indexes as $index)
+        {
+                        
+                        $html=$html.
+                              '<tr>
+                                 <td>' .  $index -> sub_tid . '</td>' .
+                                 '<td>' . $index -> name . '</td>' .
+                                 '<td>' . $index -> description . '</td>' .
+                                  '<td>' . $index -> review_status . '</td>' .
+
+                              '</tr>';
+         //dd($htiml);                
+         }               
+
+        return $html;
     }
 
     /**
@@ -97,7 +116,7 @@ class TopicController extends Controller
      */
     public function edit($cid,$tid)
     {
-        $indexes = DB::table('topic')->where([['tid', $tid],['course_id',$cid]])->get();
+        $indexes = DB::table('topic')->where([['tid', $tid],['course_id',$cid]])->first();
         //dd($indexes);
         return view('admin.course.topic.edittopic',compact('indexes'));
     }
@@ -118,8 +137,8 @@ class TopicController extends Controller
 
 
          DB::table('topic')->where([['tid', $tid],['course_id',$cid]])->update(['name'=>request('name'),'description'=>request('description'),'updated_at'=>Carbon::now()]);
-        
-        return redirect('/admin/mycourse/'.$cid)->with('success','Topic updated successfully.');
+        alert()->success('Updated Successfully');
+        return redirect('/admin/mycourse/'.$tid)->with('success','Topic updated successfully.');
     }
 
     /**

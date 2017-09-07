@@ -12,19 +12,12 @@
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-<<<<<<< HEAD
   <!-- <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> -->
-
-=======
-  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
->>>>>>> parent of b9cce77... logout and student removed
     <link href="/css/multipicker.min.css" rel="stylesheet">
-    <link href="/css/summernote.css" rel="stylesheet">
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
   <link href="/css/summernote.css" rel="stylesheet">
   
@@ -34,6 +27,19 @@
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
+
+    <script type="text/javascript">
+            $(function() {
+                $("#days").multiPicker({ selector : "li" });
+
+                $("#days-vertical").multiPicker({
+                    selector   : "checkbox",
+                    cssOptions : {
+                        size : "medium",
+                    }
+                });
+            });
+        </script>
     
 </head>
 <body>
@@ -101,24 +107,13 @@
         @yield('scripts2')
     </script>
     </div>
-    <script>
-        @yield('scripts')
-    </script>
-    <script type="text/javascript">
-        @yield('script2')
-    </script>
-    
+
     <!-- Scripts -->
     
     <script src="/js/app.js"></script>
-<<<<<<< HEAD
-
+    <script src="/js/summernote.min.js"></script>
    <!--  <script src="/js/jquery.js"></script> -->
-=======
-    <script src="/js/summernote.min.js"></script>
-    
->>>>>>> parent of b9cce77... logout and student removed
     <script src="/js/multipicker.min.js"></script>
-    <script src="/js/summernote.min.js"></script>
+
 </body>
 </html>

@@ -13,13 +13,13 @@ use Carbon\Carbon;
 
 class MyCourseController extends Controller
 {
-   public function index()
+    public function index()
     {
         $courses=[];
         $j=0;$i=0;
-        $auth=Auth::guard('admin')->user()->id;
-
-        $coursesarr = DB::table('courses')->join('admin_course','id','=','admin_course.course_id')->select('courses.id','courses.name','courses.description','courses.cfilename')->where('admin_id', $auth)->orderBy('id')->get();
+    	$auth=Auth::guard('admin')->user()->id;
+       //  Alert::message('Robots are working!');
+    	$coursesarr = DB::table('courses')->join('admin_course','id','=','admin_course.course_id')->select('courses.id','courses.name','courses.description','courses.cfilename')->where('admin_id', $auth)->orderBy('id')->get();
         $courses1=DB::table('courses')->pluck('id');
 
          $publish=DB::table('publish_course')->join('courses','course_id','=','courses.id')
@@ -48,7 +48,8 @@ class MyCourseController extends Controller
             }
          }
         //dd($courses);
-        return view('admin.course.course' , compact('courses','publish'));
+     
+    	return view('admin.course.course' , compact('courses','publish'))->with('sweetalert', 'List has been created!');;
     }
     public function publishedit($id)
     {
@@ -58,10 +59,9 @@ class MyCourseController extends Controller
          ])->delete();
 
          
-    
+     alert()->info('Course open again to edit');
       return redirect('/admin/mycourse/'.$id);
     }
-
     public function show($id)
     {
         $index=DB::table('course_structure')->where('course_id', $id)->first();
@@ -101,7 +101,6 @@ class MyCourseController extends Controller
           return redirect('/admin/mycourse/'.request('cid'))->with(compact('status'));;
     }
 
-
     public function showSubTopic($cid,$tid)
     {
         $course=Course::find($cid);
@@ -110,7 +109,7 @@ class MyCourseController extends Controller
         //dd($topic,$course,$indexes);
         $adm=Auth::guard('admin')->user();
         foreach($course->admins as $cor)
-        {
+        {                                 
             if($adm->id == $cor->pivot->admin_id)
             {
                 return view('admin.course.subtopic.subtopic' , compact('course','topic','indexes'));
@@ -121,9 +120,9 @@ class MyCourseController extends Controller
         }
     }
 
-    public function contentshow($cid,$tid,$stid)
+     public function contentshow($cid,$tid,$stid)
     {
-    	$courseAdmin=Course::find($cid);
+      $courseAdmin=Course::find($cid);
          $course1 = DB::table('subtopics')->where([
                  ['sub_tid', '=', $stid],
                  ['tid', '=', $tid],

@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
     //Auth facades
 use Auth;
+//use DB;
 
 class LoginController extends Controller
 {
@@ -32,8 +33,10 @@ class LoginController extends Controller
     {
     	return view('admin.auth.login');
     }
-    // public function logout()
-    // {
-    //     return view ('admin.auth.login');
-    // }
+   // public function login(Request $request)
+    //{
+    //    $course =DB::table('admins')->where('email', request('email'))->count();
+    //    if($course>0)
+    //     return view ('admin.adminhome');
+   // }
 }

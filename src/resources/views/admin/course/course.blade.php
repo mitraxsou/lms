@@ -1,31 +1,47 @@
 @extends('admin.layouts')
 
 @section('content')
+<!-- 
+<script src="js/sweetalert.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/sweetalert.css">
+@include('sweet::alert') -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+
 <div class="container">
+ 
+                           @include('sweet::alert')
+                        
     <div class="row">
+      @if(Session::has('sweet_alert.alert'))
+        <script>
+            swal('Success!', '{{ Session::get('sweet_alert.alert') }}', 'success');
+        </script>
+      @endif
     <article>
+    
         <p><a href='/adminhome'>&larr; back to Home</a></p>
       </article>
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-success">
                 <div class="panel-heading">Course List</div>
-
+                
                 <div class="panel-body">
-                  <table class="table table-striped" data-effect="fade">
-                    @if(count($courses) >0 )
+                	<table class="table table-striped" data-effect="fade">
+              			@if(count($courses) >0 )
                     <thead>
-                      <tr>
-                          <th>ID</th>
-                          <th>Name</th>
+                			<tr>
+                  				<th>ID</th>
+                  				<th>Name</th>
                         <th>Description</th>
                         <th>Image</th>
                         <th></th>
-                      </tr>
-                    </thead>
-                    <tbody>
+                			</tr>
+              			</thead>
+              			<tbody>
                     
-                      @foreach ($courses as $course)
-                      <tr>
+                    	@foreach ($courses as $course)
+                			<tr>
                         
 
                       
@@ -39,7 +55,7 @@
                       
                    
                         
-                      </tr>    
+                			</tr>    
                     
                        @endforeach
                         @else
@@ -48,7 +64,9 @@
                       </tbody>
                         @if (session('alert'))
                         <div class="alert alert-danger">
-                        {{ session('alert') }}
+                        
+                          {{ session('alert') }}
+                          
                         </div>
                         @endif
                     </table>
@@ -107,7 +125,7 @@
                         @else
                         <p>Not any indexes yet</p>
                       @endif
-                      </tbody>
+                    	</tbody>
                     </table>
                 </div>
             </div>

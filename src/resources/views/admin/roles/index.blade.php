@@ -36,7 +36,7 @@
                             @endif
                           </td>
                   				<td><a class='btn btn-primary' href='roles/{{ $role -> id }}'>View</a></td>
-                          <td><a class='btn btn-danger' href='/admin/roles/delete/{{$role->id}}'>Delete</a></td>
+                          <td><a class='btn btn-danger' href=''>Delete</a></td>
                 			</tr>    
                     	@endforeach
                     	</tbody>

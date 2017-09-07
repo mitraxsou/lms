@@ -1,7 +1,6 @@
 <?php
 
 namespace App;
-
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
@@ -10,7 +9,6 @@ class Admin extends Authenticatable
 {
 	use EntrustUserTrait;
   use Notifiable;
-
   protected $table='admins';
   //Mass assignable attributes
   protected $fillable = [
@@ -35,10 +33,5 @@ class Admin extends Authenticatable
    public function owns($related)
    {
       return $this->id == $related->admin_id;
-   }
-
-   public function categories()
-   {
-      return $this->hasMany('App\Category','admin_category','admin_id','category_id')->withTimestamps();
    }
 }

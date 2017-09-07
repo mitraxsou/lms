@@ -1,11 +1,10 @@
-
 <?php
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateContentTable extends Migration
+class CreateContent extends Migration
 {
     /**
      * Run the migrations.
@@ -15,10 +14,9 @@ class CreateContentTable extends Migration
     public function up()
     {
        Schema::create('content', function (Blueprint $table) {
-           $table->string('content_id');
-           $table->foreign('content_id')->references('content_id')->on('subtopics')->onDelete('cascade');
+           $table->integer('content_id');
            $table->string('content_type');
-           $table->string('feedback')->nullable;
+           $table->string('feedback');
              $table->mediumText('content');
             $table->primary('content_id');
           
@@ -32,6 +30,6 @@ class CreateContentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('content');
+        //
     }
 }
