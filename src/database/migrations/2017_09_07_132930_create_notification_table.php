@@ -14,7 +14,7 @@ class CreateNotificationTable extends Migration
     public function up()
     {
          Schema::create('notifications', function (Blueprint $table) {
-           $table->integer('id');
+           $table->string('id');
            $table->string('type');
            $table->string('notifiable_type');
            $table->integer('notifiable_id');
@@ -33,6 +33,6 @@ class CreateNotificationTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('notifications');
     }
 }

@@ -24,12 +24,4 @@ class Counter
         return $course;
         
     }
-    public function lessonstr()
-    {
-        $course = DB::table('topic')->where([
-            ['review_status', '=', 'Reviewing']
-         ])->count(DB::raw('DISTINCT course_id'));
-        return $course;
-        
-    }
 }

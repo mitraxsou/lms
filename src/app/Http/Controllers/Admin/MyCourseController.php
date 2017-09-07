@@ -13,13 +13,13 @@ use Carbon\Carbon;
 
 class MyCourseController extends Controller
 {
-    public function index()
+   public function index()
     {
         $courses=[];
         $j=0;$i=0;
-    	$auth=Auth::guard('admin')->user()->id;
-       //  Alert::message('Robots are working!');
-    	$coursesarr = DB::table('courses')->join('admin_course','id','=','admin_course.course_id')->select('courses.id','courses.name','courses.description','courses.cfilename')->where('admin_id', $auth)->orderBy('id')->get();
+        $auth=Auth::guard('admin')->user()->id;
+
+        $coursesarr = DB::table('courses')->join('admin_course','id','=','admin_course.course_id')->select('courses.id','courses.name','courses.description','courses.cfilename')->where('admin_id', $auth)->orderBy('id')->get();
         $courses1=DB::table('courses')->pluck('id');
 
          $publish=DB::table('publish_course')->join('courses','course_id','=','courses.id')
@@ -48,8 +48,7 @@ class MyCourseController extends Controller
             }
          }
         //dd($courses);
-     
-    	return view('admin.course.course' , compact('courses','publish'))->with('sweetalert', 'List has been created!');;
+        return view('admin.course.course' , compact('courses','publish'));
     }
     public function publishedit($id)
     {
@@ -59,9 +58,10 @@ class MyCourseController extends Controller
          ])->delete();
 
          
-     alert()->info('Course open again to edit');
+    
       return redirect('/admin/mycourse/'.$id);
     }
+
     public function show($id)
     {
         $course = Course::find($id);
@@ -71,9 +71,7 @@ class MyCourseController extends Controller
             if($adm->id == $cor->pivot->admin_id)
             {
                 $indexes = DB::table('topic')->where('course_id', $id)->orderBy('tid')->get();
-                $indexes_sub = DB::table('subtopics')->where([['course_id', $id]
-                                                            ])->get();
-    	       return view('admin.course.topic.topic' , compact('course','indexes','indexes_sub'));
+    	       return view('admin.course.topic.topic' , compact('course','indexes'));
             }
             else
             {
@@ -81,17 +79,6 @@ class MyCourseController extends Controller
             }
         }
     
-    }
-    
-    public function reviewstructure($id)
-    {
-
-          $updte = DB::table('topic')->where([
-                 ['course_id', '=', $id]
-         ])->update(['review_status' => 'Reviewing']);
-          alert()->success('Sent for Reviewing!');
-          $status=true;
-          return redirect('/admin/mycourse/'.$id)->with(compact('status'));;
     }
 
     public function showSubTopic($cid,$tid)
@@ -102,7 +89,7 @@ class MyCourseController extends Controller
         //dd($topic,$course,$indexes);
         $adm=Auth::guard('admin')->user();
         foreach($course->admins as $cor)
-        {                                 
+        {
             if($adm->id == $cor->pivot->admin_id)
             {
                 return view('admin.course.subtopic.subtopic' , compact('course','topic','indexes'));
@@ -113,9 +100,9 @@ class MyCourseController extends Controller
         }
     }
 
-     public function contentshow($cid,$tid,$stid)
+    public function contentshow($cid,$tid,$stid)
     {
-      $courseAdmin=Course::find($cid);
+    	$courseAdmin=Course::find($cid);
          $course1 = DB::table('subtopics')->where([
                  ['sub_tid', '=', $stid],
                  ['tid', '=', $tid],
