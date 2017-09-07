@@ -41,6 +41,7 @@ RUN a2enmod rewrite
 
 #copy source files and run composer
 COPY ./src $APP_HOME
+COPY ./env $APP_HOME
 
 # copying local config folder to phpconfig container
 COPY ./config/phpconfig $PHP_INI
