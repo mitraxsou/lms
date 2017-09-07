@@ -14,7 +14,7 @@
 
             </div>
             <div class = "row">
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <div class="panel panel-success">
                     <div class="panel-heading">Owners</div>
                         <div class="panel-body">
@@ -31,18 +31,8 @@
                 </div>
                 
 
-                <!-- <div class="col-sm-4">
-                    <div class="panel panel-success">
-                    <div class="panel-heading">Student &amp; Enrollments</div>
-                        <div class="panel-body">
-                            <ul>
-                                <li><a href="/admin/student">Show all Students</a></li>
-                                <li><a href="/admin/createstudent">Create Students</a></li>
-                                <li><a href="/admin/enrollmanage">enroll students</a></li>
-                            </ul>
-                        </div>    
-                    </div>
-                </div> -->
+
+                
                 <div class="col-sm-6">
 
                     <div class="panel panel-success">

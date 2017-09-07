@@ -16,8 +16,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<<<<<<< HEAD
   <!-- <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> -->
 
+=======
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+>>>>>>> parent of b9cce77... logout and student removed
     <link href="/css/multipicker.min.css" rel="stylesheet">
     <link href="/css/summernote.css" rel="stylesheet">
   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
@@ -107,8 +111,13 @@
     <!-- Scripts -->
     
     <script src="/js/app.js"></script>
+<<<<<<< HEAD
 
    <!--  <script src="/js/jquery.js"></script> -->
+=======
+    <script src="/js/summernote.min.js"></script>
+    
+>>>>>>> parent of b9cce77... logout and student removed
     <script src="/js/multipicker.min.js"></script>
     <script src="/js/summernote.min.js"></script>
 </body>
