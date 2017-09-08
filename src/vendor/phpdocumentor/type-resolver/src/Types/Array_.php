@@ -19,11 +19,7 @@ use phpDocumentor\Reflection\Type;
  *
  * An array can be represented in two forms:
  *
-<<<<<<< HEAD
- * 1. Untyped (`array`), where the key and value type is unknown and hence classified as 'Mixed_'.
-=======
  * 1. Untyped (`array`), where the key and value type is unknown and hence classified as 'Mixed'.
->>>>>>> release/v2
  * 2. Types (`string[]`), where the value type is provided by preceding an opening and closing square bracket with a
  *    type name.
  */
@@ -47,11 +43,7 @@ final class Array_ implements Type
             $keyType = new Compound([ new String_(), new Integer() ]);
         }
         if ($valueType === null) {
-<<<<<<< HEAD
-            $valueType = new Mixed_();
-=======
             $valueType = new Mixed();
->>>>>>> release/v2
         }
 
         $this->valueType = $valueType;
@@ -85,11 +77,7 @@ final class Array_ implements Type
      */
     public function __toString()
     {
-<<<<<<< HEAD
-        if ($this->valueType instanceof Mixed_) {
-=======
         if ($this->valueType instanceof Mixed) {
->>>>>>> release/v2
             return 'array';
         }
 

@@ -1,7 +1,4 @@
 /.idea
 /composer.lock
-<<<<<<< HEAD
-=======
 /composer.phar
->>>>>>> release/v2
 /vendor

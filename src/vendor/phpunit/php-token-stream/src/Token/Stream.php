@@ -1,10 +1,6 @@
 <?php
 /*
-<<<<<<< HEAD
- * This file is part of php-token-stream.
-=======
  * This file is part of the PHP_TokenStream package.
->>>>>>> release/v2
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -14,26 +10,19 @@
 
 /**
  * A stream of PHP tokens.
-<<<<<<< HEAD
-=======
  *
  * @author    Sebastian Bergmann <sebastian@phpunit.de>
  * @copyright Sebastian Bergmann <sebastian@phpunit.de>
  * @license   http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
  * @link      http://github.com/sebastianbergmann/php-token-stream/tree
  * @since     Class available since Release 1.0.0
->>>>>>> release/v2
  */
 class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
 {
     /**
      * @var array
      */
-<<<<<<< HEAD
-    protected static $customTokens = [
-=======
     protected static $customTokens = array(
->>>>>>> release/v2
         '(' => 'PHP_Token_OPEN_BRACKET',
         ')' => 'PHP_Token_CLOSE_BRACKET',
         '[' => 'PHP_Token_OPEN_SQUARE',
@@ -62,11 +51,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
         '^' => 'PHP_Token_CARET',
         '~' => 'PHP_Token_TILDE',
         '`' => 'PHP_Token_BACKTICK'
-<<<<<<< HEAD
-    ];
-=======
     );
->>>>>>> release/v2
 
     /**
      * @var string
@@ -76,28 +61,17 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     /**
      * @var array
      */
-<<<<<<< HEAD
-    protected $tokens = [];
-
-    /**
-     * @var int
-=======
     protected $tokens = array();
 
     /**
      * @var integer
->>>>>>> release/v2
      */
     protected $position = 0;
 
     /**
      * @var array
      */
-<<<<<<< HEAD
-    protected $linesOfCode = ['loc' => 0, 'cloc' => 0, 'ncloc' => 0];
-=======
     protected $linesOfCode = array('loc' => 0, 'cloc' => 0, 'ncloc' => 0);
->>>>>>> release/v2
 
     /**
      * @var array
@@ -127,11 +101,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     /**
      * @var array
      */
-<<<<<<< HEAD
-    protected $lineToFunctionMap = [];
-=======
     protected $lineToFunctionMap = array();
->>>>>>> release/v2
 
     /**
      * Constructor.
@@ -153,11 +123,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
      */
     public function __destruct()
     {
-<<<<<<< HEAD
-        $this->tokens = [];
-=======
         $this->tokens = array();
->>>>>>> release/v2
     }
 
     /**
@@ -176,10 +142,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
 
     /**
      * @return string
-<<<<<<< HEAD
-=======
      * @since  Method available since Release 1.1.0
->>>>>>> release/v2
      */
     public function getFilename()
     {
@@ -211,11 +174,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
 
                 if ($lastNonWhitespaceTokenWasDoubleColon && $name == 'CLASS') {
                     $name = 'CLASS_NAME_CONSTANT';
-<<<<<<< HEAD
-                } elseif ($name == 'USE' && isset($tokens[$i + 2][0]) && $tokens[$i + 2][0] == T_FUNCTION) {
-=======
                 } elseif ($name == 'USE' && isset($tokens[$i+2][0]) && $tokens[$i+2][0] == T_FUNCTION) {
->>>>>>> release/v2
                     $name = 'USE_FUNCTION';
                     $skip = 2;
                 }
@@ -228,11 +187,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
 
             $this->tokens[] = new $tokenClass($text, $line, $this, $id++);
             $lines          = substr_count($text, "\n");
-<<<<<<< HEAD
-            $line += $lines;
-=======
             $line          += $lines;
->>>>>>> release/v2
 
             if ($tokenClass == 'PHP_Token_HALT_COMPILER') {
                 break;
@@ -256,11 +211,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     }
 
     /**
-<<<<<<< HEAD
-     * @return int
-=======
      * @return integer
->>>>>>> release/v2
      */
     public function count()
     {
@@ -319,10 +270,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
 
     /**
      * @return array
-<<<<<<< HEAD
-=======
      * @since  Method available since Release 1.1.0
->>>>>>> release/v2
      */
     public function getTraits()
     {
@@ -347,34 +295,19 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
      *
      * @param bool   $categorize OPTIONAL
      * @param string $category   OPTIONAL Either 'require_once', 'require',
-<<<<<<< HEAD
-     *                           'include_once', 'include'.
-     *
-     * @return array
-=======
      *                                           'include_once', 'include'.
      * @return array
      * @since  Method available since Release 1.1.0
->>>>>>> release/v2
      */
     public function getIncludes($categorize = false, $category = null)
     {
         if ($this->includes === null) {
-<<<<<<< HEAD
-            $this->includes = [
-              'require_once' => [],
-              'require'      => [],
-              'include_once' => [],
-              'include'      => []
-            ];
-=======
             $this->includes = array(
               'require_once' => array(),
               'require'      => array(),
               'include_once' => array(),
               'include'      => array()
             );
->>>>>>> release/v2
 
             foreach ($this->tokens as $token) {
                 switch (get_class($token)) {
@@ -408,10 +341,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
      * Returns the name of the function or method a line belongs to.
      *
      * @return string or null if the line is not in a function or method
-<<<<<<< HEAD
-=======
      * @since  Method available since Release 1.2.0
->>>>>>> release/v2
      */
     public function getFunctionForLine($line)
     {
@@ -424,21 +354,12 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
 
     protected function parse()
     {
-<<<<<<< HEAD
-        $this->interfaces = [];
-        $this->classes    = [];
-        $this->traits     = [];
-        $this->functions  = [];
-        $class            = [];
-        $classEndLine     = [];
-=======
         $this->interfaces = array();
         $this->classes    = array();
         $this->traits     = array();
         $this->functions  = array();
         $class            = array();
         $classEndLine     = array();
->>>>>>> release/v2
         $trait            = false;
         $traitEndLine     = false;
         $interface        = false;
@@ -453,13 +374,8 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
                     $interface        = $token->getName();
                     $interfaceEndLine = $token->getEndLine();
 
-<<<<<<< HEAD
-                    $this->interfaces[$interface] = [
-                      'methods'   => [],
-=======
                     $this->interfaces[$interface] = array(
                       'methods'   => array(),
->>>>>>> release/v2
                       'parent'    => $token->getParent(),
                       'keywords'  => $token->getKeywords(),
                       'docblock'  => $token->getDocblock(),
@@ -467,22 +383,13 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
                       'endLine'   => $interfaceEndLine,
                       'package'   => $token->getPackage(),
                       'file'      => $this->filename
-<<<<<<< HEAD
-                    ];
-=======
                     );
->>>>>>> release/v2
                     break;
 
                 case 'PHP_Token_CLASS':
                 case 'PHP_Token_TRAIT':
-<<<<<<< HEAD
-                    $tmp = [
-                      'methods'   => [],
-=======
                     $tmp = array(
                       'methods'   => array(),
->>>>>>> release/v2
                       'parent'    => $token->getParent(),
                       'interfaces'=> $token->getInterfaces(),
                       'keywords'  => $token->getKeywords(),
@@ -491,23 +398,15 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
                       'endLine'   => $token->getEndLine(),
                       'package'   => $token->getPackage(),
                       'file'      => $this->filename
-<<<<<<< HEAD
-                    ];
-=======
                     );
->>>>>>> release/v2
 
                     if ($token instanceof PHP_Token_CLASS) {
                         $class[]        = $token->getName();
                         $classEndLine[] = $token->getEndLine();
 
-<<<<<<< HEAD
-                        $this->classes[$class[count($class) - 1]] = $tmp;
-=======
                         if ($class[count($class)-1] != 'anonymous class') {
                             $this->classes[$class[count($class)-1]] = $tmp;
                         }
->>>>>>> release/v2
                     } else {
                         $trait                = $token->getName();
                         $traitEndLine         = $token->getEndLine();
@@ -517,11 +416,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
 
                 case 'PHP_Token_FUNCTION':
                     $name = $token->getName();
-<<<<<<< HEAD
-                    $tmp  = [
-=======
                     $tmp  = array(
->>>>>>> release/v2
                       'docblock'  => $token->getDocblock(),
                       'keywords'  => $token->getKeywords(),
                       'visibility'=> $token->getVisibility(),
@@ -530,11 +425,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
                       'endLine'   => $token->getEndLine(),
                       'ccn'       => $token->getCCN(),
                       'file'      => $this->filename
-<<<<<<< HEAD
-                    ];
-=======
                     );
->>>>>>> release/v2
 
                     if (empty($class) &&
                         $trait === false &&
@@ -546,19 +437,11 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
                             $tmp['startLine'],
                             $tmp['endLine']
                         );
-<<<<<<< HEAD
-                    } elseif (!empty($class)) {
-                        $this->classes[$class[count($class) - 1]]['methods'][$name] = $tmp;
-
-                        $this->addFunctionToMap(
-                            $class[count($class) - 1] . '::' . $name,
-=======
                     } elseif (!empty($class) && $class[count($class)-1] != 'anonymous class') {
                         $this->classes[$class[count($class)-1]]['methods'][$name] = $tmp;
 
                         $this->addFunctionToMap(
                             $class[count($class)-1] . '::' . $name,
->>>>>>> release/v2
                             $tmp['startLine'],
                             $tmp['endLine']
                         );
@@ -577,11 +460,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
 
                 case 'PHP_Token_CLOSE_CURLY':
                     if (!empty($classEndLine) &&
-<<<<<<< HEAD
-                        $classEndLine[count($classEndLine) - 1] == $token->getLine()) {
-=======
                         $classEndLine[count($classEndLine)-1] == $token->getLine()) {
->>>>>>> release/v2
                         array_pop($classEndLine);
                         array_pop($class);
                     } elseif ($traitEndLine !== false &&
@@ -614,11 +493,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     }
 
     /**
-<<<<<<< HEAD
-     * @return bool
-=======
      * @return boolean
->>>>>>> release/v2
      */
     public function valid()
     {
@@ -626,11 +501,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     }
 
     /**
-<<<<<<< HEAD
-     * @return int
-=======
      * @return integer
->>>>>>> release/v2
      */
     public function key()
     {
@@ -653,14 +524,8 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     }
 
     /**
-<<<<<<< HEAD
-     * @param int $offset
-     *
-     * @return bool
-=======
      * @param  integer $offset
      * @return boolean
->>>>>>> release/v2
      */
     public function offsetExists($offset)
     {
@@ -668,15 +533,8 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     }
 
     /**
-<<<<<<< HEAD
-     * @param int $offset
-     *
-     * @return mixed
-     *
-=======
      * @param  integer $offset
      * @return mixed
->>>>>>> release/v2
      * @throws OutOfBoundsException
      */
     public function offsetGet($offset)
@@ -694,13 +552,8 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     }
 
     /**
-<<<<<<< HEAD
-     * @param int   $offset
-     * @param mixed $value
-=======
      * @param integer $offset
      * @param mixed   $value
->>>>>>> release/v2
      */
     public function offsetSet($offset, $value)
     {
@@ -708,12 +561,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     }
 
     /**
-<<<<<<< HEAD
-     * @param int $offset
-     *
-=======
      * @param  integer $offset
->>>>>>> release/v2
      * @throws OutOfBoundsException
      */
     public function offsetUnset($offset)
@@ -733,12 +581,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     /**
      * Seek to an absolute position.
      *
-<<<<<<< HEAD
-     * @param int $position
-     *
-=======
      * @param  integer $position
->>>>>>> release/v2
      * @throws OutOfBoundsException
      */
     public function seek($position)
@@ -756,15 +599,9 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     }
 
     /**
-<<<<<<< HEAD
-     * @param string $name
-     * @param int    $startLine
-     * @param int    $endLine
-=======
      * @param string  $name
      * @param integer $startLine
      * @param integer $endLine
->>>>>>> release/v2
      */
     private function addFunctionToMap($name, $startLine, $endLine)
     {

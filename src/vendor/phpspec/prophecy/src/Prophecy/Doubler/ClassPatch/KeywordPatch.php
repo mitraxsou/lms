@@ -51,12 +51,7 @@ class KeywordPatch implements ClassPatchInterface
      *
      * @return int Priority number (higher - earlier)
      */
-<<<<<<< HEAD
-    public function getPriority()
-    {
-=======
     public function getPriority() {
->>>>>>> release/v2
         return 49;
     }
 
@@ -65,15 +60,7 @@ class KeywordPatch implements ClassPatchInterface
      *
      * @return array
      */
-<<<<<<< HEAD
-    private function getKeywords()
-    {
-        if (\PHP_VERSION_ID >= 70000) {
-            return array('__halt_compiler');
-        }
-=======
     private function getKeywords() {
->>>>>>> release/v2
 
         return array(
             '__halt_compiler',

@@ -1,10 +1,6 @@
 <?php
 /*
-<<<<<<< HEAD
- * This file is part of php-token-stream.
-=======
  * This file is part of the PHP_TokenStream package.
->>>>>>> release/v2
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -12,11 +8,6 @@
  * file that was distributed with this source code.
  */
 
-<<<<<<< HEAD
-use PHPUnit\Framework\TestCase;
-
-class PHP_Token_NamespaceTest extends TestCase
-=======
 /**
  * Tests for the PHP_Token_NAMESPACE class.
  *
@@ -30,7 +21,6 @@ class PHP_Token_NamespaceTest extends TestCase
  * @since      Class available since Release 1.0.0
  */
 class PHP_Token_NamespaceTest extends PHPUnit_Framework_TestCase
->>>>>>> release/v2
 {
     /**
      * @covers PHP_Token_NAMESPACE::getName
@@ -51,13 +41,8 @@ class PHP_Token_NamespaceTest extends PHPUnit_Framework_TestCase
     public function testGetStartLineWithUnscopedNamespace()
     {
         $tokenStream = new PHP_Token_Stream(TEST_FILES_PATH . 'classInNamespace.php');
-<<<<<<< HEAD
-        foreach ($tokenStream as $token) {
-            if ($token instanceof PHP_Token_NAMESPACE) {
-=======
         foreach($tokenStream as $token) {
             if($token instanceOf PHP_Token_NAMESPACE) {
->>>>>>> release/v2
                 $this->assertSame(2, $token->getLine());
             }
         }
@@ -66,13 +51,8 @@ class PHP_Token_NamespaceTest extends PHPUnit_Framework_TestCase
     public function testGetEndLineWithUnscopedNamespace()
     {
         $tokenStream = new PHP_Token_Stream(TEST_FILES_PATH . 'classInNamespace.php');
-<<<<<<< HEAD
-        foreach ($tokenStream as $token) {
-            if ($token instanceof PHP_Token_NAMESPACE) {
-=======
         foreach($tokenStream as $token) {
             if($token instanceOf PHP_Token_NAMESPACE) {
->>>>>>> release/v2
                 $this->assertSame(2, $token->getEndLine());
             }
         }
@@ -80,13 +60,8 @@ class PHP_Token_NamespaceTest extends PHPUnit_Framework_TestCase
     public function testGetStartLineWithScopedNamespace()
     {
         $tokenStream = new PHP_Token_Stream(TEST_FILES_PATH . 'classInScopedNamespace.php');
-<<<<<<< HEAD
-        foreach ($tokenStream as $token) {
-            if ($token instanceof PHP_Token_NAMESPACE) {
-=======
         foreach($tokenStream as $token) {
             if($token instanceOf PHP_Token_NAMESPACE) {
->>>>>>> release/v2
                 $this->assertSame(2, $token->getLine());
             }
         }
@@ -95,19 +70,11 @@ class PHP_Token_NamespaceTest extends PHPUnit_Framework_TestCase
     public function testGetEndLineWithScopedNamespace()
     {
         $tokenStream = new PHP_Token_Stream(TEST_FILES_PATH . 'classInScopedNamespace.php');
-<<<<<<< HEAD
-        foreach ($tokenStream as $token) {
-            if ($token instanceof PHP_Token_NAMESPACE) {
-=======
         foreach($tokenStream as $token) {
             if($token instanceOf PHP_Token_NAMESPACE) {
->>>>>>> release/v2
                 $this->assertSame(8, $token->getEndLine());
             }
         }
     }
-<<<<<<< HEAD
-=======
 
->>>>>>> release/v2
 }

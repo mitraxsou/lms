@@ -14,10 +14,6 @@ namespace Symfony\Component\HttpKernel\Tests;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-<<<<<<< HEAD
-use Symfony\Component\Filesystem\Filesystem;
-=======
->>>>>>> release/v2
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\Config\EnvParametersResource;
 use Symfony\Component\HttpKernel\Kernel;
@@ -30,15 +26,6 @@ use Symfony\Component\HttpKernel\Tests\Fixtures\KernelWithoutBundles;
 
 class KernelTest extends TestCase
 {
-<<<<<<< HEAD
-    public static function tearDownAfterClass()
-    {
-        $fs = new Filesystem();
-        $fs->remove(__DIR__.'/Fixtures/cache');
-    }
-
-=======
->>>>>>> release/v2
     public function testConstructor()
     {
         $env = 'test_env';

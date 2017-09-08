@@ -15,23 +15,11 @@
         "issues": "https://github.com/sebastianbergmann/php-token-stream/issues"
     },
     "require": {
-<<<<<<< HEAD
-        "php": "^7.0",
-        "ext-tokenizer": "*"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^6.2.4"
-    },
-    "config": {
-        "optimize-autoloader": true,
-        "sort-packages": true
-=======
         "php": ">=5.3.3",
         "ext-tokenizer": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.2"
->>>>>>> release/v2
     },
     "autoload": {
         "classmap": [
@@ -40,11 +28,7 @@
     },
     "extra": {
         "branch-alias": {
-<<<<<<< HEAD
-            "dev-master": "2.0-dev"
-=======
             "dev-master": "1.4-dev"
->>>>>>> release/v2
         }
     }
 }

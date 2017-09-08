@@ -16,20 +16,13 @@
         }
     ],
     "require": {
-<<<<<<< HEAD
-        "php": "^5.5.9|>=7.0.8",
-=======
         "php": ">=5.5.9",
->>>>>>> release/v2
         "symfony/polyfill-mbstring": "~1.0",
         "symfony/debug": "~2.8|~3.0"
     },
     "require-dev": {
         "symfony/config": "~3.3",
-<<<<<<< HEAD
-=======
         "symfony/http-kernel": "~2.8|~3.0",
->>>>>>> release/v2
         "symfony/event-dispatcher": "~2.8|~3.0",
         "symfony/dependency-injection": "~3.3",
         "symfony/filesystem": "~2.8|~3.0",

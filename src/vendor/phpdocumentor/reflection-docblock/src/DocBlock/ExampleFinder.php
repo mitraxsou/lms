@@ -10,11 +10,7 @@
  * @link      http://phpdoc.org
  */
 
-<<<<<<< HEAD
-namespace phpDocumentor\Reflection\DocBlock;
-=======
 namespace phpDocumentor\Reflection;
->>>>>>> release/v2
 
 use phpDocumentor\Reflection\DocBlock\Tags\Example;
 

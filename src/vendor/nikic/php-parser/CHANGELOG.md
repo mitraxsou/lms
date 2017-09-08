@@ -1,23 +1,8 @@
-<<<<<<< HEAD
-Version 3.1.2-dev
-=======
 Version 3.1.1-dev
->>>>>>> release/v2
 -----------------
 
 Nothing yet.
 
-<<<<<<< HEAD
-Version 3.1.1 (2017-09-02)
---------------------------
-
-### Fixed
-
-* Fixed syntax error on comment after brace-style namespace declaration. (#412)
-* Added support for TraitUse statements in trait builder. (#413)
-
-=======
->>>>>>> release/v2
 Version 3.1.0 (2017-07-28)
 --------------------------
 

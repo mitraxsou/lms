@@ -12,13 +12,7 @@
 
 namespace phpDocumentor\Reflection\DocBlock\Tags;
 
-<<<<<<< HEAD
-use phpDocumentor\Reflection\DocBlock\Description;
 use phpDocumentor\Reflection\DocBlock\Tag;
-use Webmozart\Assert\Assert;
-=======
-use phpDocumentor\Reflection\DocBlock\Tag;
->>>>>>> release/v2
 
 /**
  * Reflection class for a {@}example tag in a Docblock.
@@ -28,11 +22,7 @@ final class Example extends BaseTag
     /**
      * @var string Path to a file to use as an example. May also be an absolute URI.
      */
-<<<<<<< HEAD
-    private $filePath;
-=======
     private $filePath = '';
->>>>>>> release/v2
 
     /**
      * @var bool Whether the file path component represents an URI. This determines how the file portion
@@ -41,36 +31,6 @@ final class Example extends BaseTag
     private $isURI = false;
 
     /**
-<<<<<<< HEAD
-     * @var
-     */
-    private $startingLine;
-
-    /**
-     * @var
-     */
-    private $lineCount;
-
-    public function __construct($filePath, $isURI, $startingLine, $lineCount, $description)
-    {
-        Assert::notEmpty($filePath);
-        Assert::integer($startingLine);
-        Assert::greaterThanEq($startingLine, 0);
-
-        $this->filePath = $filePath;
-        $this->startingLine = $startingLine;
-        $this->lineCount = $lineCount;
-        $this->name = 'example';
-        if ($description !== null) {
-            $this->description = trim($description);
-        }
-
-        $this->isURI = $isURI;
-    }
-
-    /**
-=======
->>>>>>> release/v2
      * {@inheritdoc}
      */
     public function getContent()
@@ -83,11 +43,7 @@ final class Example extends BaseTag
                     :$this->filePath;
             }
 
-<<<<<<< HEAD
-            return trim($filePath . ' ' . parent::getDescription());
-=======
             $this->description = $filePath . ' ' . parent::getContent();
->>>>>>> release/v2
         }
 
         return $this->description;
@@ -115,31 +71,6 @@ final class Example extends BaseTag
         $lineCount    = null;
         $description  = null;
 
-<<<<<<< HEAD
-        if (array_key_exists(3, $matches)) {
-            $description = $matches[3];
-
-            // Starting line / Number of lines / Description
-            if (preg_match('/^([1-9]\d*)(?:\s+((?1))\s*)?(.*)$/sux', $matches[3], $contentMatches)) {
-                $startingLine = (int)$contentMatches[1];
-                if (isset($contentMatches[2]) && $contentMatches[2] !== '') {
-                    $lineCount = (int)$contentMatches[2];
-                }
-
-                if (array_key_exists(3, $contentMatches)) {
-                    $description = $contentMatches[3];
-                }
-            }
-        }
-
-        return new static(
-            $filePath !== null?$filePath:$fileUri,
-            $fileUri !== null,
-            $startingLine,
-            $lineCount,
-            $description
-        );
-=======
         // Starting line / Number of lines / Description
         if (preg_match('/^([1-9]\d*)\s*(?:((?1))\s+)?(.*)$/sux', $matches[3], $matches)) {
             $startingLine = (int)$matches[1];
@@ -150,7 +81,6 @@ final class Example extends BaseTag
         }
 
         return new static($filePath, $fileUri, $startingLine, $lineCount, $description);
->>>>>>> release/v2
     }
 
     /**
@@ -165,43 +95,6 @@ final class Example extends BaseTag
     }
 
     /**
-<<<<<<< HEAD
-     * Returns a string representation for this tag.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->filePath . ($this->description ? ' ' . $this->description : '');
-    }
-
-    /**
-     * Returns true if the provided URI is relative or contains a complete scheme (and thus is absolute).
-     *
-     * @param string $uri
-     *
-     * @return bool
-     */
-    private function isUriRelative($uri)
-    {
-        return false === strpos($uri, ':');
-    }
-
-    /**
-     * @return int
-     */
-    public function getStartingLine()
-    {
-        return $this->startingLine;
-    }
-
-    /**
-     * @return int
-     */
-    public function getLineCount()
-    {
-        return $this->lineCount;
-=======
      * Sets the file path.
      *
      * @param string $filePath The new file path to use for the example.
@@ -261,6 +154,5 @@ final class Example extends BaseTag
     private function isUriRelative($uri)
     {
         return false === strpos($uri, ':');
->>>>>>> release/v2
     }
 }

@@ -1,22 +1,14 @@
 language: php
 
 php:
-<<<<<<< HEAD
-=======
   - 5.3
   - 5.4
   - 5.5
   - 5.6
->>>>>>> release/v2
   - 7.0
   - 7.0snapshot
   - 7.1
   - 7.1snapshot
-<<<<<<< HEAD
-  - 7.2
-  - 7.2snapshot
-=======
->>>>>>> release/v2
   - master
 
 sudo: false
@@ -26,20 +18,10 @@ before_install:
   - composer clear-cache
 
 install:
-<<<<<<< HEAD
-  - travis_retry composer update --no-interaction --no-ansi --no-progress --no-suggest
-
-script:
-  - ./vendor/bin/phpunit --coverage-clover=coverage.xml
-
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
-=======
   - travis_retry composer update --no-interaction --no-ansi --no-progress --no-suggest --optimize-autoloader --prefer-stable
 
 script:
   - ./vendor/bin/phpunit --configuration ./build/phpunit.xml
->>>>>>> release/v2
 
 notifications:
   email: false

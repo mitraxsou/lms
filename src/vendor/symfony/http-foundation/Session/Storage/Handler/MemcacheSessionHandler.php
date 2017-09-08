@@ -95,13 +95,7 @@ class MemcacheSessionHandler implements \SessionHandlerInterface
      */
     public function destroy($sessionId)
     {
-<<<<<<< HEAD
-        $this->memcache->delete($this->prefix.$sessionId);
-
-        return true;
-=======
         return $this->memcache->delete($this->prefix.$sessionId);
->>>>>>> release/v2
     }
 
     /**

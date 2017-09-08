@@ -16,10 +16,7 @@ use Symfony\Component\Console\DependencyInjection\AddConsoleCommandPass;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
-<<<<<<< HEAD
-=======
 use Symfony\Component\HttpKernel\Bundle\Bundle;
->>>>>>> release/v2
 
 class AddConsoleCommandPassTest extends TestCase
 {
@@ -125,10 +122,7 @@ class AddConsoleCommandPassTest extends TestCase
 class MyCommand extends Command
 {
 }
-<<<<<<< HEAD
-=======
 
 class ExtensionPresentBundle extends Bundle
 {
 }
->>>>>>> release/v2

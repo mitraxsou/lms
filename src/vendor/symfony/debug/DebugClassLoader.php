@@ -26,10 +26,6 @@ class DebugClassLoader
 {
     private $classLoader;
     private $isFinder;
-<<<<<<< HEAD
-    private $loaded = array();
-=======
->>>>>>> release/v2
     private static $caseCheck;
     private static $final = array();
     private static $finalMethods = array();
@@ -143,16 +139,9 @@ class DebugClassLoader
         ErrorHandler::stackErrors();
 
         try {
-<<<<<<< HEAD
-            if ($this->isFinder && !isset($this->loaded[$class])) {
-                $this->loaded[$class] = true;
-                if ($file = $this->classLoader[0]->findFile($class)) {
-                    require $file;
-=======
             if ($this->isFinder) {
                 if ($file = $this->classLoader[0]->findFile($class)) {
                     require_once $file;
->>>>>>> release/v2
                 }
             } else {
                 call_user_func($this->classLoader, $class);
