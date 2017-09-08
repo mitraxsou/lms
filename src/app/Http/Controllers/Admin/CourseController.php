@@ -90,7 +90,8 @@ class CourseController extends Controller
         $path=$request->file('cfile')->move(base_path().'/public/images/catalog',$imageName);
         $course->cfilename='/images/catalog/'.$imageName;
         $course->save();
-        
+       // dd($course->save);
+        //add a validato here
         DB::table('admin_course')->insert(['course_id' =>request('id'),'admin_id'=>$var,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
 
         DB::table('course_structure')->insert(['course_id' =>request('id'),'fixedstructure'=>null,'tempstructure'=>null]);
