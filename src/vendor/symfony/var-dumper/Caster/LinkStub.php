@@ -89,11 +89,15 @@ class LinkStub extends ConstStub
         }
 
         $parent = $dir;
+<<<<<<< HEAD
         while (!@file_exists($parent.'/composer.json')) {
             if (!@file_exists($parent)) {
                 // open_basedir restriction in effect
                 break;
             }
+=======
+        while (!file_exists($parent.'/composer.json')) {
+>>>>>>> release/v2
             if ($parent === dirname($parent)) {
                 return self::$composerRoots[$dir] = false;
             }

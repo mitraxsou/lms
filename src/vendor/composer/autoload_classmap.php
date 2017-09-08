@@ -418,6 +418,7 @@ return array(
     'Carbon\\CarbonInterval' => $vendorDir . '/nesbot/carbon/src/Carbon/CarbonInterval.php',
     'Carbon\\Exceptions\\InvalidDateException' => $vendorDir . '/nesbot/carbon/src/Carbon/Exceptions/InvalidDateException.php',
     'CreateAdminCategoryTable' => $baseDir . '/database/migrations/2017_09_07_133122_create_adminCategory_table.php',
+<<<<<<< HEAD
     'CreateAdminCourseTable' => $baseDir . '/database/migrations/2017_09_07_132737_create_adminCourse_table.php',
     'CreateAdminsTable' => $baseDir . '/database/migrations/2017_09_07_132301_create_admins_table.php',
     'CreateCategoriesTable' => $baseDir . '/database/migrations/2017_09_07_132332_create_categories_table.php',
@@ -436,6 +437,31 @@ return array(
     'CreateSubtopicsTable' => $baseDir . '/database/migrations/2017_09_07_132802_create_subtopics_table.php',
     'CreateTopicsTable' => $baseDir . '/database/migrations/2017_09_07_132829_create_topics_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2017_09_07_132227_create_users_table.php',
+=======
+    'CreateAdminCourseTable' => $baseDir . '/database/migrations/2017_08_06_122006_create_adminCourse_table.php',
+    'CreateAdminsTable' => $baseDir . '/database/migrations/2017_04_25_131949_create_admins_table.php',
+    'CreateCategoriesTable' => $baseDir . '/database/migrations/2017_07_10_165718_create_categories_table.php',
+    'CreateContent' => $baseDir . '/database/migrations/2017_08_10_195312_create_content.php',
+    'CreateContentTable' => $baseDir . '/database/migrations/2017_09_07_133002_create_content_table.php',
+    'CreateCourseCategoryTable' => $baseDir . '/database/migrations/2017_07_12_185652_create_courseCategory_table.php',
+    'CreateCourseStructureTable' => $baseDir . '/database/migrations/2017_09_06_105819_create_course_structure_table.php',
+    'CreateCoursesTable' => $baseDir . '/database/migrations/2017_07_14_132238_create_courses_table.php',
+    'CreateNotificationTable' => $baseDir . '/database/migrations/2017_08_09_173754_create_notification_table.php',
+    'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
+    'CreatePermissionRolesTable' => $baseDir . '/database/migrations/2017_07_30_165747_create_permissionRoles_table.php',
+    'CreatePermissionsTable' => $baseDir . '/database/migrations/2017_07_30_163823_create_permissions_table.php',
+    'CreatePublishCourseTable' => $baseDir . '/database/migrations/2017_09_07_133048_create_publishCourse_table.php',
+    'CreatePublishcourse' => $baseDir . '/database/migrations/2017_08_15_175305_create_publishcourse.php',
+    'CreateQuestionsTable' => $baseDir . '/database/migrations/2017_09_07_133230_create_questions_table.php',
+    'CreateQuizTable' => $baseDir . '/database/migrations/2017_09_07_133156_create_quiz_table.php',
+    'CreateRoleAdminTable' => $baseDir . '/database/migrations/2017_07_29_230412_create_roleAdmin_table.php',
+    'CreateRolesTable' => $baseDir . '/database/migrations/2017_07_29_230536_create_roles_table.php',
+    'CreateSubtopicsTable' => $baseDir . '/database/migrations/2017_08_07_132039_create_subtopics_table.php',
+    'CreateTopicsTable' => $baseDir . '/database/migrations/2017_08_07_142929_create_topics_table.php',
+    'CreateTrainersTable' => $baseDir . '/database/migrations/2017_04_29_091719_create_trainers_table.php',
+    'CreateUserCourseEnrollTable' => $baseDir . '/database/migrations/2017_05_12_182819_create_userCourseEnroll_table.php',
+    'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
+>>>>>>> release/v2
     'Cron\\AbstractField' => $vendorDir . '/mtdowling/cron-expression/src/Cron/AbstractField.php',
     'Cron\\CronExpression' => $vendorDir . '/mtdowling/cron-expression/src/Cron/CronExpression.php',
     'Cron\\DayOfMonthField' => $vendorDir . '/mtdowling/cron-expression/src/Cron/DayOfMonthField.php',
@@ -555,7 +581,10 @@ return array(
     'Faker\\Provider\\cs_CZ\\Payment' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/cs_CZ/Payment.php',
     'Faker\\Provider\\cs_CZ\\Person' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/cs_CZ/Person.php',
     'Faker\\Provider\\cs_CZ\\PhoneNumber' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/cs_CZ/PhoneNumber.php',
+<<<<<<< HEAD
     'Faker\\Provider\\cs_CZ\\Text' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/cs_CZ/Text.php',
+=======
+>>>>>>> release/v2
     'Faker\\Provider\\da_DK\\Address' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/da_DK/Address.php',
     'Faker\\Provider\\da_DK\\Company' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/da_DK/Company.php',
     'Faker\\Provider\\da_DK\\Internet' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/da_DK/Internet.php',
@@ -594,8 +623,7 @@ return array(
     'Faker\\Provider\\el_GR\\Payment' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/el_GR/Payment.php',
     'Faker\\Provider\\el_GR\\Person' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/el_GR/Person.php',
     'Faker\\Provider\\el_GR\\PhoneNumber' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/el_GR/PhoneNumber.php',
-    'Faker\\Provider\\el_GR\\Text' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/el_GR/Text.php',
-    'Faker\\Provider\\en_AU\\Address' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/en_AU/Address.php',
+	'Faker\\Provider\\en_AU\\Address' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/en_AU/Address.php',
     'Faker\\Provider\\en_AU\\Internet' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/en_AU/Internet.php',
     'Faker\\Provider\\en_AU\\PhoneNumber' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/en_AU/PhoneNumber.php',
     'Faker\\Provider\\en_CA\\Address' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/en_CA/Address.php',
@@ -648,7 +676,10 @@ return array(
     'Faker\\Provider\\es_ES\\Payment' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/es_ES/Payment.php',
     'Faker\\Provider\\es_ES\\Person' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/es_ES/Person.php',
     'Faker\\Provider\\es_ES\\PhoneNumber' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/es_ES/PhoneNumber.php',
+<<<<<<< HEAD
     'Faker\\Provider\\es_ES\\Text' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/es_ES/Text.php',
+=======
+>>>>>>> release/v2
     'Faker\\Provider\\es_PE\\Address' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/es_PE/Address.php',
     'Faker\\Provider\\es_PE\\Company' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/es_PE/Company.php',
     'Faker\\Provider\\es_PE\\Person' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/es_PE/Person.php',
@@ -692,7 +723,10 @@ return array(
     'Faker\\Provider\\fr_FR\\Payment' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/fr_FR/Payment.php',
     'Faker\\Provider\\fr_FR\\Person' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/fr_FR/Person.php',
     'Faker\\Provider\\fr_FR\\PhoneNumber' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/fr_FR/PhoneNumber.php',
+<<<<<<< HEAD
     'Faker\\Provider\\fr_FR\\Text' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/fr_FR/Text.php',
+=======
+>>>>>>> release/v2
     'Faker\\Provider\\he_IL\\Address' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/he_IL/Address.php',
     'Faker\\Provider\\he_IL\\Company' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/he_IL/Company.php',
     'Faker\\Provider\\he_IL\\Payment' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/he_IL/Payment.php',
@@ -708,7 +742,10 @@ return array(
     'Faker\\Provider\\hu_HU\\Payment' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/hu_HU/Payment.php',
     'Faker\\Provider\\hu_HU\\Person' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/hu_HU/Person.php',
     'Faker\\Provider\\hu_HU\\PhoneNumber' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/hu_HU/PhoneNumber.php',
+<<<<<<< HEAD
     'Faker\\Provider\\hu_HU\\Text' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/hu_HU/Text.php',
+=======
+>>>>>>> release/v2
     'Faker\\Provider\\hy_AM\\Address' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/hy_AM/Address.php',
     'Faker\\Provider\\hy_AM\\Color' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/hy_AM/Color.php',
     'Faker\\Provider\\hy_AM\\Company' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/hy_AM/Company.php',
@@ -754,7 +791,10 @@ return array(
     'Faker\\Provider\\ka_GE\\Payment' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/ka_GE/Payment.php',
     'Faker\\Provider\\ka_GE\\Person' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/ka_GE/Person.php',
     'Faker\\Provider\\ka_GE\\PhoneNumber' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/ka_GE/PhoneNumber.php',
+<<<<<<< HEAD
     'Faker\\Provider\\ka_GE\\Text' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/ka_GE/Text.php',
+=======
+>>>>>>> release/v2
     'Faker\\Provider\\kk_KZ\\Address' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/kk_KZ/Address.php',
     'Faker\\Provider\\kk_KZ\\Color' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/kk_KZ/Color.php',
     'Faker\\Provider\\kk_KZ\\Company' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/kk_KZ/Company.php',
@@ -768,7 +808,10 @@ return array(
     'Faker\\Provider\\ko_KR\\Internet' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/ko_KR/Internet.php',
     'Faker\\Provider\\ko_KR\\Person' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/ko_KR/Person.php',
     'Faker\\Provider\\ko_KR\\PhoneNumber' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/ko_KR/PhoneNumber.php',
+<<<<<<< HEAD
     'Faker\\Provider\\ko_KR\\Text' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/ko_KR/Text.php',
+=======
+>>>>>>> release/v2
     'Faker\\Provider\\lt_LT\\Address' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/lt_LT/Address.php',
     'Faker\\Provider\\lt_LT\\Company' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/lt_LT/Company.php',
     'Faker\\Provider\\lt_LT\\Internet' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/lt_LT/Internet.php',
@@ -845,7 +888,10 @@ return array(
     'Faker\\Provider\\ru_RU\\Payment' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/ru_RU/Payment.php',
     'Faker\\Provider\\ru_RU\\Person' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/ru_RU/Person.php',
     'Faker\\Provider\\ru_RU\\PhoneNumber' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/ru_RU/PhoneNumber.php',
+<<<<<<< HEAD
     'Faker\\Provider\\ru_RU\\Text' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/ru_RU/Text.php',
+=======
+>>>>>>> release/v2
     'Faker\\Provider\\sk_SK\\Address' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/sk_SK/Address.php',
     'Faker\\Provider\\sk_SK\\Company' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/sk_SK/Company.php',
     'Faker\\Provider\\sk_SK\\Internet' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/sk_SK/Internet.php',
@@ -889,7 +935,10 @@ return array(
     'Faker\\Provider\\uk_UA\\Internet' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/uk_UA/Internet.php',
     'Faker\\Provider\\uk_UA\\Person' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/uk_UA/Person.php',
     'Faker\\Provider\\uk_UA\\PhoneNumber' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/uk_UA/PhoneNumber.php',
+<<<<<<< HEAD
     'Faker\\Provider\\uk_UA\\Text' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/uk_UA/Text.php',
+=======
+>>>>>>> release/v2
     'Faker\\Provider\\uk_Ua\\Payment' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/uk_UA/Payment.php',
     'Faker\\Provider\\vi_VN\\Address' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/vi_VN/Address.php',
     'Faker\\Provider\\vi_VN\\Color' => $vendorDir . '/fzaninotto/faker/src/Faker/Provider/vi_VN/Color.php',
@@ -3497,7 +3546,10 @@ return array(
     'phpDocumentor\\Reflection\\DocBlockFactoryInterface' => $vendorDir . '/phpdocumentor/reflection-docblock/src/DocBlockFactoryInterface.php',
     'phpDocumentor\\Reflection\\DocBlock\\Description' => $vendorDir . '/phpdocumentor/reflection-docblock/src/DocBlock/Description.php',
     'phpDocumentor\\Reflection\\DocBlock\\DescriptionFactory' => $vendorDir . '/phpdocumentor/reflection-docblock/src/DocBlock/DescriptionFactory.php',
+<<<<<<< HEAD
     'phpDocumentor\\Reflection\\DocBlock\\ExampleFinder' => $vendorDir . '/phpdocumentor/reflection-docblock/src/DocBlock/ExampleFinder.php',
+=======
+>>>>>>> release/v2
     'phpDocumentor\\Reflection\\DocBlock\\Serializer' => $vendorDir . '/phpdocumentor/reflection-docblock/src/DocBlock/Serializer.php',
     'phpDocumentor\\Reflection\\DocBlock\\StandardTagFactory' => $vendorDir . '/phpdocumentor/reflection-docblock/src/DocBlock/StandardTagFactory.php',
     'phpDocumentor\\Reflection\\DocBlock\\Tag' => $vendorDir . '/phpdocumentor/reflection-docblock/src/DocBlock/Tag.php',
@@ -3519,9 +3571,12 @@ return array(
     'phpDocumentor\\Reflection\\DocBlock\\Tags\\Property' => $vendorDir . '/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Property.php',
     'phpDocumentor\\Reflection\\DocBlock\\Tags\\PropertyRead' => $vendorDir . '/phpdocumentor/reflection-docblock/src/DocBlock/Tags/PropertyRead.php',
     'phpDocumentor\\Reflection\\DocBlock\\Tags\\PropertyWrite' => $vendorDir . '/phpdocumentor/reflection-docblock/src/DocBlock/Tags/PropertyWrite.php',
+<<<<<<< HEAD
     'phpDocumentor\\Reflection\\DocBlock\\Tags\\Reference\\Fqsen' => $vendorDir . '/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Reference/Fqsen.php',
     'phpDocumentor\\Reflection\\DocBlock\\Tags\\Reference\\Reference' => $vendorDir . '/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Reference/Reference.php',
     'phpDocumentor\\Reflection\\DocBlock\\Tags\\Reference\\Url' => $vendorDir . '/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Reference/Url.php',
+=======
+>>>>>>> release/v2
     'phpDocumentor\\Reflection\\DocBlock\\Tags\\Return_' => $vendorDir . '/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Return_.php',
     'phpDocumentor\\Reflection\\DocBlock\\Tags\\See' => $vendorDir . '/phpdocumentor/reflection-docblock/src/DocBlock/Tags/See.php',
     'phpDocumentor\\Reflection\\DocBlock\\Tags\\Since' => $vendorDir . '/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Since.php',
@@ -3531,6 +3586,10 @@ return array(
     'phpDocumentor\\Reflection\\DocBlock\\Tags\\Var_' => $vendorDir . '/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Var_.php',
     'phpDocumentor\\Reflection\\DocBlock\\Tags\\Version' => $vendorDir . '/phpdocumentor/reflection-docblock/src/DocBlock/Tags/Version.php',
     'phpDocumentor\\Reflection\\Element' => $vendorDir . '/phpdocumentor/reflection-common/src/Element.php',
+<<<<<<< HEAD
+=======
+    'phpDocumentor\\Reflection\\ExampleFinder' => $vendorDir . '/phpdocumentor/reflection-docblock/src/DocBlock/ExampleFinder.php',
+>>>>>>> release/v2
     'phpDocumentor\\Reflection\\File' => $vendorDir . '/phpdocumentor/reflection-common/src/File.php',
     'phpDocumentor\\Reflection\\Fqsen' => $vendorDir . '/phpdocumentor/reflection-common/src/Fqsen.php',
     'phpDocumentor\\Reflection\\FqsenResolver' => $vendorDir . '/phpdocumentor/type-resolver/src/FqsenResolver.php',
@@ -3549,13 +3608,19 @@ return array(
     'phpDocumentor\\Reflection\\Types\\Integer' => $vendorDir . '/phpdocumentor/type-resolver/src/Types/Integer.php',
     'phpDocumentor\\Reflection\\Types\\Iterable_' => $vendorDir . '/phpdocumentor/type-resolver/src/Types/Iterable_.php',
     'phpDocumentor\\Reflection\\Types\\Mixed' => $vendorDir . '/phpdocumentor/type-resolver/src/Types/Mixed.php',
+<<<<<<< HEAD
     'phpDocumentor\\Reflection\\Types\\Mixed_' => $vendorDir . '/phpdocumentor/type-resolver/src/Types/Mixed_.php',
+=======
+>>>>>>> release/v2
     'phpDocumentor\\Reflection\\Types\\Null_' => $vendorDir . '/phpdocumentor/type-resolver/src/Types/Null_.php',
     'phpDocumentor\\Reflection\\Types\\Nullable' => $vendorDir . '/phpdocumentor/type-resolver/src/Types/Nullable.php',
     'phpDocumentor\\Reflection\\Types\\Object_' => $vendorDir . '/phpdocumentor/type-resolver/src/Types/Object_.php',
     'phpDocumentor\\Reflection\\Types\\Parent_' => $vendorDir . '/phpdocumentor/type-resolver/src/Types/Parent_.php',
     'phpDocumentor\\Reflection\\Types\\Resource' => $vendorDir . '/phpdocumentor/type-resolver/src/Types/Resource.php',
+<<<<<<< HEAD
     'phpDocumentor\\Reflection\\Types\\Resource_' => $vendorDir . '/phpdocumentor/type-resolver/src/Types/Resource_.php',
+=======
+>>>>>>> release/v2
     'phpDocumentor\\Reflection\\Types\\Scalar' => $vendorDir . '/phpdocumentor/type-resolver/src/Types/Scalar.php',
     'phpDocumentor\\Reflection\\Types\\Self_' => $vendorDir . '/phpdocumentor/type-resolver/src/Types/Self_.php',
     'phpDocumentor\\Reflection\\Types\\Static_' => $vendorDir . '/phpdocumentor/type-resolver/src/Types/Static_.php',

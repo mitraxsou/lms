@@ -72,7 +72,10 @@ class Application
     private $terminal;
     private $defaultCommand;
     private $singleCommand;
+<<<<<<< HEAD
     private $initialized;
+=======
+>>>>>>> release/v2
 
     /**
      * @param string $name    The name of the application
@@ -84,6 +87,15 @@ class Application
         $this->version = $version;
         $this->terminal = new Terminal();
         $this->defaultCommand = 'list';
+<<<<<<< HEAD
+=======
+        $this->helperSet = $this->getDefaultHelperSet();
+        $this->definition = $this->getDefaultInputDefinition();
+
+        foreach ($this->getDefaultCommands() as $command) {
+            $this->add($command);
+        }
+>>>>>>> release/v2
     }
 
     public function setDispatcher(EventDispatcherInterface $dispatcher)
@@ -190,11 +202,18 @@ class Application
 
         if (!$name) {
             $name = $this->defaultCommand;
+<<<<<<< HEAD
             $definition = $this->getDefinition();
             $definition->setArguments(array_merge(
                 $definition->getArguments(),
                 array(
                     'command' => new InputArgument('command', InputArgument::OPTIONAL, $definition->getArgument('command')->getDescription(), $name),
+=======
+            $this->definition->setArguments(array_merge(
+                $this->definition->getArguments(),
+                array(
+                    'command' => new InputArgument('command', InputArgument::OPTIONAL, $this->definition->getArgument('command')->getDescription(), $name),
+>>>>>>> release/v2
                 )
             ));
         }
@@ -244,10 +263,13 @@ class Application
      */
     public function getHelperSet()
     {
+<<<<<<< HEAD
         if (!$this->helperSet) {
             $this->helperSet = $this->getDefaultHelperSet();
         }
 
+=======
+>>>>>>> release/v2
         return $this->helperSet;
     }
 
@@ -268,10 +290,13 @@ class Application
      */
     public function getDefinition()
     {
+<<<<<<< HEAD
         if (!$this->definition) {
             $this->definition = $this->getDefaultInputDefinition();
         }
 
+=======
+>>>>>>> release/v2
         if ($this->singleCommand) {
             $inputDefinition = $this->definition;
             $inputDefinition->setArguments();
@@ -428,8 +453,11 @@ class Application
      */
     public function add(Command $command)
     {
+<<<<<<< HEAD
         $this->init();
 
+=======
+>>>>>>> release/v2
         $command->setApplication($this);
 
         if (!$command->isEnabled()) {
@@ -462,8 +490,11 @@ class Application
      */
     public function get($name)
     {
+<<<<<<< HEAD
         $this->init();
 
+=======
+>>>>>>> release/v2
         if (!isset($this->commands[$name])) {
             throw new CommandNotFoundException(sprintf('The command "%s" does not exist.', $name));
         }
@@ -491,8 +522,11 @@ class Application
      */
     public function has($name)
     {
+<<<<<<< HEAD
         $this->init();
 
+=======
+>>>>>>> release/v2
         return isset($this->commands[$name]);
     }
 
@@ -570,8 +604,11 @@ class Application
      */
     public function find($name)
     {
+<<<<<<< HEAD
         $this->init();
 
+=======
+>>>>>>> release/v2
         $allCommands = array_keys($this->commands);
         $expr = preg_replace_callback('{([^:]+|)}', function ($matches) { return preg_quote($matches[1]).'[^:]*'; }, $name);
         $commands = preg_grep('{^'.$expr.'}', $allCommands);
@@ -638,8 +675,11 @@ class Application
      */
     public function all($namespace = null)
     {
+<<<<<<< HEAD
         $this->init();
 
+=======
+>>>>>>> release/v2
         if (null === $namespace) {
             return $this->commands;
         }
@@ -1153,6 +1193,7 @@ class Application
 
         return $namespaces;
     }
+<<<<<<< HEAD
 
     private function init()
     {
@@ -1165,4 +1206,6 @@ class Application
             $this->add($command);
         }
     }
+=======
+>>>>>>> release/v2
 }

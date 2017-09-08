@@ -13,9 +13,12 @@
 namespace phpDocumentor\Reflection\DocBlock\Tags;
 
 use phpDocumentor\Reflection\DocBlock\DescriptionFactory;
+<<<<<<< HEAD
 use phpDocumentor\Reflection\DocBlock\Tags\Reference\Fqsen as FqsenRef;
 use phpDocumentor\Reflection\DocBlock\Tags\Reference\Reference;
 use phpDocumentor\Reflection\DocBlock\Tags\Reference\Url;
+=======
+>>>>>>> release/v2
 use phpDocumentor\Reflection\Fqsen;
 use phpDocumentor\Reflection\FqsenResolver;
 use phpDocumentor\Reflection\Types\Context as TypeContext;
@@ -29,16 +32,27 @@ class See extends BaseTag implements Factory\StaticMethod
 {
     protected $name = 'see';
 
+<<<<<<< HEAD
     /** @var Reference */
+=======
+    /** @var Fqsen */
+>>>>>>> release/v2
     protected $refers = null;
 
     /**
      * Initializes this tag.
      *
+<<<<<<< HEAD
      * @param Reference $refers
      * @param Description $description
      */
     public function __construct(Reference $refers, Description $description = null)
+=======
+     * @param Fqsen $refers
+     * @param Description $description
+     */
+    public function __construct(Fqsen $refers, Description $description = null)
+>>>>>>> release/v2
     {
         $this->refers = $refers;
         $this->description = $description;
@@ -59,6 +73,7 @@ class See extends BaseTag implements Factory\StaticMethod
         $parts       = preg_split('/\s+/Su', $body, 2);
         $description = isset($parts[1]) ? $descriptionFactory->create($parts[1], $context) : null;
 
+<<<<<<< HEAD
         // https://tools.ietf.org/html/rfc2396#section-3
         if (preg_match('/\w:\/\/\w/i', $parts[0])) {
             return new static(new Url($parts[0]), $description);
@@ -71,6 +86,15 @@ class See extends BaseTag implements Factory\StaticMethod
      * Returns the ref of this tag.
      *
      * @return Reference
+=======
+        return new static($resolver->resolve($parts[0], $context), $description);
+    }
+
+    /**
+     * Returns the structural element this tag refers to.
+     *
+     * @return Fqsen
+>>>>>>> release/v2
      */
     public function getReference()
     {

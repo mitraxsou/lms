@@ -115,10 +115,16 @@ class CallCenter
             );
         }
 
+<<<<<<< HEAD
         $call = new Call(
             $methodName, $arguments, $returnValue, $exception, $file, $line
         );
         $methodProphecy->addCall($call);
+=======
+        $this->recordedCalls[] = new Call(
+            $methodName, $arguments, $returnValue, $exception, $file, $line
+        );
+>>>>>>> release/v2
 
         if (null !== $exception) {
             throw $exception;
@@ -128,8 +134,12 @@ class CallCenter
     }
 
     /**
+<<<<<<< HEAD
      * Searches for calls for which no method prophecy was available by method
      * name and arguments wildcard.
+=======
+     * Searches for calls by method name & arguments wildcard.
+>>>>>>> release/v2
      *
      * @param string            $methodName
      * @param ArgumentsWildcard $wildcard

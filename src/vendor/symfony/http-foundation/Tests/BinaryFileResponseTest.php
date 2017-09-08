@@ -69,6 +69,7 @@ class BinaryFileResponseTest extends ResponseTestCase
         $this->assertSame('attachment; filename="f__.html"; filename*=utf-8\'\'f%C3%B6%C3%B6.html', $response->headers->get('Content-Disposition'));
     }
 
+<<<<<<< HEAD
     public function testSetContentDispositionGeneratesSafeFallbackFilenameForWronglyEncodedFilename()
     {
         $response = new BinaryFileResponse(__FILE__);
@@ -80,6 +81,8 @@ class BinaryFileResponseTest extends ResponseTestCase
         $this->assertSame('attachment; filename="f__.html"; filename*=utf-8\'\'f%F6%F6.html', $response->headers->get('Content-Disposition'));
     }
 
+=======
+>>>>>>> release/v2
     /**
      * @dataProvider provideRanges
      */

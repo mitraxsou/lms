@@ -155,10 +155,17 @@ if (!doc.addEventListener) {
 function toggle(a, recursive) {
     var s = a.nextSibling || {}, oldClass = s.className, arrow, newClass;
 
+<<<<<<< HEAD
     if (/\bsf-dump-compact\b/.test(oldClass)) {
         arrow = '▼';
         newClass = 'sf-dump-expanded';
     } else if (/\bsf-dump-expanded\b/.test(oldClass)) {
+=======
+    if ('sf-dump-compact' == oldClass) {
+        arrow = '▼';
+        newClass = 'sf-dump-expanded';
+    } else if ('sf-dump-expanded' == oldClass) {
+>>>>>>> release/v2
         arrow = '▶';
         newClass = 'sf-dump-compact';
     } else {
@@ -166,13 +173,21 @@ function toggle(a, recursive) {
     }
 
     a.lastChild.innerHTML = arrow;
+<<<<<<< HEAD
     s.className = s.className.replace(/\bsf-dump-(compact|expanded)\b/, newClass);
+=======
+    s.className = newClass;
+>>>>>>> release/v2
 
     if (recursive) {
         try {
             a = s.querySelectorAll('.'+oldClass);
             for (s = 0; s < a.length; ++s) {
+<<<<<<< HEAD
                 if (-1 == a[s].className.indexOf(newClass)) {
+=======
+                if (a[s].className !== newClass) {
+>>>>>>> release/v2
                     a[s].className = newClass;
                     a[s].previousSibling.lastChild.innerHTML = arrow;
                 }
@@ -187,7 +202,11 @@ function toggle(a, recursive) {
 function collapse(a, recursive) {
     var s = a.nextSibling || {}, oldClass = s.className;
 
+<<<<<<< HEAD
     if (/\bsf-dump-expanded\b/.test(oldClass)) {
+=======
+    if ('sf-dump-expanded' == oldClass) {
+>>>>>>> release/v2
         toggle(a, recursive);
 
         return true;
@@ -199,7 +218,11 @@ function collapse(a, recursive) {
 function expand(a, recursive) {
     var s = a.nextSibling || {}, oldClass = s.className;
 
+<<<<<<< HEAD
     if (/\bsf-dump-compact\b/.test(oldClass)) {
+=======
+    if ('sf-dump-compact' == oldClass) {
+>>>>>>> release/v2
         toggle(a, recursive);
 
         return true;
@@ -254,8 +277,13 @@ function highlight(root, activeNode, nodes) {
 
 function resetHighlightedNodes(root) {
     Array.from(root.querySelectorAll('.sf-dump-str, .sf-dump-key, .sf-dump-public, .sf-dump-protected, .sf-dump-private')).forEach(function (strNode) {
+<<<<<<< HEAD
         strNode.className = strNode.className.replace(/\bsf-dump-highlight\b/, '');
         strNode.className = strNode.className.replace(/\bsf-dump-highlight-active\b/, '');
+=======
+        strNode.className = strNode.className.replace(/\b sf-dump-highlight\b/, '');
+        strNode.className = strNode.className.replace(/\b sf-dump-highlight-active\b/, '');
+>>>>>>> release/v2
     });
 }
 
@@ -334,7 +362,11 @@ return function (root, x) {
                 if (f && t && f[0] !== t[0]) {
                     r.innerHTML = r.innerHTML.replace(new RegExp('^'+f[0].replace(rxEsc, '\\$1'), 'mg'), t[0]);
                 }
+<<<<<<< HEAD
                 if (/\bsf-dump-compact\b/.test(r.className)) {
+=======
+                if ('sf-dump-compact' == r.className) {
+>>>>>>> release/v2
                     toggle(s, isCtrlKey(e));
                 }
             }
@@ -352,7 +384,11 @@ return function (root, x) {
         } else if (/\bsf-dump-str-toggle\b/.test(a.className)) {
             e.preventDefault();
             e = a.parentNode.parentNode;
+<<<<<<< HEAD
             e.className = e.className.replace(/\bsf-dump-str-(expand|collapse)\b/, a.parentNode.className);
+=======
+            e.className = e.className.replace(/sf-dump-str-(expand|collapse)/, a.parentNode.className);
+>>>>>>> release/v2
         }
     });
 
@@ -378,7 +414,10 @@ return function (root, x) {
             a.title = (a.title ? a.title+'\n[' : '[')+keyHint+'+click] Expand all children';
             a.innerHTML += '<span>▼</span>';
             a.className += ' sf-dump-toggle';
+<<<<<<< HEAD
 
+=======
+>>>>>>> release/v2
             x = 1;
             if ('sf-dump' != elt.parentNode.className) {
                 x += elt.parentNode.getAttribute('data-depth')/1;
@@ -387,7 +426,11 @@ return function (root, x) {
             if (x > options.maxDepth) {
                 toggle(a);
             }
+<<<<<<< HEAD
         } else if (/\bsf-dump-ref\b/.test(elt.className) && (a = elt.getAttribute('href'))) {
+=======
+        } else if ('sf-dump-ref' == elt.className && (a = elt.getAttribute('href'))) {
+>>>>>>> release/v2
             a = a.substr(1);
             elt.className += ' '+a;
 
@@ -519,7 +562,12 @@ return function (root, x) {
         Array.from(search.querySelectorAll('.sf-dump-search-input-next, .sf-dump-search-input-previous')).forEach(function (btn) {
             addEventListener(btn, 'click', function (e) {
                 e.preventDefault();
+<<<<<<< HEAD
                 -1 !== e.target.className.indexOf('next') ? state.next() : state.previous();
+=======
+                var direction = -1 !== e.target.className.indexOf('next') ? 'next' : 'previous';
+                'next' === direction ? state.next() : state.previous();
+>>>>>>> release/v2
                 searchInput.focus();
                 collapseAll(root);
                 showCurrent(state);

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 1.7.1 / 2017-10-03
 ==================
 
@@ -6,6 +7,8 @@
 * Check method predictions only once (thanks @dontub)
 * Escape file path sent to \SplFileObjectConstructor when running on Windows (thanks @danmartin-epiphany)
 
+=======
+>>>>>>> release/v2
 1.7.0 / 2017-03-02
 ==================
 

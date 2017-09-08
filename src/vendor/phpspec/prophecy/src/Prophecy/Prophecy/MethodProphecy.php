@@ -12,6 +12,7 @@
 namespace Prophecy\Prophecy;
 
 use Prophecy\Argument;
+<<<<<<< HEAD
 use Prophecy\Call\Call;
 use Prophecy\Exception\Doubler\MethodNotFoundException;
 use Prophecy\Exception\InvalidArgumentException;
@@ -19,6 +20,14 @@ use Prophecy\Exception\Prophecy\MethodProphecyException;
 use Prophecy\Prediction;
 use Prophecy\Promise;
 use Prophecy\Prophet;
+=======
+use Prophecy\Prophet;
+use Prophecy\Promise;
+use Prophecy\Prediction;
+use Prophecy\Exception\Doubler\MethodNotFoundException;
+use Prophecy\Exception\InvalidArgumentException;
+use Prophecy\Exception\Prophecy\MethodProphecyException;
+>>>>>>> release/v2
 
 /**
  * Method prophecy.
@@ -35,7 +44,10 @@ class MethodProphecy
     private $checkedPredictions = array();
     private $bound = false;
     private $voidReturnType = false;
+<<<<<<< HEAD
     private $calls = array();
+=======
+>>>>>>> release/v2
 
     /**
      * Initializes method prophecy.
@@ -166,7 +178,11 @@ class MethodProphecy
     /**
      * Sets return promise to the prophecy.
      *
+<<<<<<< HEAD
      * @see \Prophecy\Promise\ReturnPromise
+=======
+     * @see Prophecy\Promise\ReturnPromise
+>>>>>>> release/v2
      *
      * @return $this
      */
@@ -187,7 +203,11 @@ class MethodProphecy
      *
      * @param int $index The zero-indexed number of the argument to return
      *
+<<<<<<< HEAD
      * @see \Prophecy\Promise\ReturnArgumentPromise
+=======
+     * @see Prophecy\Promise\ReturnArgumentPromise
+>>>>>>> release/v2
      *
      * @return $this
      */
@@ -203,7 +223,11 @@ class MethodProphecy
     /**
      * Sets throw promise to the prophecy.
      *
+<<<<<<< HEAD
      * @see \Prophecy\Promise\ThrowPromise
+=======
+     * @see Prophecy\Promise\ThrowPromise
+>>>>>>> release/v2
      *
      * @param string|\Exception $exception Exception class or instance
      *
@@ -245,7 +269,11 @@ class MethodProphecy
     /**
      * Sets call prediction to the prophecy.
      *
+<<<<<<< HEAD
      * @see \Prophecy\Prediction\CallPrediction
+=======
+     * @see Prophecy\Prediction\CallPrediction
+>>>>>>> release/v2
      *
      * @return $this
      */
@@ -257,7 +285,11 @@ class MethodProphecy
     /**
      * Sets no calls prediction to the prophecy.
      *
+<<<<<<< HEAD
      * @see \Prophecy\Prediction\NoCallsPrediction
+=======
+     * @see Prophecy\Prediction\NoCallsPrediction
+>>>>>>> release/v2
      *
      * @return $this
      */
@@ -269,7 +301,11 @@ class MethodProphecy
     /**
      * Sets call times prediction to the prophecy.
      *
+<<<<<<< HEAD
      * @see \Prophecy\Prediction\CallTimesPrediction
+=======
+     * @see Prophecy\Prediction\CallTimesPrediction
+>>>>>>> release/v2
      *
      * @param $count
      *
@@ -306,10 +342,17 @@ class MethodProphecy
             $this->willReturn();
         }
 
+<<<<<<< HEAD
         $calls = array_merge($this->calls, $this->getObjectProphecy()->findProphecyMethodCalls(
             $this->getMethodName(),
             $this->getArgumentsWildcard()
         ));
+=======
+        $calls = $this->getObjectProphecy()->findProphecyMethodCalls(
+            $this->getMethodName(),
+            $this->getArgumentsWildcard()
+        );
+>>>>>>> release/v2
 
         try {
             $prediction->check($calls, $this->getObjectProphecy(), $this);
@@ -326,7 +369,11 @@ class MethodProphecy
     /**
      * Checks call prediction.
      *
+<<<<<<< HEAD
      * @see \Prophecy\Prediction\CallPrediction
+=======
+     * @see Prophecy\Prediction\CallPrediction
+>>>>>>> release/v2
      *
      * @return $this
      */
@@ -338,7 +385,11 @@ class MethodProphecy
     /**
      * Checks no calls prediction.
      *
+<<<<<<< HEAD
      * @see \Prophecy\Prediction\NoCallsPrediction
+=======
+     * @see Prophecy\Prediction\NoCallsPrediction
+>>>>>>> release/v2
      *
      * @return $this
      */
@@ -350,7 +401,11 @@ class MethodProphecy
     /**
      * Checks no calls prediction.
      *
+<<<<<<< HEAD
      * @see \Prophecy\Prediction\NoCallsPrediction
+=======
+     * @see Prophecy\Prediction\NoCallsPrediction
+>>>>>>> release/v2
      * @deprecated
      *
      * @return $this
@@ -363,7 +418,11 @@ class MethodProphecy
     /**
      * Checks call times prediction.
      *
+<<<<<<< HEAD
      * @see \Prophecy\Prediction\CallTimesPrediction
+=======
+     * @see Prophecy\Prediction\CallTimesPrediction
+>>>>>>> release/v2
      *
      * @param int $count
      *
@@ -387,6 +446,7 @@ class MethodProphecy
     }
 
     /**
+<<<<<<< HEAD
      * Adds a call made to this prophecy.
      *
      * @param Call $call
@@ -401,6 +461,8 @@ class MethodProphecy
     }
 
     /**
+=======
+>>>>>>> release/v2
      * Returns currently registered promise.
      *
      * @return null|Promise\PromiseInterface

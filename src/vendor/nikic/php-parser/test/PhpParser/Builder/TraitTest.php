@@ -3,7 +3,10 @@
 namespace PhpParser\Builder;
 
 use PhpParser\Comment;
+<<<<<<< HEAD
 use PhpParser\Node\Name;
+=======
+>>>>>>> release/v2
 use PhpParser\Node\Stmt;
 
 class TraitTest extends \PHPUnit_Framework_TestCase
@@ -19,6 +22,7 @@ class TraitTest extends \PHPUnit_Framework_TestCase
         $prop = new Stmt\Property(Stmt\Class_::MODIFIER_PUBLIC, array(
             new Stmt\PropertyProperty('test')
         ));
+<<<<<<< HEAD
         $use = new Stmt\TraitUse([new Name('OtherTrait')]);
         $trait = $this->createTraitBuilder('TestTrait')
             ->setDocComment('/** Nice trait */')
@@ -34,6 +38,21 @@ class TraitTest extends \PHPUnit_Framework_TestCase
                 new Comment\Doc('/** Nice trait */')
             ]
         ]), $trait);
+=======
+        $trait = $this->createTraitBuilder('TestTrait')
+            ->setDocComment('/** Nice trait */')
+            ->addStmt($method1)
+            ->addStmts(array($method2, $method3))
+            ->addStmt($prop)
+            ->getNode();
+        $this->assertEquals(new Stmt\Trait_('TestTrait', array(
+            'stmts' => array($prop, $method1, $method2, $method3)
+        ), array(
+            'comments' => array(
+                new Comment\Doc('/** Nice trait */')
+            )
+        )), $trait);
+>>>>>>> release/v2
     }
 
     /**

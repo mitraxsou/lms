@@ -600,7 +600,10 @@ class MimeType
         'adp' => 'audio/adpcm',
         'au' => 'audio/basic',
         'mid' => 'audio/midi',
+<<<<<<< HEAD
         'mp3' => 'audio/mpeg',
+=======
+>>>>>>> release/v2
         'mp4a' => 'audio/mp4',
         'mpga' => 'audio/mpeg',
         'oga' => 'audio/ogg',

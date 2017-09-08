@@ -49,7 +49,11 @@ class Inflector
             '/(matr|vert|ind)(ix|ex)$/i' => '\1ices',
             '/(x|ch|ss|sh)$/i' => '\1es',
             '/([^aeiouy]|qu)y$/i' => '\1ies',
+<<<<<<< HEAD
             '/(hive|gulf)$/i' => '\1s',
+=======
+            '/(hive)$/i' => '\1s',
+>>>>>>> release/v2
             '/(?:([^f])fe|([lr])f)$/i' => '\1\2ves',
             '/sis$/i' => 'ses',
             '/([ti])um$/i' => '\1a',
@@ -67,6 +71,7 @@ class Inflector
             '/$/' => 's',
         ),
         'uninflected' => array(
+<<<<<<< HEAD
             '.*[nrlm]ese',
             '.*deer',
             '.*fish',
@@ -77,6 +82,9 @@ class Inflector
             'people',
             'cookie',
             'police',
+=======
+            '.*[nrlm]ese', '.*deer', '.*fish', '.*measles', '.*ois', '.*pox', '.*sheep', 'people', 'cookie'
+>>>>>>> release/v2
         ),
         'irregular' => array(
             'atlas' => 'atlases',
@@ -85,7 +93,10 @@ class Inflector
             'brother' => 'brothers',
             'cafe' => 'cafes',
             'chateau' => 'chateaux',
+<<<<<<< HEAD
             'niveau' => 'niveaux',
+=======
+>>>>>>> release/v2
             'child' => 'children',
             'cookie' => 'cookies',
             'corpus' => 'corpuses',
@@ -105,7 +116,10 @@ class Inflector
             'hoof' => 'hoofs',
             'human' => 'humans',
             'iris' => 'irises',
+<<<<<<< HEAD
             'larva' => 'larvae',
+=======
+>>>>>>> release/v2
             'leaf' => 'leaves',
             'loaf' => 'loaves',
             'man' => 'men',
@@ -123,7 +137,10 @@ class Inflector
             'octopus' => 'octopuses',
             'opus' => 'opuses',
             'ox' => 'oxen',
+<<<<<<< HEAD
             'passerby' => 'passersby',
+=======
+>>>>>>> release/v2
             'penis' => 'penises',
             'person' => 'people',
             'plateau' => 'plateaux',
@@ -173,7 +190,10 @@ class Inflector
             '/(tive)s$/i' => '\1',
             '/(hive)s$/i' => '\1',
             '/(drive)s$/i' => '\1',
+<<<<<<< HEAD
             '/(dive)s$/i' => '\1',
+=======
+>>>>>>> release/v2
             '/([^fo])ves$/i' => '\1fe',
             '/(^analy)ses$/i' => '\1sis',
             '/(analy|diagno|^ba|(p)arenthe|(p)rogno|(s)ynop|(t)he)ses$/i' => '\1\2sis',
@@ -196,12 +216,17 @@ class Inflector
             '.*pox',
             '.*sheep',
             '.*ss',
+<<<<<<< HEAD
             'police',
             'pants',
             'clothes',
         ),
         'irregular' => array(
             'caches'    => 'cache',
+=======
+        ),
+        'irregular' => array(
+>>>>>>> release/v2
             'criteria'  => 'criterion',
             'curves'    => 'curve',
             'emphases'  => 'emphasis',
@@ -223,9 +248,15 @@ class Inflector
         'Amoyese', 'bison', 'Borghese', 'bream', 'breeches', 'britches', 'buffalo', 'cantus',
         'carp', 'chassis', 'clippers', 'cod', 'coitus', 'Congoese', 'contretemps', 'corps',
         'debris', 'diabetes', 'djinn', 'eland', 'elk', 'equipment', 'Faroese', 'flounder',
+<<<<<<< HEAD
         'Foochowese', 'Furniture', 'gallows', 'Genevese', 'Genoese', 'Gilbertese', 'graffiti',
         'headquarters', 'herpes', 'hijinks', 'Hottentotese', 'information', 'innings',
         'jackanapes', 'Kiplingese', 'Kongoese', 'Lucchese', 'Luggage', 'mackerel', 'Maltese', '.*?media',
+=======
+        'Foochowese', 'gallows', 'Genevese', 'Genoese', 'Gilbertese', 'graffiti',
+        'headquarters', 'herpes', 'hijinks', 'Hottentotese', 'information', 'innings',
+        'jackanapes', 'Kiplingese', 'Kongoese', 'Lucchese', 'mackerel', 'Maltese', '.*?media',
+>>>>>>> release/v2
         'mews', 'moose', 'mumps', 'Nankingese', 'news', 'nexus', 'Niasese',
         'Pekingese', 'Piedmontese', 'pincers', 'Pistoiese', 'pliers', 'Portuguese',
         'proceedings', 'rabies', 'rice', 'rhinoceros', 'salmon', 'Sarawakese', 'scissors',
@@ -269,7 +300,11 @@ class Inflector
      */
     public static function classify($word)
     {
+<<<<<<< HEAD
         return str_replace(' ', '', ucwords(strtr($word, '_-', '  ')));
+=======
+        return str_replace(" ", "", ucwords(strtr($word, "_-", "  ")));
+>>>>>>> release/v2
     }
 
     /**
@@ -421,7 +456,11 @@ class Inflector
 
         if (preg_match('/(.*)\\b(' . self::$plural['cacheIrregular'] . ')$/i', $word, $regs)) {
             self::$cache['pluralize'][$word] = $regs[1] . substr($word, 0, 1) . substr(self::$plural['merged']['irregular'][strtolower($regs[2])], 1);
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> release/v2
             return self::$cache['pluralize'][$word];
         }
 
@@ -474,7 +513,11 @@ class Inflector
 
         if (preg_match('/(.*)\\b(' . self::$singular['cacheIrregular'] . ')$/i', $word, $regs)) {
             self::$cache['singularize'][$word] = $regs[1] . substr($word, 0, 1) . substr(self::$singular['merged']['irregular'][strtolower($regs[2])], 1);
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> release/v2
             return self::$cache['singularize'][$word];
         }
 

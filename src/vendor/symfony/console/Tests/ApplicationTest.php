@@ -1040,9 +1040,12 @@ class ApplicationTest extends TestCase
         $this->assertContains('before.error.after.', $tester->getDisplay());
     }
 
+<<<<<<< HEAD
     /**
      * @requires PHP 7
      */
+=======
+>>>>>>> release/v2
     public function testRunWithError()
     {
         $application = new Application();
@@ -1163,7 +1166,10 @@ class ApplicationTest extends TestCase
     }
 
     /**
+<<<<<<< HEAD
      * @requires PHP 7
+=======
+>>>>>>> release/v2
      * @expectedException        \LogicException
      * @expectedExceptionMessage error
      */
@@ -1185,9 +1191,12 @@ class ApplicationTest extends TestCase
         $this->assertContains('before.dym.error.after.', $tester->getDisplay(), 'The PHP Error did not dispached events');
     }
 
+<<<<<<< HEAD
     /**
      * @requires PHP 7
      */
+=======
+>>>>>>> release/v2
     public function testRunDispatchesAllEventsWithError()
     {
         $application = new Application();
@@ -1205,9 +1214,12 @@ class ApplicationTest extends TestCase
         $this->assertContains('before.dym.error.after.', $tester->getDisplay(), 'The PHP Error did not dispached events');
     }
 
+<<<<<<< HEAD
     /**
      * @requires PHP 7
      */
+=======
+>>>>>>> release/v2
     public function testRunWithErrorFailingStatusCode()
     {
         $application = new Application();

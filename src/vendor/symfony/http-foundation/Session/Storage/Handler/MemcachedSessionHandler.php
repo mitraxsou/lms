@@ -101,9 +101,13 @@ class MemcachedSessionHandler implements \SessionHandlerInterface
      */
     public function destroy($sessionId)
     {
+<<<<<<< HEAD
         $result = $this->memcached->delete($this->prefix.$sessionId);
 
         return $result || $this->memcached->getResultCode() == \Memcached::RES_NOTFOUND;
+=======
+        return $this->memcached->delete($this->prefix.$sessionId);
+>>>>>>> release/v2
     }
 
     /**

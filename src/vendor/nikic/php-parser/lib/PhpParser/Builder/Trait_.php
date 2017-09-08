@@ -8,7 +8,10 @@ use PhpParser\Node\Stmt;
 class Trait_ extends Declaration
 {
     protected $name;
+<<<<<<< HEAD
     protected $uses = array();
+=======
+>>>>>>> release/v2
     protected $properties = array();
     protected $methods = array();
 
@@ -35,8 +38,11 @@ class Trait_ extends Declaration
             $this->properties[] = $stmt;
         } else if ($stmt instanceof Stmt\ClassMethod) {
             $this->methods[] = $stmt;
+<<<<<<< HEAD
         } else if ($stmt instanceof Stmt\TraitUse) {
             $this->uses[] = $stmt;
+=======
+>>>>>>> release/v2
         } else {
             throw new \LogicException(sprintf('Unexpected node of type "%s"', $stmt->getType()));
         }
@@ -52,7 +58,11 @@ class Trait_ extends Declaration
     public function getNode() {
         return new Stmt\Trait_(
             $this->name, array(
+<<<<<<< HEAD
                 'stmts' => array_merge($this->uses, $this->properties, $this->methods)
+=======
+                'stmts' => array_merge($this->properties, $this->methods)
+>>>>>>> release/v2
             ), $this->attributes
         );
     }

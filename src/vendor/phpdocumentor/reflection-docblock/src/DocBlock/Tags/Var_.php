@@ -111,8 +111,14 @@ class Var_ extends BaseTag implements Factory\StaticMethod
      */
     public function __toString()
     {
+<<<<<<< HEAD
         return ($this->type ? $this->type.' ' : '')
             .(empty($this->variableName) ? null : ('$'.$this->variableName))
             .($this->description ? ' '.$this->description : '');
+=======
+        return ($this->type ? $this->type . ' ' : '')
+        . '$' . $this->variableName
+        . ($this->description ? ' ' . $this->description : '');
+>>>>>>> release/v2
     }
 }
