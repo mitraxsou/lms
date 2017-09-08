@@ -173,6 +173,10 @@ Route::group(['middleware' => 'adminauth'], function()
 	Route::get('/admin/removecategory/{id}',['middleware'=>['adminrole:super'],'uses'=> 'Admin\CategoryController@destroy']);
 	Route::get('/admin/category/{category}', 'Admin\CategoryController@show');
 
+	/********* Category assignment to the admins**********/
+	Route::get('/admin/assigncategories/{oid}','Admin\CatAssignController@create');
+	Route::post('/admin/assigncategories/{oid}','Admin\CatAssignController@store')
+
 	//S3 video upload
 	Route::get('/admin/vupload', 'Admin\UploadController@videoUpload');
 	Route::post('/admin/vupload','Admin\UploadController@videoUploadPost');
@@ -193,7 +197,7 @@ Route::group(['middleware' => 'adminauth'], function()
 	/***************/
 	Route::get('/dummy', 'Admin\CategoryController@dummy');
 
-
+   
 
 	/***********Quiz*********/
 	Route::get('/admin/{course}/{topic}/quiz','Admin\QuizController@index');
