@@ -51,7 +51,7 @@
                     			<label>Chapter Description  <i style="color:red;"> * </i></label>
                     			<input type="textarea" name="description" id="description" class="form-control">
                     		</div>
-                            @if($topic->review_status!='Not Reviewed')
+                           
                             <div class="form-group">
                                 <!-- <label>Select Content Type</label>
                                <select name="type">
@@ -64,7 +64,7 @@
                                 <input type="button" id="vdo" class="btn btn-default" value="Video" ></input>
                                 
                             </div>
-                            @endif
+                          
                             <div class="form-group" style="display: none" id="oth">
                                     
                                     <textarea id="summernote" name="summernote"  ></textarea>

@@ -32,8 +32,14 @@
              
       <div class="panel panel-success">
       <div class="panel-heading">
-                Course List
-                
+                <div class="row">
+              <div class="col-md-10">
+                       <label> Course List </label>
+              </div>
+              <div class="col-md-2">
+                     <a  class="btn btn-danger" href='/admin/rejectcourse/{{$course->id}}'>Reject Course</a>   
+              </div>
+              </div>
 
       </div>
       <div class="panel-body">
@@ -61,32 +67,30 @@
                              @foreach ($coursearr as $index1)
                              @if($index1->tid==$index->tid)
                                 @if($index1 -> review_status == 'Reviewing')
-                              <tr name="{{$index -> tid}}" class="danger" >
+                                  <tr name="{{$index -> tid}}" class="danger" >
                                   
-                                  <td></td>
-                                  
-                                  
-                                  
-                                  
-                                     <td><a  href='/admin/mycourse/{{$index1->course_id}}/{{$index1->tid}}/{{ $index1 -> sub_tid }}'>{{ $index1 -> name }}</a></td>
+                                    <td></td>
+                                    <td><a  href='/admin/contentreview/{{$index1 -> content_id}}'>{{ $index1 -> name }}</a></td>
+                                    <td>{{ $index1 -> description}}</td>
+                                    <td><a class="label label-primary"  href='/admin/contentreview/{{$index1 -> content_id}}'>Review this content</a></td>
+                                    </tr>
+                                 @elseif($index1 -> review_status == 'Correct')
+                                      <tr name="{{$index -> tid}}">
+                                          <td></td>
+                                          <td><a  href='/admin/viewcontent/{{$index1 -> content_id}}'>
+                                         {{ $index1 -> name }}</a></td>
+                                          <td>{{ $index1 -> description}}</td>
+                                          <td > <span class="label label-success">Corrected</span></td>
+                                    </tr>
+                                    @else
+                                    <tr name="{{$index -> tid}}">
+                                      <td></td>
+                                      <td>{{ $index1 -> name }}</td>
                                       <td>{{ $index1 -> description}}</td>
-
-                                   <!--course chnging-->
-                                   
-                                      
-
-                                      
-                                               <!--  <td><a class='btn btn-primary' href='/admin/mycourse/editmaking/{{$index1->course_id}}/{{$index1->tid}}/{{ $index1 -> sub_tid }}' disabled>Edit Content</a></td> --> 
-                                                <td><a class='btn btn-primary'  href='/admin/contentreview/{{$index1 -> content_id}}'>Review this content</a></td>
-                                         @else
-                                            <tr name="{{$index -> tid}}">
-                                              <td></td>
-                                              <td>{{ $index1 -> name }}</td>
-                                              <td>{{ $index1 -> description}}</td>
-                                              <td></td>
-                                            </tr>
-                                         @endif
-
+                                      <td></td>
+                                    </tr>
+                                 @endif
+                                 
                                  
                               </tr>
                               @endif
@@ -94,6 +98,7 @@
                            
                         
                         </div>
+
                         </tr>    
                         @endforeach
                       @else
@@ -101,6 +106,21 @@
                       @endif
                       </tbody>
                     </table>
+                    <form method="POST" action="/admin/commentstr">
+                     {{ csrf_field() }}
+                       <div class="form-group">
+                      <label>Feedback to Course Owner <i style="color:red;">  </i></label>
+                      <textarea name="feedback" id="feedback" class="form-control"  > </textarea>
+                         <input type="hidden" name="id" value= "{{$course->id}}" class="form-control">
+                      
+                    </div>
+                    <div class="form-group">
+                        
+
+                        <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                      
+                    </div>
+                    </form>
                 </div>
             </div>
           

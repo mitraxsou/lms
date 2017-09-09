@@ -95,7 +95,10 @@ class MyCourseController extends Controller
 
           $updte = DB::table('course_structure')->where([
                  ['course_id', '=', request('cid')]
-         ])->update(['review_status' => 'Reviewing','tempstructure'=> request('summernote')]);
+         ])->update(['review_status' => 'Reviewing',
+                    'tempstructure'=> request('summernote'),
+                    'demo_content'=>request('summernote1') 
+                    ]);
           alert()->success('Sent for Reviewing!');
           $status=true;
           return redirect('/admin/mycourse/'.request('cid'))->with(compact('status'));;
