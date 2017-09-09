@@ -33,7 +33,7 @@ class ContentController extends Controller
         $course1 = DB::table('subtopics')->where([
                  ['content_id', '=', $id]
          ])->first();
-         //dd($course1->name);
+         
          $course=  DB::table('content')->where([
                  ['content_id', '=', $id],
          ])->first();
