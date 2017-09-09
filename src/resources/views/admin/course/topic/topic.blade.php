@@ -14,13 +14,12 @@
       @if($index->review_status!='Okay')
       <div class="row">
         <div class="col-md-8">
-         <form method="POST" action="/admin/reviewstructure" enctype="multipart/form-data">
           <div class="panel panel-success">
                 <div class="panel-heading">
-                    <h3>{{ $course ->name }}</h3>
+                    <h3>Add the course structure for <i>{{ $course ->name }}</i></h3>
                     <p>{{$course->description}}</p>
                 </div>
-               
+                <form method="POST" action="/admin/reviewstructure" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="panel-body">
                 @if($index->feedback!=null)
@@ -31,38 +30,18 @@
                 </div>
                 @endif
                 <div class="form-group"  >
-
-                        <label>Add the course structure for <i>{{ $course ->name }}</i></label>
-
                         <textarea id="summernote" name="summernote">{!!$index->tempstructure!!}</textarea>
                        <input type="hidden" name="cid" value="{{$course->id}}">
                  </div>
-                
-               
-               
-             
-                    
-               
-                
-                <div class="form-group"  >
-                <label>Add the course template for <i>{{ $course ->name }} </i> : </label>
-                        <textarea id="summernote1" name="summernote1">{!!$index->demo_content!!}</textarea>
-                       
-                 </div>
-                 @if($index->review_status!='Reviewing')
-                 <div class="form-group">
+                </div>
+                <div class="form-group">
                         <div class="col-md-offset-4 ">                        
 
                         <button type="submit" class="btn btn-primary">Review Structure</button>
                       </div>
                 </div>
-                @endif
-                </div>
-                </div>
-                
-                
-             
-              </form>
+                </form>
+              </div>
           </div>
           <div class="col-md-4">
                 
@@ -81,7 +60,7 @@
       </div>
     @else
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-8 col-md-offset-2">
        <div class="panel panel-success">
               <div class="panel-heading">
                         Final Structure
@@ -93,26 +72,6 @@
               </div>
         </div>
       </div>
-      
-      <div class="col-md-4">
-       <div class="panel panel-success">
-              <div class="panel-heading">
-                  Comments
-                        
-
-              </div>
-              <div class="panel-body">
-              @if($index->feedback!=null)
-              
-             <textarea class="form-control" readonly=""> {{$index->feedback}}</textarea>
-              
-              @else
-                <label>No comments yet</label>
-              @endif
-              </div>
-        </div>
-      </div>
-
     </div>
     @endif
 

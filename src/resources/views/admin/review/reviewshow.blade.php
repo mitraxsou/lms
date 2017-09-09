@@ -38,7 +38,7 @@
                             <td>{{ $course -> tid}}</td>
                             <td>{{ $course -> name }}</td>
                             <td>{{ $course -> description }}</td>
-                             <td><a class='btn btn-primary' href='/admin/review/{{ $course -> course_id}}/{{ $course -> tid}}/{{ $course -> sub_tid}}/{{ $course -> content_id }}'>View Flow</a></td>
+                             <td><a class='btn btn-primary' href='/admin/review/{{ $course -> sub_tid}}/{{ $course -> content_id }}'>View Flow</a></td>
                         </tr>    
                         @endforeach
                       @else

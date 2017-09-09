@@ -28,18 +28,6 @@ class ContentController extends Controller
 
          return view('admin.course.content.changecontenttype',compact('course','course1'));
     }
-    public function viewcontent($id)
-    {
-        $course1 = DB::table('subtopics')->where([
-                 ['content_id', '=', $id]
-         ])->first();
-         //dd($course1->name);
-         $course=  DB::table('content')->where([
-                 ['content_id', '=', $id],
-         ])->first();
-
-         return view('admin.review.viewcontent',compact('course','course1'));
-    }
 
     public function deleteContent($contid)
     {

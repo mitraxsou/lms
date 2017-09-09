@@ -19,9 +19,10 @@
                   <table class="table table-striped" data-effect="fade">
                     <thead>
                       <tr>
-                          <th>Name</th>
-                          <th>Content </th>
-                          
+                          <th>ID</th>
+                          <th>Name </th>
+                          <th>Description</th>
+                          <th>Structure</th>
                        
                         
                       </tr>
@@ -29,11 +30,13 @@
                     <tbody>
                      
                         @foreach ($courses as $course1)
-                           <tr> <td>Name</td> <td>{{ $course1 -> name }}</td></tr>
-                          <tr> <td>Description</td> <td>{{ $course1 -> description }}</td></tr>
-                          <tr> <td>Structure</td>  <td>{!! $course1 -> tempstructure !!}</td></tr>
-                          <tr> <td>Demo</td> <td>{!! $course1 -> demo_content !!}</td></tr>
-                          <tr>  <td><a class="btn btn-success" href="/admin/structuresuccess/{{$course1->id}}">Good to Go!</a></td>
+                        <tr>
+
+                            
+                            <td>{{ $course1 -> name }}</td>
+                            <td>{{ $course1 -> description }}</td>
+                            <td>{!! $course1 -> tempstructure !!}</td>
+                            <td><a class="btn btn-success" href="/admin/structuresuccess/{{$course1->id}}">Good to Go!</a></td>
                             <td>
                               <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">Edit Required</button>
                               
