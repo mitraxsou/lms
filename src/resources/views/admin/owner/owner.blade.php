@@ -25,7 +25,6 @@
                  				<th>Email</th>
                         <th>Roles</th>
                  				<th></th>
-                        <th>Delete</th>
                 			</tr>
               			</thead>
               			<tbody>
@@ -43,7 +42,6 @@
                             @endif
                           </td>
                   				<td><a class='btn btn-primary' href='owners/{{ $admin -> id }}'>View</a></td>
-                          <td><a class='btn btn-danger' href=''>Delete</a></td>
                 			</tr>    
                     	@endforeach
                     	</tbody>

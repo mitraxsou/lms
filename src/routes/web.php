@@ -82,6 +82,10 @@ Route::group(['middleware' => 'adminauth'], function()
 		
 		Route::get('/admin/createowner','Admin\OwnerController@create');
 		Route::post('/admin/createowner','Admin\OwnerController@store');
+
+		/****Multi step form*******/
+		Route::get('/admin/createowner/multi','Admin\OwnerController@createmulti');
+		Route::post('/admin/createowner/multi','Admin\OwnerController@storemulti');
 	
 
 		//create roles and provide permissions to each role

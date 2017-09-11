@@ -18,6 +18,7 @@
   <!-- <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> -->
     <link href="/css/multipicker.min.css" rel="stylesheet">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <link href="/css/animate.css" rel="stylesheet">
 
   <link href="/css/summernote.css" rel="stylesheet">
   
@@ -103,6 +104,9 @@
         </nav>
 
         @yield('content')
+        <script type="text/javascript">
+        @yield('scripts1')
+    </script>
         <script type="text/javascript">
         @yield('scripts2')
     </script>

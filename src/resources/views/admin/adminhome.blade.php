@@ -15,6 +15,7 @@
 
             </div>
             <div class = "row">
+            @if(Auth::guard('admin')->user()->hasRole('super'))
                 <div class="col-sm-6">
                     <div class="panel panel-success">
                     <div class="panel-heading">Owners</div>
@@ -22,7 +23,8 @@
                             <ul>
                                 <li><a href="/admin/owners">Show all Owners</a></li>
                                 @if(Auth::guard('admin')->user()->hasRole('super'))
-                                <li><a href="/admin/createowner">Create Owners</a></li>
+                                <!-- <li><a href="/admin/createowner">Create Owners 1</a></li> -->
+                                <li><a href="/admin/createowner/multi">Create Owners (new)</a></li>
                                 
                                 <li><a href="/admin/roles">Manage Roles</a></li>
                                 @endif
@@ -30,6 +32,7 @@
                         </div>    
                     </div>
                 </div>
+            @endif
                 
                 <!-- <div class="col-sm-4">
                     <div class="panel panel-success">

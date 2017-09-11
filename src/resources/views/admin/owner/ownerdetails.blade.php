@@ -17,7 +17,9 @@
             </div>
         @endif
             <div class="panel panel-success">
-                <div class="panel-heading">Owner Details</div>
+                <div class="panel-heading">Owner Details
+                <div style="float: right;"><a class="btn-sm btn-danger" href="">Delete</a></div>
+                </div>
 
                 <div class="panel-body">
                     @if(Auth::guard('admin')->user()->hasRole('super'))

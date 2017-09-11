@@ -37,14 +37,13 @@
                             <label class="label label-warning">No roles assigned</label>
                         @endif
                         </div>
-                        <div>
+                        <div class="form-group">
                             <label>Select Role</label><br/>
-                            <ul>
-                        @foreach($roles as $role)
-                            <li>{{$role->display_name}}
-                            <input type="checkbox" name="roles[]" value="{{$role->id}}" alt="{{$role->name}}" title="{{$role->name}}"></li>
-                        @endforeach
-                            </ul>
+                            <select name="role" class="form-control">
+                            @foreach($roles as $role)
+                                <option value="{{$role->id}}" class="form-control">{{$role->display_name}}</option>
+                            @endforeach
+                            </select>
                 		</div>
                         <div class="form-group">
                 			<div class="col-md-offset-4 ">
