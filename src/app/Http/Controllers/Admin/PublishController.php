@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use DB;
 use App;
 use App\Mail\PublishMail;
+use App\Mail\UnpublishMail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -47,7 +48,7 @@ class PublishController extends Controller
 
            \Mail::to($user)->send(new PublishMail($mailbody));
            alert()->success('Successfully sent for publishing!')->persistent("Close this");
-           return redirect('/admin/mycourse');
+            return redirect()->back()->with('alert', 'Your course is published Successfully!');
        }
        elseif($temp1==0 && $temp==0){
        
@@ -139,7 +140,7 @@ class PublishController extends Controller
                      ['id' ,'=', $id]
              ])->first();
          $user = DB::table('admins')->join('admin_course','id','=','admin_course.admin_id')->select('admins.id','admins.first_name','admins.email')->where('admin_course.course_id', $id)->first();
-         \Mail::to($user)->send(new UnPublishMail($mailbody));
+         \Mail::to($user)->send(new UnpublishMail($mailbody));
          alert()->info('Course Unpublihed');
         return redirect('/admin/course');
     }

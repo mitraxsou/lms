@@ -65,7 +65,7 @@ class SubTopicController extends Controller
         
 
         $this->validate(request(),[
-            'stid' => 'required',
+            
             'tid'=> 'required',
             'cid'=> 'required',
             'name' => 'required',
@@ -110,14 +110,16 @@ class SubTopicController extends Controller
             ]);
         }
                 
-
+         $nextId = DB::table('subtopics')->where([['course_id',request('cid')],
+            ['tid',request('tid')]
+            ])->max('sub_tid')+1;
         $current = abs( crc32( uniqid() ) ); //1551585806
 
         
          DB::table('subtopics')->insert([
             'tid'=>request('tid'),
             'course_id'=>request('cid'),
-            'sub_tid'=>request('stid'),
+            'sub_tid'=>$nextId,
             'name'=>request('name'),
             'description'=>request('description'),
             //'stfilename'=>request('description'),

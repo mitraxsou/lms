@@ -13,10 +13,10 @@
      
      
     <div class="row">
-      <div class="col-md-8 col-md-offset-2">
+      <div class="col-md-8 ">
        <div class="panel panel-success">
               <div class="panel-heading">
-                        {{$course->name}}
+                       <label> {{$course->name}} </label>
                         
 
               </div>
@@ -24,6 +24,32 @@
              {!!$course->fixedstructure!!}
               </div>
         </div>
+      </div>
+      <div  class="col-md-4">
+       <div class="panel panel-success">
+       <div class="panel-heading">
+                        Any Suggestion about the Course?
+                        
+
+              </div>
+              <div class="panel-body">
+                <form method="POST" action="/admin/commentstr">
+                     {{ csrf_field() }}
+                       <div class="form-group">
+                      
+                      <textarea name="feedback" id="feedback" class="form-control"  > </textarea>
+                         <input type="hidden" name="id" value= "{{$course->id}}" class="form-control">
+                      
+                    </div>
+                    <div class="form-group">
+                        
+
+                        <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                      
+                    </div>
+                </form>
+            </div>
+          </div>
       </div>
     </div>
     
@@ -106,21 +132,7 @@
                       @endif
                       </tbody>
                     </table>
-                    <form method="POST" action="/admin/commentstr">
-                     {{ csrf_field() }}
-                       <div class="form-group">
-                      <label>Feedback to Course Owner <i style="color:red;">  </i></label>
-                      <textarea name="feedback" id="feedback" class="form-control"  > </textarea>
-                         <input type="hidden" name="id" value= "{{$course->id}}" class="form-control">
-                      
-                    </div>
-                    <div class="form-group">
-                        
-
-                        <button type="submit" class="btn btn-primary pull-right">Submit</button>
-                      
-                    </div>
-                    </form>
+                    
                 </div>
             </div>
           

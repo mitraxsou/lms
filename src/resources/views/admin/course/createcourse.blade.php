@@ -11,12 +11,9 @@
                 <div class="panel-heading">Create Course</div>
 
                 <div class="panel-body">
-                	<form method="POST" action="/admin/createcourse" enctype="multipart/form-data">
+                	<form method="POST" action="/admin/createcourse" >
                 	{{ csrf_field() }}
-                		<div class="form-group">
-                			<label>Course ID</label>
-                			<input type="number" name="id" class="form-control">
-                		</div>
+                		
                 		<div class="form-group">
                 			<label>Course Name</label>
                 			<input type="text" name="name" id="name" class="form-control">
@@ -25,15 +22,13 @@
                 			<label>Description</label>
                 			<input type="textarea" name="description" id="description" class="form-control">
                 		</div>
-                        <div class="form-group">
-                            <label>Course Image</label>
-                            <input type="file" name="cfile" class="form-control">
-                        </div>
+                       
                 		<div class="form-group">
-                			<div class="col-md-offset-4 ">
-                				<button type="submit" class="btn btn-primary">Submit
-                				</button>
-                			</div>
+                			 <button type="submit" class="btn btn-primary pull-right">Submit
+                                </button>
+                                <button type="reset" class="btn btn-warning pull-left">Reset
+                                </button>
+                            
                 		</div>
                         @if(count($errors))
                             <div class="alert alert-danger">
