@@ -93,6 +93,15 @@ Route::group(['middleware' => 'adminauth'], function()
 		Route::patch('/admin/roles/{role}','Admin\RoleController@update');
 	});
 
+	//assign and detach categories to the owners
+	Route::get('/admin/owners/assigncategory/{oid}','Admin\AssignCategory@create');
+	Route::post('/admin/owners/assigncategory','Admin\AssignCategory@store');
+	Route::get('/admin/owners/assigncategory/edit/{oid}','Admin\AssignCategory@edit');
+
+	/**Not using update due to problems faced in attaching and detaching categories at the same time***/
+	//Route::patch('/admin/owners/assigncategory/edit/{oid}','Admin\AssignCategory@update');
+	Route::get('/admin/owners/category/delete/{oid}/{catid}','Admin\AssignCategory@destroy');
+	Route::get('/admin/owners/category/add/{oid}/{catid}','Admin\AssignCategory@add');
 
 
 	Route::get('/admin/student', 'Admin\StudentController@index');

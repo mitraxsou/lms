@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Category;
 
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -16,7 +18,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::all()->where('parent_id','=',0);
         return view('admin.category.category',compact('categories'));
     }
 
@@ -43,7 +45,6 @@ class CategoryController extends Controller
             'id'=>'required|unique:categories',
             'name'=>'required|unique:categories',
             'desc'=>'required',
-
         ]);
         $cat = new Category;
         $cat->id=request('id');

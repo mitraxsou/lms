@@ -7,6 +7,11 @@
         <p><a href='/adminhome'>&larr; back to Home</a></p>
       </article>
         <div class="col-md-8 col-md-offset-2">
+        @if (session('message'))
+          <div class="alert alert-warning">
+            {{ session('message') }}
+          </div>
+        @endif
             <div class="panel panel-success">
                 <div class="panel-heading">Owners List</div>
 
