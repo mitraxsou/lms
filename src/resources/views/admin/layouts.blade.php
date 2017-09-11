@@ -60,6 +60,7 @@
                     <a class="navbar-brand" href="{{ url('/adminhome') }}">
                          Admin IandWe
                     </a>
+                    
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -79,6 +80,13 @@
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                @if(Auth::guard('admin')->user()->hasRole('super'))
+                               <label> Super Admin : </label>
+                                @elseif(Auth::guard('admin')->user()->hasRole('course admin'))
+                               <label> Course Admin : </label>
+                                @elseif(Auth::guard('admin')->user()->hasRole('review admin'))
+                                <label>  Review Admin : </label>
+                                @endif
                                     {{ Auth::guard('admin')->user()->first_name }} <span class="caret"></span>
                                 </a>
 

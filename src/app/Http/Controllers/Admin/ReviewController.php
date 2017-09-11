@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use DB;
 use App\Notifications\ReviewContent;
 use App;
-
+use Carbon\Carbon;
 
 class ReviewController extends Controller
 {
@@ -185,7 +185,7 @@ class ReviewController extends Controller
         $course=DB::table('course_structure')
             ->where('review_status','=','Reviewing')
             ->get();
-        $courses = DB::table('courses')->join('course_structure','courses.id','=','course_structure.course_id')->select('courses.id','courses.name','courses.description','courses.cfilename','course_structure.demo_content','course_structure.tempstructure')->where('course_structure.review_status', 'Reviewing')->get();
+        $courses = DB::table('courses')->join('course_structure','courses.id','=','course_structure.course_id')->select('courses.id','courses.name','courses.description','course_structure.demo_content','course_structure.tempstructure')->where('course_structure.review_status', 'Reviewing')->get();
            
         /*$courses=DB::table('courses')
             ->whereIn('id',$course->course_id)
@@ -197,9 +197,15 @@ class ReviewController extends Controller
     public function comment(Request $request)
     {
 
+        
+
           $updte = DB::table('course_structure')->where([
                     ['course_id', '=', request('id')]
-         ])->update(['feedback' => request('feedback'),'review_status'=>'Edit Required']);
+         ])->update(['review_status'=>'Edit Required']);
+        $id= DB::table('course_structure')->where([
+                    ['course_id', '=', request('id')]
+         ])->first();
+        DB::table('feedback')->insert(['fid' =>$id->feedback,'comment'=>request('feedback'),'commenter'=>'me','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
         alert()->success('Feedback Sent Successfully');
           return redirect('/admin/reviewstr');
     }

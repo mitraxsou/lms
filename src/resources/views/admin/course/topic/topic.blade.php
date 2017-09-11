@@ -23,11 +23,13 @@
                
                 {{ csrf_field() }}
                 <div class="panel-body">
-                @if($index->feedback!=null)
-                <div class="form-group"  >
-                    <label>Feedback</label>         
-                    <textarea class="form-control" readonly="">{{$index->feedback}}</textarea>
-                 
+                @if(count($feedback)>0)
+                <label>Feedback</label> <br> 
+                <div class="form-group well well-sm"   >
+                    
+                          @foreach ($feedback as $feed)
+                          <span><label>{{$feed->commenter}} : </label> {{$feed->comment}}</span><br>
+                          @endforeach
                 </div>
                 @endif
                 <div class="form-group"  >

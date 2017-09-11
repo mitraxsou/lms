@@ -22,7 +22,10 @@ class CourseController extends Controller
 
     public function index()
     {
-    	$courses= Course::all();
+    	$courses=DB::table('courses')->join('publish_course','courses.id','=','publish_course.course_id')->select(
+            'publish_course.publish_status','courses.id','courses.name','courses.description')
+            ->where('publish_course.publish_status','=', 'Published')->get();
+
         $index=DB::table('courses')->join('publish_course','courses.id','=','publish_course.course_id')->select(
             'publish_course.publish_status','courses.id','courses.name','courses.description')
             ->where('publish_course.publish_status','=', 'Published')->get();
@@ -75,26 +78,22 @@ class CourseController extends Controller
         return view('admin.course.createcourse');
     }
 
-    public function store(FileRequest $request)
+    public function store(Request $request)
     {
         $course = new Course;
 
-        $course->id=request('id');
+        
         $course->name=request('name');
         $course->description=request('description');
-        //$course->cfilename=request('cfile');
+      
         $var=Auth::guard('admin')->user()->id;
 
-        $imageName = $course->name.'.'. $request->file('cfile')->getClientOriginalExtension();
-
-        $path=$request->file('cfile')->move(base_path().'/public/images/catalog',$imageName);
-        $course->cfilename='/images/catalog/'.$imageName;
         $course->save();
-       // dd($course->save);
-        //add a validato here
-        DB::table('admin_course')->insert(['course_id' =>request('id'),'admin_id'=>$var,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
-
-        DB::table('course_structure')->insert(['course_id' =>request('id'),'fixedstructure'=>null,'tempstructure'=>null]);
+       
+        $nextId = DB::table('courses')->max('id');
+        DB::table('admin_course')->insert(['course_id' =>$nextId,'admin_id'=>$var,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
+        $current = abs( crc32( uniqid() ) ); 
+        DB::table('course_structure')->insert(['course_id' =>$nextId,'fixedstructure'=>null,'tempstructure'=>null,'feedback'=>$current]);
         return redirect('/admin/mycourse')->with('message','Course Added !');
     }
 

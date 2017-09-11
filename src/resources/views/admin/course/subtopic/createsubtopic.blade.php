@@ -31,10 +31,7 @@
                     <div class="panel-body">
                     	<form method="POST" id="videoUpload" action="/admin/{{$topic->course_id}}/{{$topic->tid}}/createsubtopic" enctype="multipart/form-data">
                     	{{ csrf_field() }}
-                    		<div class="form-group">
-                    			<label>Sub Topic ID <i style="color:red;"> *  </i></label>
-                    			<input type="number" name="stid" class="form-control">
-                    		</div>
+                    		
                            <div class="form-group">
                                 <label>Topic ID </label>
                                 <input type="number" name="tid" value= "{{$topic->tid}}" class="form-control" readonly>
@@ -83,9 +80,11 @@
 
                             
                     		<div class="form-group">
+                                <button type="submit" class="btn btn-primary pull-right">Submit
+                                </button>
+                                <button type="reset" class="btn btn-warning pull-left">Reset
+                                </button>
                             
-
-                    				<button type="submit" class="btn btn-primary pull-right">Submit</button>
                     			
                     		</div>
                             @if(count($errors))

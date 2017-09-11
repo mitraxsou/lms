@@ -51,7 +51,7 @@
                                           {{ csrf_field() }}
                                             <div class="form-group">
                                               <label>Course ID</label>
-                                              <input type="number" name="id" class="form-control" value="{{ $course1 -> id}}">
+                                              <input type="number" name="id" class="form-control" value="{{ $course1 -> id}}" readonly="">
                                             </div>
                                             <div class="form-group">
                                               <label> Feedback</label>

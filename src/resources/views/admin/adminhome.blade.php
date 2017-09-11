@@ -65,11 +65,12 @@
                                     ">{{$countera->lessonPublish()}}</span>
                                  @endif
                                 </a></li>
+                                <li><a href="/admin/course">Show all Courses</a></li>
                             @endif
                                 @if(Auth::guard('admin')->user()->hasRole('course admin'))
                                 <li><a href="/admin/createcourse">Create Course</a></li>
                                 @endif
-                                <li><a href="/admin/course">Show all Courses</a></li>
+                                
                                 <li><a href="/admin/mycourse">My Courses</a></li>
                                 <li><a href="/admin/categories">Categories</a></li>
                                   @if(Auth::guard('admin')->user()->hasRole('review admin'))

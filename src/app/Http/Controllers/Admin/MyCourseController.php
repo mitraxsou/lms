@@ -19,7 +19,7 @@ class MyCourseController extends Controller
         $j=0;$i=0;
     	$auth=Auth::guard('admin')->user()->id;
        //  Alert::message('Robots are working!');
-    	$coursesarr = DB::table('courses')->join('admin_course','id','=','admin_course.course_id')->select('courses.id','courses.name','courses.description','courses.cfilename')->where('admin_id', $auth)->orderBy('id')->get();
+    	$coursesarr = DB::table('courses')->join('admin_course','id','=','admin_course.course_id')->select('courses.id','courses.name','courses.description')->where('admin_id', $auth)->orderBy('id')->get();
         $courses1=DB::table('courses')->pluck('id');
 
          $publish=DB::table('publish_course')->join('courses','course_id','=','courses.id')
@@ -85,7 +85,9 @@ class MyCourseController extends Controller
                 }
         }
         else{
-             return view('admin.course.topic.topic' , compact('course','index'));
+            
+            $feedback = DB::table('feedback')->where('fid', $index->feedback)->get();
+             return view('admin.course.topic.topic' , compact('course','index','feedback'));
         }
     
     }
