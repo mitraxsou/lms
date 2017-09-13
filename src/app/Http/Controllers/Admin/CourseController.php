@@ -85,9 +85,9 @@ class CourseController extends Controller
         
         $course->name=request('name');
         $course->description=request('description');
-      
+        $current1 = abs( crc32( uniqid() ) );
         $var=Auth::guard('admin')->user()->id;
-
+        $course->feedback=$current1;
         $course->save();
        
         $nextId = DB::table('courses')->max('id');

@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Mail\RejectMail;
 use App\Http\Controllers\Controller;
 use DB;
+use Auth;
+use App\Course;
+use App\Admin;
 use App\Notifications\ReviewContent;
 use App;
 use Carbon\Carbon;
@@ -93,13 +96,13 @@ class ReviewController extends Controller
          $coursearr=DB::table('subtopics')->where(
             'course_id',$subtopic->course_id
          )->get();
-         $course= $courses = DB::table('courses')->join('course_structure','courses.id','=','course_structure.course_id')->select('courses.id','courses.name','courses.description','course_structure.fixedstructure','course_structure.tempstructure','course_structure.demo_content')
+         $course= $courses = DB::table('courses')->join('course_structure','courses.id','=','course_structure.course_id')->select('courses.id','courses.feedback','courses.name','courses.description','course_structure.fixedstructure','course_structure.tempstructure','course_structure.demo_content')
          ->where(
             'course_structure.course_id',$subtopic->course_id
          )->first();
-
+         $feedback = DB::table('feedback')->where('fid', $course->feedback)->get();
         //dd($course1);-
-       return view('admin.review.contenthierarchy', compact('course1','subtopic','topic','coursearr','course'));
+       return view('admin.review.contenthierarchy', compact('course1','subtopic','topic','coursearr','course','feedback'));
     }
     public function content($id1)
     {
@@ -185,17 +188,36 @@ class ReviewController extends Controller
         $course=DB::table('course_structure')
             ->where('review_status','=','Reviewing')
             ->get();
-        $courses = DB::table('courses')->join('course_structure','courses.id','=','course_structure.course_id')->select('courses.id','courses.name','courses.description','course_structure.demo_content','course_structure.tempstructure')->where('course_structure.review_status', 'Reviewing')->get();
+        $courses = DB::table('courses')->join('course_structure','courses.id','=','course_structure.course_id')->select('courses.id','courses.name','courses.description','course_structure.demo_content','course_structure.tempstructure','course_structure.review_status')->where('course_structure.review_status','!=' ,'Not Reviewed')->get();
            
         /*$courses=DB::table('courses')
             ->whereIn('id',$course->course_id)
             ->get();*/
          //dd($courses);
-         return view('admin.review.structureshow', compact('course','courses'));
+         $status=true;
+            
+         return view('admin.review.reviewshow', compact('course','courses','status'));
+          
+    }
+    public function detailreviewstructure($id)
+    {
+        $course=DB::table('course_structure')
+            ->where('course_id','=',$id)
+            ->first();
+        $feedback = DB::table('feedback')->where('fid', $course->feedback)->get();
+        $courses = DB::table('courses')->join('course_structure','courses.id','=','course_structure.course_id')->select('courses.id','courses.name','courses.description','course_structure.demo_content','course_structure.tempstructure','course_structure.review_status')->where('course_structure.course_id', $id)->get();
+           
+        
+            
+         return view('admin.review.structureshow', compact('course','courses','feedback'));
           
     }
     public function comment(Request $request)
     {
+          $var=Auth::guard('admin')->user()->id;
+          
+          $course = Admin::find($var);
+          $name=$course->first_name.' '.$course->last_name;
 
         
 
@@ -205,18 +227,30 @@ class ReviewController extends Controller
         $id= DB::table('course_structure')->where([
                     ['course_id', '=', request('id')]
          ])->first();
-        DB::table('feedback')->insert(['fid' =>$id->feedback,'comment'=>request('feedback'),'commenter'=>'me','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
+        DB::table('feedback')->insert(['fid' =>$id->feedback,'comment'=>request('feedback'),'commenter'=>$name,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
         alert()->success('Feedback Sent Successfully');
           return redirect('/admin/reviewstr');
     }
        public function commentstr(Request $request)
     {
 
-          $updte = DB::table('course_structure')->where([
+         /* $updte = DB::table('course_structure')->where([
                     ['course_id', '=', request('id')]
-         ])->update(['feedback' => request('feedback')]);
-        alert()->success('Feedback Sent Successfully');
-          return redirect('/admin/reviewcourse');
+         ])->update(['feedback' => request('feedback')]);*/
+          /*$id= DB::table('course')->where([
+                    ['id', '=', request('id')]
+         ])->first();
+        DB::table('feedback')->insert(['fid' =>$id->feedback,'comment'=>request('feedback'),'commenter'=>$name,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);*/
+
+          $var=Auth::guard('admin')->user()->id;
+          
+          $course = Admin::find($var);
+          $name=$course->first_name.' '.$course->last_name;
+
+           DB::table('feedback')->insert(['fid' =>request('fid'),'comment'=>request('comment'),'commenter'=>$name,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
+          alert()->success('Comment sent !');
+      
+          return redirect('/admin/review/'.request('cid').'/'.request('tid').'/'.request('sid').'/'.request('contentid'));
     }
 
     public function structuresuccess($id)

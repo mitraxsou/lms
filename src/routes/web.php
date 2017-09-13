@@ -166,6 +166,7 @@ Route::group(['middleware' => 'adminauth'], function()
 	Route::get('/admin/mycourse/{course}/{topic}' , 'Admin\MyCourseController@showSubTopic');
 	Route::get('/admin/mycourse/{course}/{topic}/{subtid}','Admin\MyCourseController@contentshow');
 	Route::post('/admin/reviewstructure','Admin\MyCourseController@reviewstructure');
+	Route::post('/admin/feedback/{id}','Admin\MyCourseController@feedback');
 
 
 	/**Video part**/
@@ -191,6 +192,7 @@ Route::group(['middleware' => 'adminauth'], function()
 	Route::post('/admin/reviewcomment', 'Admin\ReviewController@comment');
 	Route::post('/admin/commentstr', 'Admin\ReviewController@commentstr');
 	Route::get('/admin/rejectcourse/{id}','Admin\ReviewController@rejectcourse');
+	Route::get('/admin/detailreviewstructure/{id}','Admin\ReviewController@detailreviewstructure');
 	Route::get('/admin/structuresuccess/{id}','Admin\ReviewController@structuresuccess');
 	/***************/
 	Route::get('/dummy', 'Admin\CategoryController@dummy');

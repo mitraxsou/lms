@@ -33,12 +33,22 @@
 
               </div>
               <div class="panel-body">
+              <div class="form-group "   >
+                    
+                          @foreach ($feedback as $feed)
+                          <span><label>{{$feed->commenter}} : </label> {{$feed->comment}}</span><br>
+                          @endforeach
+                </div>
                 <form method="POST" action="/admin/commentstr">
                      {{ csrf_field() }}
                        <div class="form-group">
                       
-                      <textarea name="feedback" id="feedback" class="form-control"  > </textarea>
-                         <input type="hidden" name="id" value= "{{$course->id}}" class="form-control">
+                      <textarea name="comment" id="comment" class="form-control"  > </textarea>
+                         <input type="hidden" name="fid" value= "{{$course->feedback}}" class="form-control">
+                         <input type="hidden" name="sid" value= "{{$subtopic->sub_tid}}" class="form-control">
+                        <input type="hidden" name="cid" value= "{{$subtopic->course_id}}" class="form-control">
+                          <input type="hidden" name="tid" value= "{{$subtopic->tid}}" class="form-control">
+                            <input type="hidden" name="contentid" value= "{{$subtopic->content_id}}" class="form-control">
                       
                     </div>
                     <div class="form-group">

@@ -9,6 +9,7 @@ use DateTime;
 use Illuminate\Support\Facades\DB;
 use Auth;
 use App\Course;
+use App\Admin;
 use Carbon\Carbon;
 
 class MyCourseController extends Controller
@@ -76,7 +77,8 @@ class MyCourseController extends Controller
                         $indexes = DB::table('topic')->where('course_id', $id)->orderBy('tid')->get();
                         $indexes_sub = DB::table('subtopics')->where([['course_id', $id]
                                                                     ])->get();
-            	       return view('admin.course.topic.topic' , compact('course','indexes','indexes_sub','index'));
+                        $feedback = DB::table('feedback')->where('fid', $course->feedback)->get();
+            	       return view('admin.course.topic.topic' , compact('course','indexes','indexes_sub','index','feedback'));
                     }
                     else
                     {
@@ -104,6 +106,18 @@ class MyCourseController extends Controller
           alert()->success('Sent for Reviewing!');
           $status=true;
           return redirect('/admin/mycourse/'.request('cid'))->with(compact('status'));;
+    }
+    public function feedback(Request $request)
+    {
+
+          $var=Auth::guard('admin')->user()->id;
+          
+          $course = Admin::find($var);
+          $name=$course->first_name.' '.$course->last_name;
+
+           DB::table('feedback')->insert(['fid' =>request('fid'),'comment'=>request('comment'),'commenter'=>$name,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
+          alert()->success('Comment sent !');
+          return redirect('/admin/mycourse/'.request('cid'));
     }
 
     public function showSubTopic($cid,$tid)

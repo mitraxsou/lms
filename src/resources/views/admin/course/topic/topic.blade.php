@@ -14,24 +14,54 @@
       @if($index->review_status!='Okay')
       <div class="row">
         <div class="col-md-8">
-         <form method="POST" action="/admin/reviewstructure" enctype="multipart/form-data">
-          <div class="panel panel-success">
+         <div class="panel panel-success">
                 <div class="panel-heading">
                     <h3>{{ $course ->name }}</h3>
                     <p>{{$course->description}}</p>
                 </div>
-               
-                {{ csrf_field() }}
                 <div class="panel-body">
-                @if(count($feedback)>0)
+        <div>
+          
+
+             @if(count($feedback)>0)
+                <div class="well well-sm">
                 <label>Feedback</label> <br> 
-                <div class="form-group well well-sm"   >
+                <div class="form-group "   >
                     
                           @foreach ($feedback as $feed)
                           <span><label>{{$feed->commenter}} : </label> {{$feed->comment}}</span><br>
                           @endforeach
                 </div>
+                <div class="form-group "   >
+                    <form method="POST"  action="/admin/feedback/{{$index->feedback}}" >
+                      {{ csrf_field() }}
+                         <label>Your Comment : </label>
+                         <span>
+                           <input type="hidden" name="fid" value="{{$index->feedback}}">
+                           <input type="hidden" name="cid" value="{{$index->course_id}}">
+                           <input type="textarea" name="comment" id="comment" class="form-control">
+                          <br/>
+                           <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                          </span> 
+                         <!-- <div class="form-group">
+                                <button type="reset" class="btn btn-warning pull-left">Reset
+                                </button>
+                            
+                          
+                        </div> -->
+                    </form>
+                </div>
+                </div>
                 @endif
+                
+
+        </div>
+         
+         
+                
+               
+               <form method="POST" action="/admin/reviewstructure" enctype="multipart/form-data">
+               {{ csrf_field() }}
                 <div class="form-group"  >
 
                         <label>Add the course structure for <i>{{ $course ->name }}</i></label>
@@ -59,12 +89,13 @@
                       </div>
                 </div>
                 @endif
-                </div>
-                </div>
+                </form>
+              </div>
+          </div>
                 
                 
              
-              </form>
+             
           </div>
           <div class="col-md-4">
                 
@@ -103,15 +134,34 @@
                         
 
               </div>
-              <div class="panel-body">
-              @if($index->feedback!=null)
-              
-             <textarea class="form-control" readonly=""> {{$index->feedback}}</textarea>
-              
-              @else
-                <label>No comments yet</label>
-              @endif
-              </div>
+              <div class="well well-sm">
+                
+                <div class="form-group "   >
+                    
+                          @foreach ($feedback as $feed)
+                          <span><label>{{$feed->commenter}} : </label> {{$feed->comment}}</span><br>
+                          @endforeach
+                </div>
+                <div class="form-group "   >
+                    <form method="POST"  action="/admin/feedback/{{$course->feedback}}" >
+                      {{ csrf_field() }}
+                         <label>Your Comment : </label>
+                         <span>
+                           <input type="hidden" name="fid" value="{{$course->feedback}}">
+                           <input type="hidden" name="cid" value="{{$course->id}}">
+                           <input type="textarea" name="comment" id="comment" class="form-control">
+                          <br/>
+                           <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                          </span> 
+                         <!-- <div class="form-group">
+                                <button type="reset" class="btn btn-warning pull-left">Reset
+                                </button>
+                            
+                          
+                        </div> -->
+                    </form>
+                </div>
+                </div>
         </div>
       </div>
 

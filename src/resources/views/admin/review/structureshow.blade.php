@@ -10,11 +10,47 @@
                            @include('sweet::alert')
     <div class="row">
     <article>
-        <p><a href='/adminhome'>&larr; back to course</a></p>
+        <p><a href='/admin/reviewstr'>&larr; back to course</a></p>
       </article>
-      
+      <div class="panel panel-success">
+      <div class="panel-heading">
+               Review Structure
+
+      </div>
       <div class="panel-body">
       <fieldset>
+
+             @if(count($feedback)>0)
+                <div class="well well-sm">
+                <label>Feedback</label> <br> 
+                <div class="form-group "   >
+                    
+                          @foreach ($feedback as $feed)
+                          <span><label>{{$feed->commenter}} : </label> {{$feed->comment}}</span><br>
+                          @endforeach
+                </div>
+                <div class="form-group "   >
+                    <form method="POST"  action="/admin/feedback/{{$course->feedback}}" >
+                      {{ csrf_field() }}
+                         <label>Your Comment : </label>
+                         <span>
+                           <input type="hidden" name="fid" value="{{$course->feedback}}">
+                           <input type="hidden" name="cid" value="{{$course->course_id}}">
+                           <input type="textarea" name="comment" id="comment" class="form-control">
+                          <br/>
+                           <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                          </span> 
+                         <!-- <div class="form-group">
+                                <button type="reset" class="btn btn-warning pull-left">Reset
+                                </button>
+                            
+                          
+                        </div> -->
+                    </form>
+                </div>
+                </div>
+                @endif
+                
        @if(count($courses) >0 )
                   <table class="table table-striped" data-effect="fade">
                     <thead>
@@ -29,10 +65,11 @@
                     <tbody>
                      
                         @foreach ($courses as $course1)
-                           <tr> <td>Name</td> <td>{{ $course1 -> name }}</td></tr>
+                          <tr> <td>Name</td> <td>{{ $course1 -> name }}</td></tr>
                           <tr> <td>Description</td> <td>{{ $course1 -> description }}</td></tr>
                           <tr> <td>Structure</td>  <td>{!! $course1 -> tempstructure !!}</td></tr>
                           <tr> <td>Demo</td> <td>{!! $course1 -> demo_content !!}</td></tr>
+                          @if($course1 -> review_status!='Okay')
                           <tr>  <td><a class="btn btn-success" href="/admin/structuresuccess/{{$course1->id}}">Good to Go!</a></td>
                             <td>
                               <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">Edit Required</button>
@@ -72,6 +109,7 @@
                             </td>
                             
                         </tr>    
+                        @endif
                         @endforeach
                       
                       </tbody>
@@ -81,6 +119,7 @@
                       @endif
                 </fieldset>
                 </div>
+            </div>
        
     </div>
 </div>

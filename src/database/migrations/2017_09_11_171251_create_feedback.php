@@ -14,11 +14,12 @@ class CreateFeedback extends Migration
     public function up()
     {
         Schema::create('feedback', function (Blueprint $table) {
+            $table->integer('id');
             $table->integer('fid');
             $table->string('comment');
             $table->string('commentor');
             $table->timestamps();
-            $table->primary('fid');
+            $table->primary('id');
         });
     }
 
