@@ -187,10 +187,14 @@ Route::group(['middleware' => 'adminauth'], function()
 	Route::post('/admin/vupload','Admin\UploadController@videoUploadPost');
 	Route::get('/admin/listfiles','Admin\UploadController@showUploads');
 	Route::get('/admin/files/{id}','Admin\UploadController@showFile');
+
+
 	/*************Categories**********/
 	Route::get('/admin/createcategory',['middleware'=>['adminrole:super'],'uses'=> 'Admin\CategoryController@create']);
 	Route::get('/admin/categories', 'Admin\CategoryController@index');
 	Route::post('/admin/storeCategory', ['middleware'=>['adminrole:super'],'uses'=>'Admin\CategoryController@store']);
+	Route::get('/admin/category/{catid}/edit',['middleware'=>['adminrole:super'],'uses'=>'Admin\CategoryController@edit']);
+	Route::patch('/admin/category/edit/{catid}',['middleware'=>['adminrole:super'],'uses'=>'Admin\CategoryController@update']);
 	Route::get('/admin/removecategory/{id}',['middleware'=>['adminrole:super'],'uses'=> 'Admin\CategoryController@destroy']);
 	Route::get('/admin/category/{category}', 'Admin\CategoryController@show');
 

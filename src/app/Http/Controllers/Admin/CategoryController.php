@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 class CategoryController extends Controller
 {
@@ -29,8 +30,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-
-        return view('admin.category.createcategory');
+        $pcategories = Category::all()->whereIn('parent_id',0);
+        //dd($pcategories);
+        return view('admin.category.createcategory',compact('pcategories'));
     }
 
     /**
@@ -42,12 +44,10 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $this->validate(request(),[
-            'id'=>'required|unique:categories',
             'name'=>'required|unique:categories',
             'desc'=>'required',
         ]);
         $cat = new Category;
-        $cat->id=request('id');
         $cat->name=request('name');
         $cat->description=request('desc');
         $cat->parent_id=request('parent_id');
@@ -75,7 +75,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $cat = Category::find($id);
+        $pcategories = Category::all()->whereIn('parent_id',0);
+        return view('admin.category.editcategory',compact('cat','pcategories'));
     }
 
     /**
@@ -85,9 +87,29 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function update(Request $request, $id)
     {
-        //
+        $cat = Category::find($id);
+        if(($cat->name)==(request('name')))
+        {
+            $this->validate(request(),[
+                'name'=>'required',
+                'description'=>'required',
+            ]);
+        }
+        else{
+             $this->validate(request(),[
+                'name'=>'required|unique:categories',
+                'description'=>'required',
+            ]);
+        }
+
+        
+        
+            DB::table('categories')->where([['id',$id]])->update(['name'=>request('name'),'description'=>request('description'),'updated_at'=>Carbon::now()]);
+        alert()->success('Updated Successfully');
+        return redirect('admin/category/'.$id)->with('success','Category updated succesfully');
     }
 
     /**

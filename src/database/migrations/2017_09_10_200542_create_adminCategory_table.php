@@ -20,7 +20,7 @@ class CreateAdminCategoryTable extends Migration
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->unique(['admin_id','category_id']);
             $table->timestamps();
-        })
+        });
     }
 
     /**
