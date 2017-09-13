@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use App\Admin;
 use App\Role;
+use App\Category;
 
 class OwnerController extends Controller
 {
@@ -18,7 +19,9 @@ class OwnerController extends Controller
      */
     public function index()
     {
-        $admins = Admin::orderBy('last_name','ASC')->paginate(5);
+        $admins = Admin::whereNotIn('id',[1])->paginate(5);
+        //$admins = DB::table('admins')->whereNotIn('id',[1])->orderBy('id','ASC')->paginate(5);
+        //dd($admins);
         return view('admin.owner.owner',['admins'=>$admins]);
     }
 
@@ -88,7 +91,7 @@ class OwnerController extends Controller
     public function edit($id)
     {
         $admin=Admin::find($id);
-        $roles=Role::all();
+        $roles=Role::all()->whereNotIn('id',1);
         $role_admin=DB::table('roles')->join('role_admin','id','=','role_admin.role_id')->select('roles.id','roles.name','roles.display_name')->where('role_admin.admin_id','=',$id)->get();
 
         return view('admin.owner.editowner', compact('admin','roles','role_admin'));
@@ -107,7 +110,7 @@ class OwnerController extends Controller
             'fname'=>'required',
             'lname'=>'required',
             'email'=>'required',
-            'roles'=>'required',
+            'role'=>'required',
         ]);
 
         $admin=Admin::find($id);
@@ -118,9 +121,8 @@ class OwnerController extends Controller
 
         DB::table('role_admin')->where('role_admin.admin_id',$id)->delete();
 
-        foreach (request('roles') as $value) {
-            $admin->attachRole($value);
-        }
+        
+        $admin->attachRole(request('role'));
 
         return redirect('/admin/owners')->with('success','Admin updated successfully.');
     }
@@ -134,5 +136,56 @@ class OwnerController extends Controller
     public function destroy($id)
     {
         Admin::find($id)->delete();
+    }
+
+    public function createmulti()
+    {
+        $roles = Role::all()->whereNotIn('id',1);
+        $categories = Category::all()->where('parent_id',0);
+        return view('admin.owner.createownermulti',compact('roles','categories'));
+    }
+
+    public function storemulti(Request $request)
+    {
+        //dd($request);
+        $this->validate($request,[
+            'fname'=>'required',
+            'lname'=>'required',
+            'email'=>'required|unique:admins',
+            'password'=>'required|min:6',
+            'role'=>'required',
+            //'categories'=>'required',
+        ]);
+
+        if(request('role')==3)
+        {
+            $this->validate($request,[
+                'categories'=>'required',
+            ]);
+        }
+
+        $admin = new Admin;
+        $admin->first_name = request('fname');
+        $admin->last_name = request('lname');
+        $admin->email = request('email');
+        $admin->password = bcrypt(request('password'));
+
+        $admin->save();
+
+        /***Assing Role to the admin***/
+        $admin->attachRole(request('role'));
+        
+        Log::alert('A new user created by name :' .$admin->first_name.' '.$admin->last_name);
+        if(request('role')==3)
+        {
+            foreach (request('categories') as $cat) 
+            {
+                $category = Category::find($cat);
+                $admin->categories()->save($category);
+                    
+                return redirect('/admin/owners/'.$admin->id);
+            } 
+        }
+        return redirect('/admin/owners/'.$admin->id);
     }
 }
