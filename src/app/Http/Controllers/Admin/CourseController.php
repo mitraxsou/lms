@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Course;
-
+use App\Category;
 use Gate;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
@@ -71,8 +71,9 @@ class CourseController extends Controller
     public function create()
     {
         $var=Auth::guard('admin')->user()->id;
+        $categories = Category::all()->whereNotIn('parent_id',0);
         //echo $var;
-        return view('admin.course.createcourse');
+        return view('admin.course.createcourse',compact('var','categories'));
     }
 
     public function store(FileRequest $request)

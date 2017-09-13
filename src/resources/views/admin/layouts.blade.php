@@ -28,19 +28,6 @@
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
-
-    <script type="text/javascript">
-            $(function() {
-                $("#days").multiPicker({ selector : "li" });
-
-                $("#days-vertical").multiPicker({
-                    selector   : "checkbox",
-                    cssOptions : {
-                        size : "medium",
-                    }
-                });
-            });
-        </script>
     
 </head>
 <body>

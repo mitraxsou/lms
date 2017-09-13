@@ -135,9 +135,9 @@
 
 #progressbar li {
     list-style-type: none;
-    color: white;
+    color: grey;
     text-transform: uppercase;
-    font-size: 9px;
+    font-size: 10px;
     width: 33.33%;
     float: left;
     position: relative;
