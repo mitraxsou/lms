@@ -40,7 +40,7 @@ class SubTopicController extends Controller
       
          DB::table('subtopics')->where([['Sub_tid',$stid],['tid', $tid],['course_id',$cid]])->update(['name'=>request('name'),'description'=>request('description'),'updated_at'=>Carbon::now()]);
         alert()->success('Content updated successfully');
-        return redirect('/admin/mycourse/'.$cid.'/'.$tid);//->with('sweetalert','Subtopic updated successfully.');
+        return redirect('/admin/mycourse/'.$cid);//->with('sweetalert','Subtopic updated successfully.');
     }
 
     public function contentshow($id,$id1,$id2)
@@ -65,7 +65,7 @@ class SubTopicController extends Controller
         
 
         $this->validate(request(),[
-            'stid' => 'required',
+            
             'tid'=> 'required',
             'cid'=> 'required',
             'name' => 'required',
@@ -110,14 +110,16 @@ class SubTopicController extends Controller
             ]);
         }
                 
-
+         $nextId = DB::table('subtopics')->where([['course_id',request('cid')],
+            ['tid',request('tid')]
+            ])->max('sub_tid')+1;
         $current = abs( crc32( uniqid() ) ); //1551585806
 
         
          DB::table('subtopics')->insert([
             'tid'=>request('tid'),
             'course_id'=>request('cid'),
-            'sub_tid'=>request('stid'),
+            'sub_tid'=>$nextId,
             'name'=>request('name'),
             'description'=>request('description'),
             //'stfilename'=>request('description'),
@@ -173,7 +175,7 @@ class SubTopicController extends Controller
                  ['course_id', '=', $cid]
          ])->delete();
         alert()->success('Content deleted successfully');
-        return redirect('/admin/mycourse/'.$cid.'/'.$tid);
+        return redirect('/admin/mycourse/'.$cid);
     }
      public function editcontent($id,$id1,$id2)
     {
@@ -232,7 +234,7 @@ class SubTopicController extends Controller
         
        // return view('editsummer');
         alert()->success('Edit done Successfully');
-        return redirect('admin/mycourse/'.request('course_id').'/'.request('tid'))->with(compact('course','indexes'));
+        return redirect('admin/mycourse/'.request('course_id'))->with(compact('course','indexes'));
     }
 
     public function reviewcontent($id,$id1,$id2)
@@ -265,7 +267,7 @@ class SubTopicController extends Controller
        // return view('editsummer');
         /*return redirect('admin/mycourse/'.$id.$id1)->with(compact('course','indexes'));*/
         alert()->success('Content Sent for Reviewing!!');
-         return redirect('admin/mycourse/'.$id.'/'.$id1)->with(compact('course','indexes'));
+         return redirect('admin/mycourse/'.$id)->with(compact('course','indexes'));
     }
     public function removeVideo($cid, $tid, $stid)
     {

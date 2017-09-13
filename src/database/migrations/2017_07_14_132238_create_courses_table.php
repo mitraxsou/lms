@@ -17,7 +17,7 @@ class CreateCoursesTable extends Migration
             $table->integer('id');
             $table->string('name');
             $table->string('description');
-            $table->string('cfilename');
+          //  $table->string('cfilename');
             $table->timestamps();
             $table->primary('id');
         });

@@ -9,7 +9,7 @@
                            @include('sweet::alert')
     <div class="row">
     <article>
-        <p><a href='/admin/review/{{$course1->sub_tid}}/{{$course1 -> content_id}}'>&larr; back to course</a></p>
+        <p><a href='/admin/review/{{$course1->course_id}}/{{$course1->tid}}/{{$course1->sub_tid}}/{{$course1 -> content_id}}'>&larr; back to course</a></p>
       </article>
       <!-- 
       <div class="panel-body">

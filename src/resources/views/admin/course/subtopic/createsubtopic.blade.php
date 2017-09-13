@@ -31,10 +31,7 @@
                     <div class="panel-body">
                     	<form method="POST" id="videoUpload" action="/admin/{{$topic->course_id}}/{{$topic->tid}}/createsubtopic" enctype="multipart/form-data">
                     	{{ csrf_field() }}
-                    		<div class="form-group">
-                    			<label>Sub Topic ID <i style="color:red;"> *  </i></label>
-                    			<input type="number" name="stid" class="form-control">
-                    		</div>
+                    		
                            <div class="form-group">
                                 <label>Topic ID </label>
                                 <input type="number" name="tid" value= "{{$topic->tid}}" class="form-control" readonly>
@@ -51,7 +48,7 @@
                     			<label>Chapter Description  <i style="color:red;"> * </i></label>
                     			<input type="textarea" name="description" id="description" class="form-control">
                     		</div>
-                            @if($topic->review_status!='Not Reviewed')
+                           
                             <div class="form-group">
                                 <!-- <label>Select Content Type</label>
                                <select name="type">
@@ -64,7 +61,7 @@
                                 <input type="button" id="vdo" class="btn btn-default" value="Video" ></input>
                                 
                             </div>
-                            @endif
+                          
                             <div class="form-group" style="display: none" id="oth">
                                     
                                     <textarea id="summernote" name="summernote"  ></textarea>
@@ -83,9 +80,11 @@
 
                             
                     		<div class="form-group">
+                                <button type="submit" class="btn btn-primary pull-right">Submit
+                                </button>
+                                <button type="reset" class="btn btn-warning pull-left">Reset
+                                </button>
                             
-
-                    				<button type="submit" class="btn btn-primary pull-right">Submit</button>
                     			
                     		</div>
                             @if(count($errors))

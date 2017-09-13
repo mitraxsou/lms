@@ -17,6 +17,7 @@ class CreateCourseStructureTable extends Migration
            $table->increments('id');
            $table->mediumText('fixedstructure')->deault(null);;
            $table->mediumText('tempstructure')->default(null);
+           $table->mediumText('demo_content')->deault(null);;
            $table->integer('course_id')->references('id')->on('courses')->onDelete('cascade');
            $table->string('review_status')->default('Not Reviewed');
            $table->string('feedback')->default(null);
