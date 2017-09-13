@@ -30,8 +30,13 @@ class Admin extends Authenticatable
    		return $this->belongsToMany('App\Role','role_admin', 'admin_id', 'role_id')->withTimestamps();
    }
 
-   public function owns($related)
+   // public function owns($related)
+   // {
+   //    return $this->id == $related->admin_id;
+   // }
+
+   public function categories()
    {
-      return $this->id == $related->admin_id;
+      return $this->belongsToMany('App\Category','admin_category','admin_id','category_id')->withTimestamps();
    }
 }

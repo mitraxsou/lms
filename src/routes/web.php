@@ -82,6 +82,10 @@ Route::group(['middleware' => 'adminauth'], function()
 		
 		Route::get('/admin/createowner','Admin\OwnerController@create');
 		Route::post('/admin/createowner','Admin\OwnerController@store');
+
+		/****Multi step form*******/
+		Route::get('/admin/createowner/multi','Admin\OwnerController@createmulti');
+		Route::post('/admin/createowner/multi','Admin\OwnerController@storemulti');
 	
 
 		//create roles and provide permissions to each role
@@ -93,6 +97,15 @@ Route::group(['middleware' => 'adminauth'], function()
 		Route::patch('/admin/roles/{role}','Admin\RoleController@update');
 	});
 
+	//assign and detach categories to the owners
+	Route::get('/admin/owners/assigncategory/{oid}','Admin\AssignCategory@create');
+	Route::post('/admin/owners/assigncategory','Admin\AssignCategory@store');
+	Route::get('/admin/owners/assigncategory/edit/{oid}','Admin\AssignCategory@edit');
+
+	/**Not using update due to problems faced in attaching and detaching categories at the same time***/
+	//Route::patch('/admin/owners/assigncategory/edit/{oid}','Admin\AssignCategory@update');
+	Route::get('/admin/owners/category/delete/{oid}/{catid}','Admin\AssignCategory@destroy');
+	Route::get('/admin/owners/category/add/{oid}/{catid}','Admin\AssignCategory@add');
 
 
 	Route::get('/admin/student', 'Admin\StudentController@index');
@@ -174,10 +187,14 @@ Route::group(['middleware' => 'adminauth'], function()
 	Route::post('/admin/vupload','Admin\UploadController@videoUploadPost');
 	Route::get('/admin/listfiles','Admin\UploadController@showUploads');
 	Route::get('/admin/files/{id}','Admin\UploadController@showFile');
+
+
 	/*************Categories**********/
 	Route::get('/admin/createcategory',['middleware'=>['adminrole:super'],'uses'=> 'Admin\CategoryController@create']);
 	Route::get('/admin/categories', 'Admin\CategoryController@index');
 	Route::post('/admin/storeCategory', ['middleware'=>['adminrole:super'],'uses'=>'Admin\CategoryController@store']);
+	Route::get('/admin/category/{catid}/edit',['middleware'=>['adminrole:super'],'uses'=>'Admin\CategoryController@edit']);
+	Route::patch('/admin/category/edit/{catid}',['middleware'=>['adminrole:super'],'uses'=>'Admin\CategoryController@update']);
 	Route::get('/admin/removecategory/{id}',['middleware'=>['adminrole:super'],'uses'=> 'Admin\CategoryController@destroy']);
 	Route::get('/admin/category/{category}', 'Admin\CategoryController@show');
 

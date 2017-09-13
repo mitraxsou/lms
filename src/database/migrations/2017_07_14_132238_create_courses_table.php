@@ -19,7 +19,7 @@ class CreateCoursesTable extends Migration
             $table->string('description');
           //  $table->string('cfilename');
             $table->timestamps();
-            $table->primary('id');
+            $table->unique('id');
         });
     }
 

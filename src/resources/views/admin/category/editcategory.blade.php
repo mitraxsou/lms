@@ -4,22 +4,23 @@
 <div class="container">
     <div class="row">
     	<article>
-    		<p><a href='/adminhome'>&larr; back to Home</a></p>
+    		<p><a href='/admin/category/{{$cat->id}}'>&larr; back to {{$cat->name}}</a></p>
     	</article>
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-success">
                 <div class="panel-heading">Create Category</div>
 
                 <div class="panel-body">
-                	<form method="POST" action='/admin/storeCategory'>
+                	<form method="POST" action='/admin/category/edit/{{$cat->id}}'>
                 	{{ csrf_field() }}
+                	{{ method_field('PATCH') }}
                 		<div class="form-group">
                 			<label>Category Name</label>
-                			<input type="text" name="name" class="form-control">
+                			<input type="text" name="name" class="form-control" value="{{$cat->name}}">
                 		</div>
                 		<div class="form-group">
                 			<label>Description</label>
-                			<input type="text" name="desc" class="form-control" >
+                			<input type="text" name="description" class="form-control" value="{{$cat->description}}">
                 		</div>
                 		<div class="form-group">
                 			<label>Parent Category ID</label>
