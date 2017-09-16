@@ -32,4 +32,12 @@ class Counter
         return $course;
         
     }
+    public function lessonreassign()
+    {
+        $course = DB::table('admin_course')->where([
+            ['admin_id', '=', 0]
+         ])->count();
+        return $course;
+        
+    }
 }

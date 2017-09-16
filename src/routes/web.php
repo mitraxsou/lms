@@ -86,7 +86,6 @@ Route::group(['middleware' => 'adminauth'], function()
 		/****Multi step form*******/
 		Route::get('/admin/createowner/multi','Admin\OwnerController@createmulti');
 		Route::post('/admin/createowner/multi','Admin\OwnerController@storemulti');
-	
 
 		//create roles and provide permissions to each role
 		Route::get('/admin/roles','Admin\RoleController@index');
@@ -95,6 +94,10 @@ Route::group(['middleware' => 'adminauth'], function()
 		Route::post('/admin/createrole','Admin\RoleController@store');
 		Route::get('/admin/roles/{role}/edit','Admin\RoleController@edit');
 		Route::patch('/admin/roles/{role}','Admin\RoleController@update');
+
+		/********Reassign Owners*********/
+		Route::get('/admin/recreate','Admin\RecreateOwnerController@index');
+		Route::post('/admin/reassign','Admin\RecreateOwnerController@reassign');
 	});
 
 	//assign and detach categories to the owners

@@ -25,7 +25,22 @@
                                 @if(Auth::guard('admin')->user()->hasRole('super'))
                                 <!-- <li><a href="/admin/createowner">Create Owners 1</a></li> -->
                                 <li><a href="/admin/createowner/multi">Create Owners (new)</a></li>
-                                
+                                <li><a href="/admin/recreate">Recreate owners
+                                 @if($countera->lessonreassign()>0)
+                                <span style="border-radius: 25px;
+                                    display: inline;
+                                    background-color: red;
+                                    width: auto;
+                                    padding: 0 4px;
+                                    line-height: 21px;
+                                    color: #fff;
+                                    -moz-animation: blink 4s ease-in-out infinite;
+                                    animation: blink 4s ease-in-out infinite;
+                                    left: 44px;
+                                    top: 17px;
+                                    ">{{$countera->lessonreassign()}}</span>
+                                 @endif
+                                </a></li>
                                 <li><a href="/admin/roles">Manage Roles</a></li>
                                 @endif
                             </ul>

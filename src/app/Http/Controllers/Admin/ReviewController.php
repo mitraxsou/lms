@@ -73,9 +73,11 @@ class ReviewController extends Controller
 //Mail to course owner and super admin
         
          $user=App\Admin::where('id',$admin_id->admin_id)->first();
-           
+                   
 
            \Mail::to($user)->send(new RejectMail($mailbody));
+            $user1=App\Admin::where('id',1)->first();
+            \Mail::to($user1)->send(new RejectMail($mailbody));
         alert()->info('Course Rejected');
         return redirect('/admin/reviewcourse');
     }
