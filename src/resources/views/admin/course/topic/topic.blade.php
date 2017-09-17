@@ -70,12 +70,6 @@
                        <input type="hidden" name="cid" value="{{$course->id}}">
                  </div>
                 
-               
-               
-             
-                    
-               
-                
                 <div class="form-group"  >
                 <label>Add the course template for <i>{{ $course ->name }} </i> : </label>
                         <textarea id="summernote1" name="summernote1">{!!$index->demo_content!!}</textarea>

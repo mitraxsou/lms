@@ -66,6 +66,7 @@ class MyCourseController extends Controller
     public function show($id)
     {
         $index=DB::table('course_structure')->where('course_id', $id)->first();
+        //dd($index);
         $course = Course::find($id);
         $adm=Auth::guard('admin')->user();
         if($index->review_status=='Okay')

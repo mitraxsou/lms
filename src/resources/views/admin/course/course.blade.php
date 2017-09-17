@@ -27,24 +27,21 @@
                   				<th>ID</th>
                   				<th>Name</th>
                         <th>Description</th>
-                      
                         <th></th>
                 			</tr>
               			</thead>
               			<tbody>
                     
                     	@foreach ($courses as $course)
-                			<tr>
-                        
-
-                      
+                			<tr>                      
                           <td>{{ $course -> id }}</td>
                           <td>
                               <a  href='mycourse/{{ $course -> id }}'>{{ $course -> name }}</a>
                               </td>
                           <td>{{ $course -> description}}</td>
-                          
-                        <!--   <td><a class='btn btn-primary' href='mycourse/{{ $course -> id }}'>View</a></td> -->
+
+                          <td><a class='btn btn-primary' href='mycourse/{{ $course -> id }}'>View</a></td>
+
                           <td><a class="btn btn-warning" href="/admin/course/{{$course->id}}/edit">Edit</a></td>
                           <td><a class="btn btn-success" href="/admin/course/publish/{{$course->id}}">Publish</a></td>
                       

@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\DB;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Http\Requests\FileRequest;
 use App\Http\Controllers\Controller;
 
 class CourseController extends Controller
@@ -81,7 +80,16 @@ class CourseController extends Controller
 
     public function store(Request $request)
     {
+        $this->validate($request,[
+            'category' => 'required',
+            'name'=> 'required|unique:courses',
+            'description'=>'required|min:10',
+        ]);
+
+        //dd($request);
+
         $course = new Course;
+
 
         
         $course->name=request('name');
@@ -91,10 +99,15 @@ class CourseController extends Controller
         $course->feedback=$current1;
         $course->save();
        
-        $nextId = DB::table('courses')->max('id');
-        DB::table('admin_course')->insert(['course_id' =>$nextId,'admin_id'=>$var,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
-        $current = abs( crc32( uniqid() ) ); 
-        DB::table('course_structure')->insert(['course_id' =>$nextId,'fixedstructure'=>null,'tempstructure'=>null,'feedback'=>$current]);
+       //Bind the course with admin
+        DB::table('admin_course')->insert(['course_id' =>$course->id,'admin_id'=>$var,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
+       
+       //Set the default values of course structure
+        DB::table('course_structure')->insert(['course_id' =>$course->id,'fixedstructure'=>null,'tempstructure'=>null,'feedback'=>$current1]);
+
+        //Bind the course with category 
+        DB::table('course_category')->insert(['course_id' =>$course->id,'category_id'=>request('category'),'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
+
         return redirect('/admin/mycourse')->with('message','Course Added !');
     }
 
