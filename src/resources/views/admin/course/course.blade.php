@@ -34,7 +34,6 @@
                   				<th>ID</th>
                   				<th>Name</th>
                         <th>Description</th>
-                        <th>Image</th>
                         <th></th>
                 			</tr>
               			</thead>
@@ -48,7 +47,6 @@
                           <td>{{ $course -> id }}</td>
                           <td>{{ $course -> name }}</td>
                           <td>{{ $course -> description}}</td>
-                          <td><img src = "<?php echo $course->cfilename ?>" height="50px" width="50px"></img></td>
                           <td><a class='btn btn-primary' href='mycourse/{{ $course -> id }}'>View</a></td>
                           <td><a class="btn btn-warning" href="/admin/course/{{$course->id}}/edit">Edit</a></td>
                           <td><a class="btn btn-success" href="/admin/course/publish/{{$course->id}}">Publish</a></td>

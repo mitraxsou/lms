@@ -6,84 +6,50 @@
     	<article>
     		<p><a href='/adminhome'>&larr; back to Home</a></p>
     	</article>
-                	<!-- <form method="POST" action="/admin/createcourse" enctype="multipart/form-data">
-                	{{ csrf_field() }}
-                		<div class="form-group">
-                			<label>Course ID</label>
-                			<input type="number" name="id" class="form-control">
-                		</div>
-                		<div class="form-group">
-                			<label>Course Name</label>
-                			<input type="text" name="name" id="name" class="form-control">
-                		</div>
-                		<div class="form-group">
-                			<label>Description</label>
-                			<input type="textarea" name="description" id="description" class="form-control">
-                		</div>
-                        <div class="form-group">
-                            <label>Course Image</label>
-                            <input type="file" name="cfile" class="form-control">
-                        </div>
-                		<div class="form-group">
-                			<div class="col-md-offset-4 ">
-                				<button type="submit" class="btn btn-primary">Submit
-                				</button>
-                			</div>
-                		</div>
-                        @if(count($errors))
-                            <div class="alert alert-danger">
-                               <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach 
-                                </ul>
-                            </div>
-                        @endif
-                	</form> -->
 
-                    <div class="col-md-6 col-md-offset-3">
-                    <form method="POST" action="" id="msform">
-                    {{ csrf_field() }}
+            <div class="col-md-6 col-md-offset-3">
+                <form method="POST" action="/admin/createcourse" id="msform">
+                {{ csrf_field() }}
                         <!-- progressbar -->
-                        <ul id="progressbar">
-                            <li class="active">Category assignment</li>
-                            <li>Course details</li>
-                        </ul>
-                        @if(count($errors))
-                            <div class="alert alert-danger">
-                                <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach 
-                                </ul>
-                            </div>
-                        @endif
+                    <ul id="progressbar">
+                        <li class="active">Category assignment</li>
+                        <li>Course details</li>
+                    </ul>
+                    @if(count($errors))
+                        <div class="alert alert-danger">
+                            <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach 
+                            </ul>
+                        </div>
+                    @endif
                         <!-- fieldsets -->
                         
-                        <fieldset>
-                            <h2 class="fs-title">Choose Categories</h2>
-                            <h3 class="fs-subtitle">select categories</h3>
-                            <label class="custom-control custom-checkbox">
-                            <select name="category" class="form-control">
-                                @foreach($categories as $c)
-                                    <option value="{{$c->id}}">{{$c->name}}</option>
-                                @endforeach
-                            </select>
-                            </label>
-                            <input type="button" name="next" class="next action-button" value="Next"/>
-                        </fieldset>
-                        <fieldset>
-                            <h2 class="fs-title">Course details</h2>
-                            <h3 class="fs-subtitle">Fill the details about the course</h3>
-                            <input type="text" name="name" id="name" placeholder="Course Name *" required="" />
-                            <input type="textarea" name="description" id="description" placeholder="Description *" required="" />
+                    <fieldset>
+                        <h2 class="fs-title">Choose Categories</h2>
+                        <h3 class="fs-subtitle">select categories</h3>
+                        <label class="custom-control custom-checkbox">
+                        <select name="category" class="form-control">
+                            @foreach($categories as $c)
+                                <option value="{{$c->id}}">{{$c->name}}</option>
+                            @endforeach
+                        </select>
+                        </label>
+                        <input type="button" name="next" class="next action-button" value="Next"/>
+                    </fieldset>
+                    <fieldset>
+                        <h2 class="fs-title">Course details</h2>
+                        <h3 class="fs-subtitle">Fill the details about the course</h3>
+                        <input type="text" name="name" id="name" placeholder="Course Name *" required="" />
+                        <input type="textarea" name="description" id="description" placeholder="Description *" required="" />
                             
-                            <br/>
-                            <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
-                            <input type="submit" name="submit" class="submit action-button" value="Submit"/>
-                        </fieldset>
+                        <br/>
+                        <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                        <input type="submit" name="submit" class="submit action-button" value="Submit"/>
+                    </fieldset>
 
-                    </form>
+                </form>
                 </div>
             </div>
         </div>

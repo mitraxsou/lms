@@ -24,7 +24,6 @@
                   				<th>ID</th>
                   				<th>Name</th>
                         <th>Description</th>
-                        <th>Image</th>
                         <th>View</th>
                          @if( ! empty($publish))
                         <th>Feedback</th>
@@ -38,7 +37,6 @@
                   				<td>{{ $course -> id }}</td>
                   				<td>{{ $course -> name }}</td>
                   				<td>{{ $course -> description}}</td>
-                          <td><img src = "<?php echo $course->cfilename ?>" height="50px" width="50px"></img></td>
                           <td><a class='btn btn-primary' href='/admin/course/{{ $course -> id }}' on>View</a></td>
                           
                          @if( ! empty($publish))
