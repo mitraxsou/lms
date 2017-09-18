@@ -16,7 +16,7 @@
        @if(Auth::guard('admin')->user()->hasRole('super') )
           <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-info">
-                <div class="panel-heading"><h4><b>Reassign List</b></h4></div>
+                <div class="panel-heading"><h4><b>Recreate Owner</b></h4></div>
                  @if(count($errors))
                                 <div class="alert alert-danger">
                                    <ul>

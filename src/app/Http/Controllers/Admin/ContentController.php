@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Course;
 use App\Admin;
-
+use Auth;
 use Illuminate\Support\Facades\DB;
 use DateTime;
 use Carbon\Carbon;
@@ -30,6 +30,24 @@ class ContentController extends Controller
     }
     public function viewcontent($id)
     {
+
+         $auth=Auth::guard('admin')->user()->id;
+       
+        
+        $category1=DB::table('admin_category')
+            ->where('admin_id','=',$auth)
+            ->get();
+         foreach ($category1 as $category)
+        {
+         
+             $course = DB::table('subtopics')
+             ->join('course_category', 'course_category.course_id', '=', 'subtopics.course_id')
+             ->where([['course_category.category_id','=',$category->category_id],
+                ['subtopics.content_id','=',$id]
+                ])
+             ->first();
+        }
+         if(count($course)){
         $course1 = DB::table('subtopics')->where([
                  ['content_id', '=', $id]
          ])->first();
@@ -39,6 +57,10 @@ class ContentController extends Controller
          ])->first();
 
          return view('admin.review.viewcontent',compact('course','course1'));
+     }
+     else{
+         return view('admin.review.notfoundcategory');
+     }
     }
 
     public function deleteContent($contid)

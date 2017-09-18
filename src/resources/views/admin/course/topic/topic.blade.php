@@ -295,7 +295,7 @@ $(document).ready(function() {
                 ["color", ["color"]],
                 ["para", [ "paragraph"]],
                 //["table", ["table"]],
-                ["insert", ["link", "picture"]],
+                ["insert", ["link", "picture","video"]],
                 ["view", ["fullscreen", "codeview", "help"]]
             ],
          height: 300,

@@ -17,6 +17,13 @@ class ReviewController extends Controller
 {
     public function create()
     {
+         $auth=Auth::guard('admin')->user()->id;
+       
+        $course1=[];
+        $category1=DB::table('admin_category')
+            ->where('admin_id','=',$auth)
+            ->get();
+         
         $arr=[];
         $i=0;
          $course = DB::table('notifications')->where([
@@ -32,11 +39,28 @@ class ReviewController extends Controller
                 $i++;
 
         }
-
-         $course1 = DB::table('subtopics')->whereIn(
-            'content_id',$arr
-         )->get();
-       
+        $temp = DB::table('subtopics')
+                 ->join('course_category', 'course_category.course_id', '=', 'subtopics.course_id')
+                 ->whereIn(
+                    'content_id',$arr)
+                 ->get();
+        $i=0;
+        foreach ($temp as $key ) {
+            # code...
+        
+        foreach ($category1 as $category)
+            {
+                 
+                // dd($temp);
+                 if($key->category_id==$category->category_id)
+                    {
+                        $course1[$i]=$key;
+                       $i++;
+             }
+            }
+        }
+       //dd($course1);
+           // dd($course1);
        return view('admin.review.reviewshow', compact('course1'));
     }
     public function rejectcourse($id)
@@ -83,7 +107,21 @@ class ReviewController extends Controller
     }
     public function review($cid,$tid,$sid,$id1)
     {
+         $auth=Auth::guard('admin')->user()->id;
+       
+        $flag=false;
+        $category1=DB::table('admin_category')
+            ->where('admin_id','=',$auth)
+            ->get();
+         $course_category=DB::table('course_category')
+            ->where('course_id','=',$cid)
+            ->first();
+        foreach ($category1 as $category) {
+            # code...
         
+        if($course_category->category_id==$category->category_id)
+        {
+            $falg=true;
          $course1 = DB::table('content')->where(
             'content_id',$id1
          )->first();
@@ -105,14 +143,47 @@ class ReviewController extends Controller
          $feedback = DB::table('feedback')->where('fid', $course->feedback)->get();
         //dd($course1);-
        return view('admin.review.contenthierarchy', compact('course1','subtopic','topic','coursearr','course','feedback'));
+        }
+    }
+    if($flag==false)
+         
+
+               return view('admin.review.notfoundcategory');
+               // alert()->info('No courses found for your catgory');
+                
+            
+
     }
     public function content($id1)
     {
         
+         $auth=Auth::guard('admin')->user()->id;
+       
+        
+        $category1=DB::table('admin_category')
+            ->where('admin_id','=',$auth)
+            ->get();
+        foreach ($category1 as $category) {
+            # code...
+        
+        
+           
+         $course = DB::table('subtopics')
+         ->join('course_category', 'course_category.course_id', '=', 'subtopics.course_id')
+         ->where([['course_category.category_id','=',$category->category_id],
+            ['subtopics.content_id','=',$id1]
+            ])
+         ->first();
+        }
+         if(count($course)){
          $course1 = DB::table('content')->join('subtopics','subtopics.content_id','=','content.content_id')->select('subtopics.sub_tid','subtopics.tid','subtopics.course_id','subtopics.name','subtopics.description','content.content','content.content_id')->where(
             'content.content_id',$id1
          )->first();
          return view('admin.review.contentshow', compact('course1'));
+     }
+     else{
+         return view('admin.review.notfoundcategory');
+     }
     }
     public function feedback(Request $request)
     {
@@ -183,36 +254,87 @@ class ReviewController extends Controller
          ])->update(['review_status' => 'Not Reviewed']);
        // return view('editsummer');
            alert()->success('Updated Successfully');
-        return redirect('admin/mycourse/'.request('course_id').'/'.request('tid'))->with(compact('course','indexes'));
+        return redirect('admin/mycourse/'.request('course_id'))->with(compact('course','indexes'));
     }
     public function reviewstructure()
     {
+        $auth=Auth::guard('admin')->user()->id;
+       
+        $courses=[];
+        $category1=DB::table('admin_category')
+            ->where('admin_id','=',$auth)
+            ->get();
+         
         $course=DB::table('course_structure')
             ->where('review_status','=','Reviewing')
             ->get();
-        $courses = DB::table('courses')->join('course_structure','courses.id','=','course_structure.course_id')->select('courses.id','courses.name','courses.description','course_structure.demo_content','course_structure.tempstructure','course_structure.review_status')->where('course_structure.review_status','!=' ,'Not Reviewed')->get();
-           
-        /*$courses=DB::table('courses')
-            ->whereIn('id',$course->course_id)
-            ->get();*/
-         //dd($courses);
-         $status=true;
-            
-         return view('admin.review.reviewshow', compact('course','courses','status'));
+        $tempcourses = DB::table('courses')->join('course_structure','courses.id','=','course_structure.course_id')->select('courses.id','courses.name','courses.description','course_structure.demo_content','course_structure.tempstructure','course_structure.review_status')->where('course_structure.review_status','=' ,'Reviewing')->get();
+        $i=0;
+        foreach ($tempcourses as $key)
+        {
+          //  dd($key->id);
+             $course_category=DB::table('course_category')
+            ->where('course_id','=',$key->id)
+            ->first();
+           // dd($course_category);
+            foreach ($category1 as $category)
+            {
+         
+                 if($course_category->category_id==$category->category_id)
+                 {
+                    $courses[$i]=$key;
+                    $i++;
+                 }
+            }
+        }
+        //dd(count($courses));
+       
+            if(count($courses)>0)
+            {
+                $status=true;
+                return view('admin.review.reviewshow', compact('course','courses','status'));
+            }
+            else{
+
+               return view('admin.review.notfoundcategory');
+               // alert()->info('No courses found for your catgory');
+                
+            }
           
     }
     public function detailreviewstructure($id)
     {
-        $course=DB::table('course_structure')
+        $auth=Auth::guard('admin')->user()->id;
+       
+        
+        $flag=false;
+        $category1=DB::table('admin_category')
+            ->where('admin_id','=',$auth)
+            ->get();
+         $course_category=DB::table('course_category')
             ->where('course_id','=',$id)
             ->first();
-        $feedback = DB::table('feedback')->where('fid', $course->feedback)->get();
-        $courses = DB::table('courses')->join('course_structure','courses.id','=','course_structure.course_id')->select('courses.id','courses.name','courses.description','course_structure.demo_content','course_structure.tempstructure','course_structure.review_status')->where('course_structure.course_id', $id)->get();
-           
-        
+           foreach ($category1 as $category)
+            {
+         
+            if($course_category->category_id==$category->category_id)
+            {
+                $flag=true;
+                $course=DB::table('course_structure')
+                ->where('course_id','=',$id)
+                ->first();
+                $feedback = DB::table('feedback')->where('fid', $course->feedback)->get();
+                $courses = DB::table('courses')->join('course_structure','courses.id','=','course_structure.course_id')->select('courses.id','courses.name','courses.description','course_structure.demo_content','course_structure.tempstructure','course_structure.review_status')->where('course_structure.course_id', $id)->get();
+                return view('admin.review.structureshow', compact('course','courses','feedback'));
+
+                }
+            }
             
-         return view('admin.review.structureshow', compact('course','courses','feedback'));
-          
+         
+        
+         if($flag==false){
+             return view('admin.review.notfoundcategory');
+         } 
     }
     public function comment(Request $request)
     {

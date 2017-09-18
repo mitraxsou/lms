@@ -40,7 +40,7 @@
                               </td>
                           <td>{{ $course -> description}}</td>
 
-                          <td><a class='btn btn-primary' href='mycourse/{{ $course -> id }}'>View</a></td>
+                          
 
                           <td><a class="btn btn-warning" href="/admin/course/{{$course->id}}/edit">Edit</a></td>
                           <td><a class="btn btn-success" href="/admin/course/publish/{{$course->id}}">Publish</a></td>

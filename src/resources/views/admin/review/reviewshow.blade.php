@@ -20,6 +20,7 @@
       <div class="panel-body">
       <fieldset>
       @if(empty($status))
+      @if(count($course1) >0 )
                   <table class="table table-striped" data-effect="fade">
                     <thead>
                       <tr>
@@ -32,7 +33,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      @if(count($course1) >0 )
+                      
                         @foreach ($course1 as $course)
                         <tr>
                             <td>{{ $course -> sub_tid}}</td>

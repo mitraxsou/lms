@@ -8,8 +8,12 @@
       </article>
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-success">
-                <div class="panel-heading">Categories<span style="float:right;"><a href="/admin/createcategory">+ Add more</a></span></div>
 
+                <div class="panel-heading">Categories
+                   @if(Auth::guard('admin')->user()->hasRole('super'))
+                <span style="float:right;"><a href="/admin/createcategory">+ Add more</a></span>
+                @endif
+                </div>
                 <div class="panel-body">
                   <div id="accordian" role="tablist">
                   @foreach ($categories as $category)

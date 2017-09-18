@@ -3,7 +3,12 @@
 @section('content')
 @inject('countera','App\Counter')
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+
 <div class="container">
+ 
+                           @include('sweet::alert')
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-success">
