@@ -181,3 +181,6 @@
     background: #ee0979;
     color: white;
 }
+table td{
+	word-break: break-all;
+}

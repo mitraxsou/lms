@@ -6,6 +6,7 @@
  
 <div class="container">
       @include('sweet::alert')
+      
     <div class="row">
     <article>
         <p><a href='/admin/mycourse'>&larr; back to my courses</a></p>

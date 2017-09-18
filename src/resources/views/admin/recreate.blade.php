@@ -16,7 +16,7 @@
        @if(Auth::guard('admin')->user()->hasRole('super') )
           <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-info">
-                <div class="panel-heading"><h4><b>Recreate Owner</b></h4></div>
+                <div class="panel-heading"><h4><b>Recreate Owner for Rejected Courses</b></h4></div>
                  @if(count($errors))
                                 <div class="alert alert-danger">
                                    <ul>
@@ -50,14 +50,14 @@
                             <div class="col-xs-3">
                             
                              <div class="form-group">
-
-                             <label class=""> {{$course->name}} </label>
+                             <label>Course Name:</label><br>
+                             <label class="">  {{$course->name}} </label>
                               </div>
                               </div> 
                                <div class="col-md-4">
                             
-                             <div class="form-group">
-                                <select name="admin_id" id="admin_id" class="form-control">
+                             <div class="form-group"><label>Select New Owner:</label>
+                                <select name="admin_id" id="admin_id" class="form-control"> 
                                  @foreach ($index1 as $course1)
                                         <option value="{{$course1->id}}">{{$course1->first_name}}</option>
                                  @endforeach
@@ -67,6 +67,7 @@
                             </div>
                             <div class="col-md-3">
                              <div class="form-group">
+                             <br>
                                <button type="submit" name="Correct" class="btn btn-primary pull-right active btn-md ">Reassign</button>
                              </div>
                              </div>
