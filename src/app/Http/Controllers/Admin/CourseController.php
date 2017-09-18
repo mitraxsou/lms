@@ -94,7 +94,7 @@ class CourseController extends Controller
         
         $course->name=request('name');
         $course->description=request('description');
-        $current1 = abs( crc32( uniqid() ) );
+        $current1 = mt_rand(10000000,99999999);
         $var=Auth::guard('admin')->user()->id;
         $course->feedback=$current1;
         $course->save();
@@ -123,7 +123,7 @@ class CourseController extends Controller
             }
             else
             {
-                abort(403,'Not Authorized');
+                return view('errors.403');
             }
         }
     }
@@ -152,7 +152,7 @@ class CourseController extends Controller
                 return redirect('/admin/mycourse')->with('success','Course updated successfully.');
             }
             else{
-                abort(403,'Not Authorized');
+                return view('errors.403');
             }
        // }
     }

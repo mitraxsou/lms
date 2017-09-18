@@ -69,6 +69,12 @@ class MyCourseController extends Controller
         //dd($index);
         $course = Course::find($id);
         $adm=Auth::guard('admin')->user();
+        //dd($course->admins);
+        foreach ($course->admins as $cor) {
+          if ($adm->id != $cor->pivot->admin_id) {
+            return view('errors.403');
+          }
+        }
         if($index->review_status=='Okay')
         {
                 foreach($course->admins as $cor)
@@ -83,7 +89,7 @@ class MyCourseController extends Controller
                     }
                     else
                     {
-                        abort(403,'Not Authorized');
+                        return view('errors.403');
                     }
                 }
         }
@@ -135,7 +141,7 @@ class MyCourseController extends Controller
                 return view('admin.course.subtopic.subtopic' , compact('course','topic','indexes'));
             }
             else{
-                abort(403,'Not Authorized');
+                return view('errors.403');
             }
         }
     }
@@ -177,7 +183,7 @@ class MyCourseController extends Controller
                 return view('admin.course.content.viewcontent', compact('course','course1','video'));
             }
             else{
-                abort(403,'Not Authorized');
+                return view('errors.403');
             }
         }
     }

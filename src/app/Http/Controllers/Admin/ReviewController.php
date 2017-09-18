@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Mail\RejectMail;
 use App\Http\Controllers\Controller;
 use DB;
+use Storage;
+use DateTime;
 use Auth;
 use App\Course;
 use App\Admin;
@@ -109,10 +111,26 @@ class ReviewController extends Controller
     public function content($id1)
     {
         
-         $course1 = DB::table('content')->join('subtopics','subtopics.content_id','=','content.content_id')->select('subtopics.sub_tid','subtopics.tid','subtopics.course_id','subtopics.name','subtopics.description','content.content','content.content_id')->where(
+         $course1 = DB::table('content')->join('subtopics','subtopics.content_id','=','content.content_id')->select('subtopics.sub_tid','subtopics.tid','subtopics.course_id','subtopics.name','subtopics.description','content.content','content.content_id','content.content_type')->where(
             'content.content_id',$id1
          )->first();
-         return view('admin.review.contentshow', compact('course1'));
+         //dd($course1);
+         $s3=Storage::disk('s3');
+
+        $kp = env('CLOUDFRONT_KEY_PAIRID');
+        $cloudfront=\Aws\CloudFront\CloudFrontClient::factory([
+            'region'=>env('AWS_REGION'),
+            'version'=>'2017-03-25'
+        ]);
+        $cf_url=env('CLOUDFRONT_URL');
+        $cf_expiry= new DateTime('+2 minutes');
+        $video= $cloudfront->getSignedUrl([
+            'url'=>"{$cf_url}/{$course1->content}",
+            'expires'=>$cf_expiry->getTimestamp(),
+            'private_key' =>base_path('/pk-APKAJZNXFGELO6O2EZMQ.pem'),
+            'key_pair_id' =>'APKAJZNXFGELO6O2EZMQ'
+            ]);
+         return view('admin.review.contentshow', compact('course1','video'));
     }
     public function feedback(Request $request)
     {

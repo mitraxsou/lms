@@ -1,20 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-  <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.6/summernote.css" rel="stylesheet">
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.6/summernote.min.js"></script>
-</head>
-<body>
-<div class="container">
+@extends('admin.layouts')
 
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.6/summernote.js"></script>
-    <div class="row">
+@section('content')
+<div class="container">
+  <div class="row">
     	<article>
     		<p><a href='/admin/mycourse/{{$topic->course_id}}'>&larr; back to Course</a></p>
     	</article>
@@ -103,8 +91,10 @@
         </div>
     </div>
 </div>
-<script>
- $('#vdo').click(function(){
+@endsection
+@section('scripts1')
+$(document).ready(function() {
+     $('#vdo').click(function(){
               $('#vd').show();
               $('#oth').hide();
               document.getElementById("vdo").className = "btn btn-primary"
@@ -117,6 +107,10 @@ $('#other').click(function(){
             document.getElementById("vdo").className = "btn btn-default"
             document.getElementById("other").className = "btn btn-primary"
          });
+     });
+@endsection
+@section('scripts2')
+
     $(document).ready(function() {
  
         $('#summernote').summernote({
@@ -164,8 +158,4 @@ $('#other').click(function(){
 
 
     });
-   
-  </script>
-
-</body>
-</html>
+@endsection

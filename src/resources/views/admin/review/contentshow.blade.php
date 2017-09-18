@@ -40,7 +40,13 @@
                   {{ csrf_field() }}
                   <div class="form-group">
                       <label>Content </label>
-                     <span> {!! $course1 -> content!!}</span>
+                      @if($course1->content_type=="video")
+                        <video controls >
+                          <source src="{{$video}}" type="" >
+                        </video>
+                      @else
+                        {!!$course1->content!!}
+                      @endif
                     </div>
                       
                         
