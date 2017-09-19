@@ -75,6 +75,10 @@
     -o-transition: All 0.5s ease-in;
 }
 
+#msform ul {
+	text-align: left;
+}
+
 /*buttons*/
 #msform .action-button {
     width: 100px;
@@ -134,6 +138,7 @@
 }
 
 #progressbar li {
+	text-align: center;
     list-style-type: none;
     color: grey;
     text-transform: uppercase;
@@ -181,6 +186,7 @@
     background: #ee0979;
     color: white;
 }
-table td{
+
+table td {
 	word-break: break-all;
 }

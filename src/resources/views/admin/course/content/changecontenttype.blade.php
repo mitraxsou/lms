@@ -1,19 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-   <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-  <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.6/summernote.css" rel="stylesheet">
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.6/summernote.min.js"></script>
+@extends('admin.layouts')
 
-</head>
-<body>
+@section('content')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+
 <div class="container">
-  <div class="row">
+ 
+                           @include('sweet::alert')
+    <div class="row">
     <article>
         <p><a href='/admin/mycourse/{{$course1->course_id}}'>&larr; back to {{$course1->name}}</a></p>
       </article>
@@ -65,8 +59,11 @@
         </div>
   </div> 
 </div>
+@endsection
+@section('scripts1')
+$(document).ready(function() {
+  
 
-<script>
  $('#vdo').click(function(){
               $('#vd').show();
               $('#oth').hide();
@@ -80,8 +77,9 @@ $('#other').click(function(){
             document.getElementById("vdo").className = "btn btn-default"
             document.getElementById("other").className = "btn btn-primary"
          });
-</script>
-<script type="text/javascript">
+       });
+@endsection
+@section('scripts2')
     $(document).ready(function() {
  
         $('#summernote').summernote({
@@ -99,7 +97,4 @@ $('#other').click(function(){
          placeholder: 'You can provide image / text / link type of contents here.'
         });
       });
-   
-  </script>
-</body>
-</html>
+@endsection

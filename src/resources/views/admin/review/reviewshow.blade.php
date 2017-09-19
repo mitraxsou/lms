@@ -70,7 +70,11 @@
                             
                             </td>
                              <td>{{ $course -> review_status}}</td>
+
                              <td><a class='btn btn-primary' href='/admin/detailreviewstructure/{{$course -> id}}'>View Flow</a></td>
+
+                             <td><a class='btn btn-primary' href='/admin/detailreviewstructure/{{ $course -> id }}'>View Flow</a></td>
+
                         </tr>    
                         @endforeach
                       @else
