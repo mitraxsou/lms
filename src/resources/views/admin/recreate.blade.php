@@ -27,18 +27,7 @@
                                 </div>
                             @endif 
                 <div class="panel-body">
-                      <!-- <div class="row">
-                      <div class="col-md-4">
-                      <h3>Name</h3>
-                      </div>
-                      <div class="col-md-4">
-                      <h3>Owners</h3>
-                      </div>
-
-                      <div class="col-md-4">
-                      <h3>Submit</h3>
-                      </div>
-                      </div>  -->
+                      
                       @if(count($index)>0)
                       
                       
