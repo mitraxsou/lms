@@ -14,20 +14,21 @@
                 	<form method="POST" action='/admin/storeCategory'>
                 	{{ csrf_field() }}
                 		<div class="form-group">
-                			<label>Category ID</label>
-                			<input type="number" name="id" class="form-control">
-                		</div>
-                		<div class="form-group">
                 			<label>Category Name</label>
                 			<input type="text" name="name" class="form-control">
                 		</div>
                 		<div class="form-group">
-                			<label>description</label>
+                			<label>Description</label>
                 			<input type="text" name="desc" class="form-control" >
                 		</div>
                 		<div class="form-group">
                 			<label>Parent Category ID</label>
-                			<input type="text" name="parent_id" class="form-control">
+                            <select name="parent_id" class="form-control">
+                                <option value="0">No parent</option>
+                                @foreach($pcategories as $pcat)
+                                    <option value="{{$pcat->id}}">{{$pcat->name}}</option>
+                                @endforeach
+                            </select>
                 		</div>
                 		<div class="form-group">
                 			<div class="col-md-offset-4 ">

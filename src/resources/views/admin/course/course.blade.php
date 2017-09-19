@@ -1,10 +1,7 @@
 @extends('admin.layouts')
 
 @section('content')
-<!-- 
-<script src="js/sweetalert.min.js"></script>
-<link rel="stylesheet" type="text/css" href="css/sweetalert.css">
-@include('sweet::alert') -->
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 
@@ -13,11 +10,7 @@
                            @include('sweet::alert')
                         
     <div class="row">
-      @if(Session::has('sweet_alert.alert'))
-        <script>
-            swal('Success!', '{{ Session::get('sweet_alert.alert') }}', 'success');
-        </script>
-      @endif
+     
     <article>
     
         <p><a href='/adminhome'>&larr; back to Home</a></p>
@@ -34,22 +27,21 @@
                   				<th>ID</th>
                   				<th>Name</th>
                         <th>Description</th>
-                        <th>Image</th>
                         <th></th>
                 			</tr>
               			</thead>
               			<tbody>
                     
                     	@foreach ($courses as $course)
-                			<tr>
-                        
-
-                      
+                			<tr>                      
                           <td>{{ $course -> id }}</td>
-                          <td>{{ $course -> name }}</td>
+                          <td>
+                              <a  href='mycourse/{{ $course -> id }}'>{{ $course -> name }}</a>
+                              </td>
                           <td>{{ $course -> description}}</td>
-                          <td><img src = "<?php echo $course->cfilename ?>" height="50px" width="50px"></img></td>
-                          <td><a class='btn btn-primary' href='mycourse/{{ $course -> id }}'>View</a></td>
+
+                          
+
                           <td><a class="btn btn-warning" href="/admin/course/{{$course->id}}/edit">Edit</a></td>
                           <td><a class="btn btn-success" href="/admin/course/publish/{{$course->id}}">Publish</a></td>
                       

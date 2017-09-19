@@ -1,20 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-  <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.6/summernote.css" rel="stylesheet">
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.6/summernote.min.js"></script>
-</head>
-<body>
-<div class="container">
+@extends('admin.layouts')
 
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.6/summernote.js"></script>
-    <div class="row">
+@section('content')
+<div class="container">
+  <div class="row">
     	<article>
     		<p><a href='/admin/mycourse/{{$topic->course_id}}'>&larr; back to Course</a></p>
     	</article>
@@ -31,10 +19,7 @@
                     <div class="panel-body">
                     	<form method="POST" id="videoUpload" action="/admin/{{$topic->course_id}}/{{$topic->tid}}/createsubtopic" enctype="multipart/form-data">
                     	{{ csrf_field() }}
-                    		<div class="form-group">
-                    			<label>Sub Topic ID <i style="color:red;"> *  </i></label>
-                    			<input type="number" name="stid" class="form-control">
-                    		</div>
+                    		
                            <div class="form-group">
                                 <label>Topic ID </label>
                                 <input type="number" name="tid" value= "{{$topic->tid}}" class="form-control" readonly>
@@ -51,7 +36,7 @@
                     			<label>Chapter Description  <i style="color:red;"> * </i></label>
                     			<input type="textarea" name="description" id="description" class="form-control">
                     		</div>
-                            @if($topic->review_status!='Not Reviewed')
+                           
                             <div class="form-group">
                                 <!-- <label>Select Content Type</label>
                                <select name="type">
@@ -64,7 +49,7 @@
                                 <input type="button" id="vdo" class="btn btn-default" value="Video" ></input>
                                 
                             </div>
-                            @endif
+                          
                             <div class="form-group" style="display: none" id="oth">
                                     
                                     <textarea id="summernote" name="summernote"  ></textarea>
@@ -83,9 +68,11 @@
 
                             
                     		<div class="form-group">
+                                <button type="submit" class="btn btn-primary pull-right">Submit
+                                </button>
+                                <button type="reset" class="btn btn-warning pull-left">Reset
+                                </button>
                             
-
-                    				<button type="submit" class="btn btn-primary pull-right">Submit</button>
                     			
                     		</div>
                             @if(count($errors))
@@ -104,8 +91,10 @@
         </div>
     </div>
 </div>
-<script>
- $('#vdo').click(function(){
+@endsection
+@section('scripts1')
+$(document).ready(function() {
+     $('#vdo').click(function(){
               $('#vd').show();
               $('#oth').hide();
               document.getElementById("vdo").className = "btn btn-primary"
@@ -118,6 +107,10 @@ $('#other').click(function(){
             document.getElementById("vdo").className = "btn btn-default"
             document.getElementById("other").className = "btn btn-primary"
          });
+     });
+@endsection
+@section('scripts2')
+
     $(document).ready(function() {
  
         $('#summernote').summernote({
@@ -165,8 +158,4 @@ $('#other').click(function(){
 
 
     });
-   
-  </script>
-
-</body>
-</html>
+@endsection

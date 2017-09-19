@@ -9,7 +9,7 @@
                            @include('sweet::alert')
     <div class="row">
     <article>
-        <p><a href='/admin/review/{{$course1->sub_tid}}/{{$course1 -> content_id}}'>&larr; back to course</a></p>
+        <p><a href='/admin/review/{{$course1->course_id}}/{{$course1->tid}}/{{$course1->sub_tid}}/{{$course1 -> content_id}}'>&larr; back to course</a></p>
       </article>
       <!-- 
       <div class="panel-body">
@@ -40,7 +40,14 @@
                   {{ csrf_field() }}
                   <div class="form-group">
                       <label>Content </label>
-                     <span> {!! $course1 -> content!!}</span>
+                      @if($course1->content_type=="video")
+                        <video controls style="height: 500px;
+                                              width: 600px;">
+                          <source src="{{$video}}" type="" >
+                        </video>
+                      @else
+                        {!!$course1->content!!}
+                      @endif
                     </div>
                       
                         

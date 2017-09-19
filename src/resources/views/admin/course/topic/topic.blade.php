@@ -6,6 +6,15 @@
  
 <div class="container">
       @include('sweet::alert')
+      @if(count($errors))
+                            <div class="alert alert-danger">
+                               <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach 
+                                </ul>
+                            </div>
+                        @endif
     <div class="row">
     <article>
         <p><a href='/admin/mycourse'>&larr; back to my courses</a></p>
@@ -14,34 +23,82 @@
       @if($index->review_status!='Okay')
       <div class="row">
         <div class="col-md-8">
-          <div class="panel panel-success">
+         <div class="panel panel-success">
                 <div class="panel-heading">
-                    <h3>Add the course structure for <i>{{ $course ->name }}</i></h3>
+                    <h3>{{ $course ->name }}</h3>
                     <p>{{$course->description}}</p>
                 </div>
-                <form method="POST" action="/admin/reviewstructure" enctype="multipart/form-data">
-                {{ csrf_field() }}
                 <div class="panel-body">
-                @if($index->feedback!=null)
-                <div class="form-group"  >
-                    <label>Feedback</label>         
-                    <textarea class="form-control" readonly="">{{$index->feedback}}</textarea>
-                 
+        <div>
+          
+
+             @if(count($feedback)>0)
+                <div class="well well-sm">
+                <label>Feedback</label> <br> 
+                <div class="form-group "   >
+                    
+                          @foreach ($feedback as $feed)
+                          <span><label>{{$feed->commenter}} : </label> {{$feed->comment}}</span><br>
+                          @endforeach
+                </div>
+                <div class="form-group "   >
+                    <form method="POST"  action="/admin/feedback/{{$index->feedback}}" >
+                      {{ csrf_field() }}
+                         <label>Your Comment : </label>
+                         <span>
+                           <input type="hidden" name="fid" value="{{$index->feedback}}">
+                           <input type="hidden" name="cid" value="{{$index->course_id}}">
+                           <input type="textarea" name="comment" id="comment" class="form-control">
+                          <br/>
+                           <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                          </span> 
+                         <!-- <div class="form-group">
+                                <button type="reset" class="btn btn-warning pull-left">Reset
+                                </button>
+                            
+                          
+                        </div> -->
+                    </form>
+                </div>
                 </div>
                 @endif
+                
+
+        </div>
+         
+         
+                
+               
+               <form method="POST" action="/admin/reviewstructure" enctype="multipart/form-data">
+               {{ csrf_field() }}
                 <div class="form-group"  >
-                        <textarea id="summernote" name="summernote">{!!$index->tempstructure!!}</textarea>
+
+                        <label>Add the course structure for <i>{{ $course ->name }}</i></label>
+
+                        <textarea id="temporarystructure" name="temporarystructure">{!!$index->tempstructure!!}</textarea>
                        <input type="hidden" name="cid" value="{{$course->id}}">
                  </div>
-                </div>
-                <div class="form-group">
+                
+                <div class="form-group"  >
+                <label>Add the course template for <i>{{ $course ->name }} </i> : </label>
+                        <textarea id="democontent" name="democontent">{!!$index->demo_content!!}</textarea>
+                       
+                 </div>
+                 @if($index->review_status!='Reviewing')
+                 <div class="form-group">
                         <div class="col-md-offset-4 ">                        
 
                         <button type="submit" class="btn btn-primary">Review Structure</button>
                       </div>
                 </div>
+                @endif
                 </form>
               </div>
+          </div>
+                
+                
+             
+             
           </div>
           <div class="col-md-4">
                 
@@ -60,7 +117,7 @@
       </div>
     @else
     <div class="row">
-      <div class="col-md-8 col-md-offset-2">
+      <div class="col-md-8">
        <div class="panel panel-success">
               <div class="panel-heading">
                         Final Structure
@@ -72,6 +129,45 @@
               </div>
         </div>
       </div>
+      
+      <div class="col-md-4">
+       <div class="panel panel-success">
+              <div class="panel-heading">
+                  Comments
+                        
+
+              </div>
+              <div class="well well-sm">
+                
+                <div class="form-group "   >
+                    
+                          @foreach ($feedback as $feed)
+                          <span><label>{{$feed->commenter}} : </label> {{$feed->comment}}</span><br>
+                          @endforeach
+                </div>
+                <div class="form-group "   >
+                    <form method="POST"  action="/admin/feedback/{{$course->feedback}}" >
+                      {{ csrf_field() }}
+                         <label>Your Comment : </label>
+                         <span>
+                           <input type="hidden" name="fid" value="{{$course->feedback}}">
+                           <input type="hidden" name="cid" value="{{$course->id}}">
+                           <input type="textarea" name="comment" id="comment" class="form-control">
+                          <br/>
+                           <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                          </span> 
+                         <!-- <div class="form-group">
+                                <button type="reset" class="btn btn-warning pull-left">Reset
+                                </button>
+                            
+                          
+                        </div> -->
+                    </form>
+                </div>
+                </div>
+        </div>
+      </div>
+
     </div>
     @endif
 
@@ -178,7 +274,7 @@
 @section('scripts2')
 $(document).ready(function() {
  
-        $('#summernote').summernote({
+        $('#temporarystructure').summernote({
         toolbar: [
                 ["style", ["style"]],
                 ["font", ["bold", "underline", "clear"]],
@@ -200,7 +296,7 @@ $(document).ready(function() {
         fontNames:['Arial','Arial Black']*/
     });
            
-            $('#summernote1').summernote({
+            $('#democontent').summernote({
         toolbar: [
                 ["style", ["style"]],
                 ["font", ["bold", "underline", "clear"]],
@@ -208,7 +304,7 @@ $(document).ready(function() {
                 ["color", ["color"]],
                 ["para", [ "paragraph"]],
                 //["table", ["table"]],
-                ["insert", ["link", "picture"]],
+                ["insert", ["link", "picture","video"]],
                 ["view", ["fullscreen", "codeview", "help"]]
             ],
          height: 300,

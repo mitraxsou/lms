@@ -9,6 +9,7 @@ use DateTime;
 use Illuminate\Support\Facades\DB;
 use Auth;
 use App\Course;
+use App\Admin;
 use Carbon\Carbon;
 
 class MyCourseController extends Controller
@@ -19,7 +20,7 @@ class MyCourseController extends Controller
         $j=0;$i=0;
     	$auth=Auth::guard('admin')->user()->id;
        //  Alert::message('Robots are working!');
-    	$coursesarr = DB::table('courses')->join('admin_course','id','=','admin_course.course_id')->select('courses.id','courses.name','courses.description','courses.cfilename')->where('admin_id', $auth)->orderBy('id')->get();
+    	$coursesarr = DB::table('courses')->join('admin_course','id','=','admin_course.course_id')->select('courses.id','courses.name','courses.description')->where('admin_id', $auth)->orderBy('id')->get();
         $courses1=DB::table('courses')->pluck('id');
 
          $publish=DB::table('publish_course')->join('courses','course_id','=','courses.id')
@@ -65,8 +66,15 @@ class MyCourseController extends Controller
     public function show($id)
     {
         $index=DB::table('course_structure')->where('course_id', $id)->first();
+        //dd($index);
         $course = Course::find($id);
         $adm=Auth::guard('admin')->user();
+        //dd($course->admins);
+        foreach ($course->admins as $cor) {
+          if ($adm->id != $cor->pivot->admin_id) {
+            return view('errors.403');
+          }
+        }
         if($index->review_status=='Okay')
         {
                 foreach($course->admins as $cor)
@@ -76,29 +84,52 @@ class MyCourseController extends Controller
                         $indexes = DB::table('topic')->where('course_id', $id)->orderBy('tid')->get();
                         $indexes_sub = DB::table('subtopics')->where([['course_id', $id]
                                                                     ])->get();
-            	       return view('admin.course.topic.topic' , compact('course','indexes','indexes_sub','index'));
+                        $feedback = DB::table('feedback')->where('fid', $course->feedback)->get();
+            	       return view('admin.course.topic.topic' , compact('course','indexes','indexes_sub','index','feedback'));
                     }
                     else
                     {
-                        abort(403,'Not Authorized');
+                        return view('errors.403');
                     }
                 }
         }
         else{
-             return view('admin.course.topic.topic' , compact('course','index'));
+            
+            $feedback = DB::table('feedback')->where('fid', $index->feedback)->get();
+             return view('admin.course.topic.topic' , compact('course','index','feedback'));
         }
     
     }
     
     public function reviewstructure(Request $request)
     {
+      $this->validate($request,[
+            'temporarystructure'=>'required',
+            'democontent'=>'required'
+        ]);
+      //dd(request('summernote'));
 
           $updte = DB::table('course_structure')->where([
                  ['course_id', '=', request('cid')]
-         ])->update(['review_status' => 'Reviewing','tempstructure'=> request('summernote')]);
+         ])->update(['review_status' => 'Reviewing',
+                    'tempstructure'=> request('temporarystructure'),
+                    'demo_content'=>request('democontent') 
+                    ]);
           alert()->success('Sent for Reviewing!');
           $status=true;
           return redirect('/admin/mycourse/'.request('cid'))->with(compact('status'));;
+    }
+    public function feedback(Request $request)
+    {
+
+          $var=Auth::guard('admin')->user()->id;
+          
+          $course = Admin::find($var);
+          $name=$course->first_name.' '.$course->last_name;
+
+           DB::table('feedback')->insert(['fid' =>request('fid'),'comment'=>request('comment'),'commenter'=>$name,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
+          alert()->success('Comment sent !');
+          return redirect('/admin/mycourse/'.request('cid'));
     }
 
     public function showSubTopic($cid,$tid)
@@ -115,7 +146,7 @@ class MyCourseController extends Controller
                 return view('admin.course.subtopic.subtopic' , compact('course','topic','indexes'));
             }
             else{
-                abort(403,'Not Authorized');
+                return view('errors.403');
             }
         }
     }
@@ -157,7 +188,7 @@ class MyCourseController extends Controller
                 return view('admin.course.content.viewcontent', compact('course','course1','video'));
             }
             else{
-                abort(403,'Not Authorized');
+                return view('errors.403');
             }
         }
     }

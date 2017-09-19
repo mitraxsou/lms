@@ -9,7 +9,7 @@ class Course extends Model
 {
     //
         protected $fillable = [
-        'name', 'description','cfilename'
+        'name', 'description'
     ];
 
     public function admins()
