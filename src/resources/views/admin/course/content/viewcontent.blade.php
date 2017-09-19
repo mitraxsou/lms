@@ -35,7 +35,9 @@
       <div class="panel-body">
       <fieldset>
         @if($course->content_type=="video")
-          <video controls >
+          <video controls style="height: 500px;
+                                 width: 600px;
+                                 margin-left: 250px;" >
             <source src="{{$video}}" type="" >
           </video>
         @else

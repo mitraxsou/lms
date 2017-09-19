@@ -24,7 +24,8 @@
                <!-- -->
           </div>       
          </div>
-         <p>{{$course->content_type}}</p>
+         <div class="panel-body">
+         
                       <label>Feedback  <i style="color:red;"> * </i></label>
                       <textarea name="description" id="description" class="form-control" readonly="" > 
                       {!!$course->feedback!!}
@@ -63,12 +64,15 @@
       </fieldset>
       @else
       <div>
-        <video width="360" height="240" controls >
+        <video style="height: 500px;
+                    width: 600px;
+                    margin-left: 250px;" controls >
           <source src="{{$video}}" type="" >
         </video>
 
         <br>
         <a href="/admin/mycourse/contentdelete/{{$course1->content_id}}" class="btn btn-danger">Remove video</a>
+      </div>
       </div>
       @endif
       @if($course->content_type=="")

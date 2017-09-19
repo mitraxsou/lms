@@ -41,7 +41,8 @@
                   <div class="form-group">
                       <label>Content </label>
                       @if($course1->content_type=="video")
-                        <video controls >
+                        <video controls style="height: 500px;
+                                              width: 600px;">
                           <source src="{{$video}}" type="" >
                         </video>
                       @else
