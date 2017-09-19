@@ -18,7 +18,7 @@ class CreateTopicsTable extends Migration
             $table->integer('tid');
             $table->string('name');
             $table->string('review_status')->default('Not Reviewed');
-            $table->integer('course_id')->refrences('id')->on('courses')->onDelete('cascade');
+            $table->integer('course_id')->references('id')->on('courses')->onDelete('cascade');
             $table->string('description');
             $table->timestamps();
             $table->primary(['tid','course_id']);

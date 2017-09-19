@@ -22,7 +22,7 @@
                 </div>
             @endif
             <!-- fieldsets -->
-            <fieldset>
+            <fieldset id="personal">
                 <h2 class="fs-title">Personal Details</h2>
                 <h3 class="fs-subtitle">Tell us something more about you</h3>
                 <input type="text" name="fname" id="fname" placeholder="First Name *" required="" />
@@ -183,7 +183,6 @@ $(".submit").click(function(){
 	var lname = $("#lname").val();
 	var email = $("#email").val();
 	var pass = $("#password").val();
-
 
 	if((fname || lname || email || pass)=="" )
 	{

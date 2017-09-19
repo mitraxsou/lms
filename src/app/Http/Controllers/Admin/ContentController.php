@@ -91,12 +91,19 @@ class ContentController extends Controller
 	            $s3->delete($course->content);
 	            DB::table('content')->where([
 	                 ['content_id', '=', $course->content_id],
-	         ])->update(['content'=>"",'content_type'=>""]);
+	           ])->update(['content'=>"",'content_type'=>""]);
+
+                DB::table('subtopics')->where([
+                    ['sub_tid', '=', $course1->sub_tid],
+                    ['tid', '=', $course1->tid],
+                    ['course_id', '=', $course1->course_id]
+                ])->update(['review_status' => 'Not Reviewed']);
 	        }
 	        catch(S3Exception $se)
 	        {
 	            return redirect()->back()->with('failure','Some exception occured');
 	        }
+
 	        return redirect('/admin/mycourse/contentselection/'.$course1->course_id.'/'.$course1->tid.'/'.$course1->sub_tid);
 	     }
 	 }
