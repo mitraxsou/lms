@@ -167,30 +167,9 @@ class ReviewController extends Controller
             ->get();
         foreach ($category1 as $category) {
             # code...
-        
-        
-           
-         $course = DB::table('subtopics')
-         ->join('course_category', 'course_category.course_id', '=', 'subtopics.course_id')
-         ->where([['course_category.category_id','=',$category->category_id],
-            ['subtopics.content_id','=',$id1]
-            ])
-         ->first();
-        }
-         if(count($course)){
-         $course1 = DB::table('content')->join('subtopics','subtopics.content_id','=','content.content_id')->select('subtopics.sub_tid','subtopics.tid','subtopics.course_id','subtopics.name','subtopics.description','content.content','content.content_id')->where(
-            'content.content_id',$id1
-         )->first();
-         return view('admin.review.contentshow', compact('course1'));
-     }
-     else{
-         return view('admin.review.notfoundcategory');
-     }
-
          $course1 = DB::table('content')->join('subtopics','subtopics.content_id','=','content.content_id')->select('subtopics.sub_tid','subtopics.tid','subtopics.course_id','subtopics.name','subtopics.description','content.content','content.content_id','content.content_type')->where(
             'content.content_id',$id1
          )->first();
-         //dd($course1);
          $s3=Storage::disk('s3');
 
         $kp = env('CLOUDFRONT_KEY_PAIRID');
@@ -206,6 +185,27 @@ class ReviewController extends Controller
             'private_key' =>base_path('/pk-APKAJZNXFGELO6O2EZMQ.pem'),
             'key_pair_id' =>'APKAJZNXFGELO6O2EZMQ'
             ]);
+           
+         $course = DB::table('subtopics')
+         ->join('course_category', 'course_category.course_id', '=', 'subtopics.course_id')
+         ->where([['course_category.category_id','=',$category->category_id],
+            ['subtopics.content_id','=',$id1]
+            ])
+         ->first();
+        }
+         if(count($course)){
+        
+         return view('admin.review.contentshow', compact('course1','video'));
+     }
+     else{
+         return view('admin.review.notfoundcategory');
+     }
+
+         /*$course1 = DB::table('content')->join('subtopics','subtopics.content_id','=','content.content_id')->select('subtopics.sub_tid','subtopics.tid','subtopics.course_id','subtopics.name','subtopics.description','content.content','content.content_id','content.content_type')->where(
+            'content.content_id',$id1
+         )->first();*/
+         //dd($course1);
+        
          return view('admin.review.contentshow', compact('course1','video'));
 
     }
