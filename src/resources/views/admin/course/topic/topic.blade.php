@@ -6,7 +6,15 @@
  
 <div class="container">
       @include('sweet::alert')
-      
+      @if(count($errors))
+                            <div class="alert alert-danger">
+                               <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach 
+                                </ul>
+                            </div>
+                        @endif
     <div class="row">
     <article>
         <p><a href='/admin/mycourse'>&larr; back to my courses</a></p>
@@ -67,13 +75,13 @@
 
                         <label>Add the course structure for <i>{{ $course ->name }}</i></label>
 
-                        <textarea id="summernote" name="summernote">{!!$index->tempstructure!!}</textarea>
+                        <textarea id="temporarystructure" name="temporarystructure">{!!$index->tempstructure!!}</textarea>
                        <input type="hidden" name="cid" value="{{$course->id}}">
                  </div>
                 
                 <div class="form-group"  >
                 <label>Add the course template for <i>{{ $course ->name }} </i> : </label>
-                        <textarea id="summernote1" name="summernote1">{!!$index->demo_content!!}</textarea>
+                        <textarea id="democontent" name="democontent">{!!$index->demo_content!!}</textarea>
                        
                  </div>
                  @if($index->review_status!='Reviewing')
@@ -266,7 +274,7 @@
 @section('scripts2')
 $(document).ready(function() {
  
-        $('#summernote').summernote({
+        $('#temporarystructure').summernote({
         toolbar: [
                 ["style", ["style"]],
                 ["font", ["bold", "underline", "clear"]],
@@ -288,7 +296,7 @@ $(document).ready(function() {
         fontNames:['Arial','Arial Black']*/
     });
            
-            $('#summernote1').summernote({
+            $('#democontent').summernote({
         toolbar: [
                 ["style", ["style"]],
                 ["font", ["bold", "underline", "clear"]],

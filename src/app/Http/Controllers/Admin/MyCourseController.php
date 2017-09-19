@@ -103,12 +103,17 @@ class MyCourseController extends Controller
     
     public function reviewstructure(Request $request)
     {
+      $this->validate($request,[
+            'temporarystructure'=>'required',
+            'democontent'=>'required'
+        ]);
+      //dd(request('summernote'));
 
           $updte = DB::table('course_structure')->where([
                  ['course_id', '=', request('cid')]
          ])->update(['review_status' => 'Reviewing',
-                    'tempstructure'=> request('summernote'),
-                    'demo_content'=>request('summernote1') 
+                    'tempstructure'=> request('temporarystructure'),
+                    'demo_content'=>request('democontent') 
                     ]);
           alert()->success('Sent for Reviewing!');
           $status=true;
