@@ -16,7 +16,7 @@ class CreateContent extends Migration
        Schema::create('content', function (Blueprint $table) {
            $table->integer('content_id');
            $table->string('content_type');
-           $table->string('feedback')->default('null');
+           $table->string('feedback')->nullable();
              $table->mediumText('content');
             $table->primary('content_id');
           

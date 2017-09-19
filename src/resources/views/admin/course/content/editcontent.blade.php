@@ -25,12 +25,10 @@
           </div>       
          </div>
          <p>{{$course->content_type}}</p>
-         <div class="form-group">
                       <label>Feedback  <i style="color:red;"> * </i></label>
                       <textarea name="description" id="description" class="form-control" readonly="" > 
                       {!!$course->feedback!!}
                       </textarea>
-                    </div>
       @if($course->content_type!="video")
       <fieldset>
         <form method="POST" action="/admin/editsubtopic/{{$course1->content_id}}" >
