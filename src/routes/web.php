@@ -218,6 +218,17 @@ Route::group(['middleware' => 'adminauth'], function()
 	Route::get('/dummy', 'Admin\CategoryController@dummy');
 	Route::get('/admin/viewcontent/{id}','Admin\ContentController@viewcontent');
 
+		/***********Quiz*********/
+	Route::get('/admin/{course}/{topic}/quiz','Admin\QuizController@index');
+	Route::get('/admin/{course}/{topic}/{subtid}/showquiz','Admin\QuizController@show');
+	Route::get('/admin/{course}/{topic}/{subtopic}/createquiz','Admin\QuizController@create');
+	Route::post('/admin/{course}/{topic}/{subtopic}/quiz','Admin\QuizController@store');
+
+	/***********Questions************/
+	Route::get('/admin/quiz/{quiz}/questions','Admin\QuestionController@index');
+	Route::get('/admin/quizid/{quiz}/{question}','Admin\QuestionController@show');
+	Route::get('/admin/{quiz}/createquestion','Admin\QuestionController@create');
+	Route::post('/admin/ques/{quiz}/storequestion','Admin\QuestionController@store');
 
 
 });
