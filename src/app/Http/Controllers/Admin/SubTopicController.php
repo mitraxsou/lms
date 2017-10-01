@@ -177,7 +177,21 @@ class SubTopicController extends Controller
         alert()->success('Content deleted successfully');
         return redirect('/admin/mycourse/'.$cid);
     }
-    
+     public function askdestroy($cid, $tid, $stid)
+    {
+        $course1 = DB::table('subtopics')->where([
+                 ['sub_tid', '=', $stid],
+                 ['tid', '=', $tid],
+                 ['course_id', '=', $cid]
+         ])->first();
+         $updte = DB::table('subtopics')->where([
+                    ['sub_tid', '=', request('sub_tid')],
+                 ['tid', '=', request('tid')],
+                 ['course_id', '=', request('course_id')]
+         ])->update(['review_status' => 'Request']);
+        alert()->info('Request sent');
+        return redirect('/admin/mycourse/'.$cid);
+    }
     public function editcontent($id,$id1,$id2)
     {
          $course1 = DB::table('subtopics')->where([
