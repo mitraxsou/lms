@@ -47,7 +47,7 @@ services:
     image: mysql:5.6.36
     # we mount a datavolume to make sure we don't loose data
     volumes:
-       - ./db_data1:/var/lib/mysql
+       - ./db_data:/var/lib/mysql
     # setting some envvars to create the DB
     
     environment:
