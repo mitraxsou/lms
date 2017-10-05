@@ -103,6 +103,7 @@
 
 
                                 @elseif($pb -> publish_status == 'Edit')
+                                
                                 <td><a class="btn btn-danger" href="/admin/publishedit/{{$pb->course_id}}">Edit</a>
                                 </td>
                                 <div class="form-group">

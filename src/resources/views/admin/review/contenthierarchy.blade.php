@@ -118,6 +118,15 @@
                                           <td>{{ $index1 -> description}}</td>
                                           <td > <span class="label label-success">Corrected</span></td>
                                     </tr>
+                                   
+                                    @elseif($index1 -> review_status == 'Request')
+                                      <tr name="{{$index -> tid}}">
+                                          <td></td>
+                                          <td><a  href='/admin/viewcontent/{{$index1 -> content_id}}'>
+                                         {{ $index1 -> name }}</a></td>
+                                          <td>{{ $index1 -> description}}</td>
+                                          <td > <a class="label label-success" href='/admin/allow/{{$index1 -> content_id}}'>Allow</a></td>
+                                    </tr>
                                     @else
                                     <tr name="{{$index -> tid}}">
                                       <td></td>

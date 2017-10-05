@@ -165,11 +165,13 @@ Route::group(['middleware' => 'adminauth'], function()
 	Route::get('/admin/mycourse/contentdelete/{contid}','Admin\ContentController@deleteContent');
 	Route::post('/admin/mycourse/contentAdd/{contid}','Admin\ContentController@storeContent');
 	Route::get('/admin/mycourse/delete/{course}/{topic}/{subtopic}','Admin\SubTopicController@destroy');
+	Route::get('/admin/mycourse/askdelete/{course}/{topic}/{subtopic}','Admin\SubTopicController@askdestroy');
 
 	/*************/
 
 	/*********Admin Publish - Soumi**********/
 	Route::get('/admin/publishcourse' , 'Admin\PublishController@create');
+	Route::get('/admin/publishlist' , 'Admin\PublishController@createList');
 	Route::post('/admin/feedbackcorrect', 'Admin\PublishController@feedbackcorrect');
 	Route::post('/admin/feedbackedit', 'Admin\PublishController@feedbackedit');
 	Route::get('/admin/publishedit/{id}' , 'Admin\MyCourseController@publishedit');
@@ -183,6 +185,7 @@ Route::group(['middleware' => 'adminauth'], function()
 	Route::get('/admin/mycourse/{course}/{topic}/{subtid}','Admin\MyCourseController@contentshow');
 	Route::post('/admin/reviewstructure','Admin\MyCourseController@reviewstructure');
 	Route::post('/admin/feedback/{id}','Admin\MyCourseController@feedback');
+	Route::post('/admin/feedbackpublish/{id}','Admin\PublishController@feedbackpublish');
 
 
 	/**Video part**/
@@ -204,8 +207,10 @@ Route::group(['middleware' => 'adminauth'], function()
 
 	/***************Reviewing - Soumi********/
 	Route::get('/admin/reviewcourse', 'Admin\ReviewController@create');
+	Route::get('/admin/reviewdeletionrequest', 'Admin\ReviewController@askdelete');
 	Route::get('/admin/review/{cid}/{tid}/{stid}/{review}', 'Admin\ReviewController@review');
 	Route::get('/admin/contentreview/{id}','Admin\ReviewController@content');
+	Route::get('/admin/allow/{id}','Admin\ReviewController@allow');
 	Route::post('/admin/reviewfeedback/{review}', 'Admin\ReviewController@feedback');
 	Route::post('/admin/reviewcorrect/{review}', 'Admin\ReviewController@correct');
 	Route::get('/admin/reviewstr','Admin\ReviewController@reviewstructure');

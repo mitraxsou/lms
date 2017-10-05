@@ -58,16 +58,19 @@ class CourseController extends Controller
               # code...
             //}
           }
-        //  dd($arr);
                 //
               # code...
+        //  dd($arr);
           }
          
     # code...
           
           
            // dd($indexes_sub);
-        return view('admin.course.viewonly.topic' , compact('course','indexes','indexes_sub'));
+           $feedback = DB::table('feedback')->join('publish_course','feedback','=','fid')->where('publish_course.course_id', $id)->get();
+        $publish= DB::table('publish_course')->where('course_id', $id)->first();
+        //dd($publish);
+        return view('admin.course.viewonly.topic' , compact('course','indexes','indexes_sub','feedback','publish'));
         
     }
     public function create()

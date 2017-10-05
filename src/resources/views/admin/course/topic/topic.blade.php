@@ -223,23 +223,30 @@
                                                 <!-- <td><a class='btn btn-primary' href='/admin/mycourse/editmaking/{{$index1->course_id}}/{{$index1->tid}}/{{ $index1 -> sub_tid }}'>Edit Content</a></td> 
                                                  -->
                                                  <td><a class='btn btn-primary' href='/admin/mycourse/review/{{ $index1 -> course_id }}/{{ $index1 -> tid }}/{{ $index1 -> sub_tid }}'>Review Content</a></td> 
+                                                  <td><a class="btn btn-danger" href="/admin/mycourse/delete/{{ $index1 -> course_id }}/{{ $index1 -> tid }}/{{ $index1 -> sub_tid }}">Delete</a></td>
 
                                                 @elseif($index1 -> review_status == 'Edit Required')
                                                 <!-- <td><a class='btn btn-primary' href='/admin/mycourse/editmaking/{{$index1->course_id}}/{{$index1->tid}}/{{ $index1 -> sub_tid }}' disabled>Edit Content</a></td> --> 
                                                 <td><a class='btn btn-danger' href='/admin/mycourse/edit/{{ $index1 -> course_id }}/{{ $index1 -> tid }}/{{ $index1 -> sub_tid }}'>View to Edit</a></td>
+                                                 <td><a class="btn btn-danger" href="/admin/mycourse/delete/{{ $index1 -> course_id }}/{{ $index1 -> tid }}/{{ $index1 -> sub_tid }}">Delete</a></td>
 
 
-                                                @elseif($index1 -> review_status == 'Correct')
+                                                @elseif($index1 -> review_status == 'Correct' )
                                                 <!-- <td><a class='btn btn-primary' href='/admin/mycourse/editmaking/{{$index1->course_id}}/{{$index1->tid}}/{{ $index1 -> sub_tid }}' disabled>Edit Content</a></td> 
                                                  --><td><a class='btn btn-success' disabled href='#'>Reviewed</a></td>
+                                                    <td><a class="btn btn-warning" href="/admin/mycourse/askdelete/{{ $index1 -> course_id }}/{{ $index1 -> tid }}/{{ $index1 -> sub_tid }}">Request Delete</a></td>
 
+                                                @elseif($index1 -> review_status == 'Request' )
+                                                      <td><a class='btn btn-success' disabled href='#'>Reviewed</a></td>
+                                                      <td><a class="btn btn-warning" disabled href="/admin/mycourse/askdelete/{{ $index1 -> course_id }}/{{ $index1 -> tid }}/{{ $index1 -> sub_tid }}">Request Delete</a></td>
 
+                                                     
                                                 @elseif($index1 -> review_status == 'Reviewing')
                                                <!--  <td><a class='btn btn-primary' href='/admin/mycourse/editmaking/{{$index1->course_id}}/{{$index1->tid}}/{{ $index1 -> sub_tid }}' disabled>Edit Content</a></td> --> 
                                                 <td><a class='btn btn-default' disabled href='/admin/mycourse/{{ $index1 -> course_id }}/{{ $index1 -> tid }}/{{ $index1 -> sub_tid }}'>Reviewing</a></td>
                                          @endif
                                  
-                              <td><a class="btn btn-danger" href="/admin/mycourse/delete/{{ $index1 -> course_id }}/{{ $index1 -> tid }}/{{ $index1 -> sub_tid }}">Delete</a></td>
+                             
                               </tr>
                               @endif
                             @endforeach

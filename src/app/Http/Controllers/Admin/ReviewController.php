@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Mail\RejectMail;
+use App\Mail\Feedback;
 use App\Http\Controllers\Controller;
 use DB;
 use Storage;
@@ -230,6 +231,18 @@ class ReviewController extends Controller
             'content_id',$id
          )->first();
          //create();
+
+          $var=Auth::guard('admin')->user()->id;
+          
+          $course = Admin::find($var);
+
+            $mailbody = DB::table('courses')->join('subtopics','subtopics.course_id','=','courses.id')->where([
+                     ['subtopics.content_id' ,'=', $id]
+             ])->first();
+            
+                   
+
+            \Mail::to($course)->send(new Feedback($mailbody));
          alert()->info('Feedback taken');
          return redirect('/admin/reviewcourse');
        //return view('admin.review.contentshow', compact('course1'));
@@ -253,6 +266,32 @@ class ReviewController extends Controller
         //dd($course1);
           alert()->success('Content Corrected');
        return redirect('/admin/reviewcourse');
+    }
+    public function allow($id)
+    {
+        
+        $updte = DB::table('subtopics')->where([
+                 ['content_id' ,'=', $id]
+         ])->update(['review_status' => 'Not Reviewed']);
+        
+          alert()->success('Deleteion Request Allowed');
+       return redirect('/admin/reviewdeletionrequest');
+    }
+    public function askdelete()
+    {
+        
+        /*$course1 = DB::table('subtopics')
+                    ->join('content', 'content.content_id', '=', 'subtopics.content_id')
+                    ->where([
+                        ['content.feedback' ,'=', 'Request']
+                    ])->get();*/
+                $course1 = DB::table('subtopics')
+              
+                ->where([
+                    ['review_status' ,'=', 'Request']
+                ])->get();
+       // dd($course1);
+       return view('admin.review.reviewshow', compact('course1'));
     }
      public function editstore(Request $request)
     {
@@ -396,6 +435,14 @@ class ReviewController extends Controller
           $name=$course->first_name.' '.$course->last_name;
 
            DB::table('feedback')->insert(['fid' =>request('fid'),'comment'=>request('comment'),'commenter'=>$name,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
+
+            $mailbody = DB::table('courses')->where([
+                     ['id' ,'=', request('cid')]
+             ])->first();
+            
+                   
+
+            \Mail::to($course)->send(new Feedback($mailbody));
           alert()->success('Comment sent !');
       
           return redirect('/admin/review/'.request('cid').'/'.request('tid').'/'.request('sid').'/'.request('contentid'));
@@ -409,6 +456,17 @@ class ReviewController extends Controller
                     ['course_id', '=', $id]
          ])->update(['fixedstructure' => $temp->tempstructure ,'review_status'=>'Okay','feedback'=>null]);
          //dd($updte);
+
+            $mailbody = DB::table('courses')->where([
+                     ['id' ,'=', $id]
+             ])->first();
+            
+                   
+
+          $var=Auth::guard('admin')->user()->id;
+          
+          $course = Admin::find($var);
+            \Mail::to($course)->send(new Feedback($mailbody));
         alert()->success('Reviewed Successfully');
           return redirect('/admin/reviewstr');
     }

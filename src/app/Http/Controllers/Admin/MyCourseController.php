@@ -121,7 +121,7 @@ class MyCourseController extends Controller
     }
     public function feedback(Request $request)
     {
-
+          //dd($request);
           $var=Auth::guard('admin')->user()->id;
           
           $course = Admin::find($var);

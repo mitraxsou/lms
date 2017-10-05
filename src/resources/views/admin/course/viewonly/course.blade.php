@@ -44,7 +44,7 @@
                          @if( ! empty($publish))
                           <td>  
                            
-                
+                @if(Auth::guard('admin')->user()->hasRole('super'))
                   <form method="POST" action="/admin/feedbackcorrect" >
                   {{ csrf_field() }}
                   <input type="hidden" name="course_id" value="{{ $course -> id }}">
@@ -54,6 +54,7 @@
                            <!-- <input type="button" name="Correct" class="btn btn-danger " value="Edit required" onclick="editshow()"> -->
                     
                   </form>
+                  @endif
                    <div class="form-group" id="edit" style="display:none;">
 
                     </div>
@@ -114,10 +115,12 @@
                           <p>No publish list yet</p>
                         @endif
                    </div>
+
               </div>
               </div>
               @endif
                @if( ! empty($publish))
+               @if(Auth::guard('admin')->user()->hasRole('review admin'))
                <div class="col-md-8 col-md-offset-2">
               <div class="panel panel-success">
                 <div class="panel-heading">Correction List</div>
@@ -130,6 +133,7 @@
                                     </ul>
                                 </div>
                             @endif 
+
                       <div class="panel-body">
                                  @if(count($courses)>0)
                                    <form method="POST" action="/admin/feedbackedit" >
@@ -158,9 +162,11 @@
                               
                              
                     </div>
+                   
               </div>
                
         </div>
+         @endif
         @endif
 </div>
 </div>

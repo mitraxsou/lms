@@ -65,6 +65,22 @@ class Counter
         return $course;
         
     }
+    public function lessonSuperPublish()
+    {
+        $course = DB::table('publish_course')->where([
+            ['publish_status', '=', 'Super Reviewed']
+         ])->count();
+        return $course;
+        
+    }
+    public function del()
+    {
+        $course = DB::table('subtopics')->where([
+            ['review_status', '=', 'Request']
+         ])->count();
+        return $course;
+        
+    }
     public function lessonstr()
     {
         $auth=Auth::guard('admin')->user()->id;

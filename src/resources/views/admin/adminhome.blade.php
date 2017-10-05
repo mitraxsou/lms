@@ -71,8 +71,27 @@
                     <div class="panel-heading">Course </div>
                         <div class="panel-body">
                             <ul>
-                            @if(Auth::guard('admin')->user()->hasRole('super'))
+                            @if(Auth::guard('admin')->user()->hasRole('review admin'))
                                 <li><a href="/admin/publishcourse">Publish Course
+                                @if($countera->lessonSuperPublish()>0)
+                                <span style="border-radius: 25px;
+                                    display: inline;
+                                    background-color: red;
+                                    width: auto;
+                                    padding: 0 4px;
+                                    line-height: 21px;
+                                    color: #fff;
+                                    -moz-animation: blink 4s ease-in-out infinite;
+                                    animation: blink 4s ease-in-out infinite;
+                                    left: 44px;
+                                    top: 17px;
+                                    ">{{$countera->lessonSuperPublish()}}</span>
+                                 @endif
+
+                                </a></li>
+                                @endif
+                                @if(Auth::guard('admin')->user()->hasRole('super'))
+                                <li><a href="/admin/publishlist">Publish List
                                 @if($countera->lessonPublish()>0)
                                 <span style="border-radius: 25px;
                                     display: inline;
@@ -87,6 +106,7 @@
                                     top: 17px;
                                     ">{{$countera->lessonPublish()}}</span>
                                  @endif
+
                                 </a></li>
                                 <li><a href="/admin/course">Show all Courses</a></li>
                             @endif
@@ -112,6 +132,22 @@
                                     left: 44px;
                                     top: 17px;
                                     ">{{$countera->lesson()}}</span>
+                                @endif
+                                </a></li>
+                                  <li><a href="/admin/reviewdeletionrequest">Requests for Deletion
+                                 @if($countera->del()>0)
+                                <span style="border-radius: 25px;
+                                    display: inline;
+                                    background-color: red;
+                                    width: auto;
+                                    padding: 0 4px;
+                                    line-height: 21px;
+                                    color: #fff;
+                                    -moz-animation: blink 4s ease-in-out infinite;
+                                    animation: blink 4s ease-in-out infinite;
+                                    left: 44px;
+                                    top: 17px;
+                                    ">{{$countera->del()}}</span>
                                 @endif
                                 </a></li>
                                 <li><a href="/admin/reviewstr">Review Structure
