@@ -166,6 +166,7 @@ class ReviewController extends Controller
         $category1=DB::table('admin_category')
             ->where('admin_id','=',$auth)
             ->get();
+
         foreach ($category1 as $category) {
             # code...
          $course1 = DB::table('content')->join('subtopics','subtopics.content_id','=','content.content_id')->select('subtopics.sub_tid','subtopics.tid','subtopics.course_id','subtopics.name','subtopics.description','content.content','content.content_id','content.content_type')->where(
@@ -193,14 +194,15 @@ class ReviewController extends Controller
             ['subtopics.content_id','=',$id1]
             ])
          ->first();
-        }
          if(count($course)){
         
          return view('admin.review.contentshow', compact('course1','video'));
      }
-     else{
+        }
+        
+    
          return view('admin.review.notfoundcategory');
-     }
+     
 
          /*$course1 = DB::table('content')->join('subtopics','subtopics.content_id','=','content.content_id')->select('subtopics.sub_tid','subtopics.tid','subtopics.course_id','subtopics.name','subtopics.description','content.content','content.content_id','content.content_type')->where(
             'content.content_id',$id1
