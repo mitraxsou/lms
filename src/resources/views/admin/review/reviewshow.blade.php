@@ -38,9 +38,9 @@
                         <tr>
                             <td>{{ $course -> sub_tid}}</td>
                             <td>{{ $course -> tid}}</td>
-                            <td>{{ $course -> name }}</td>
-                            <td>{{ $course -> description }}</td>
-                             <td><a class='btn btn-primary' href='/admin/review/{{ $course -> course_id}}/{{ $course -> tid}}/{{ $course -> sub_tid}}/{{ $course -> content_id }}'>View Flow</a></td>
+                             <td><a class='btn btn-primary' href='/admin/review/{{ $course -> course_id}}/{{ $course -> tid}}/{{ $course -> sub_tid}}/{{ $course -> content_id }}'>{{ $course -> name }}</a></td>
+                            <td>{{ $course -> description }}</td><!-- 
+                             <td><a class='btn btn-primary' href='/admin/review/{{ $course -> course_id}}/{{ $course -> tid}}/{{ $course -> sub_tid}}/{{ $course -> content_id }}'>View Flow</a></td> -->
                         </tr>    
                         @endforeach
                       @else
@@ -63,15 +63,15 @@
                       @if(count($courses) >0 )
                         @foreach ($courses as $course)
                         <tr>
-                            <td>{{ $course -> id}}</td>
+                            <td><a class='btn btn-primary' href='/admin/detailreviewstructure/{{$course -> id}}'>{{ $course -> id}}</a></td>
                             <td>{{ $course -> name }}</td>
                             <td>
                              {{ $course -> description }}
                             
                             </td>
                              <td>{{ $course -> review_status}}</td>
-
-                             <td><a class='btn btn-primary' href='/admin/detailreviewstructure/{{$course -> id}}'>View Flow</a></td>
+<!-- 
+                             <td><a class='btn btn-primary' href='/admin/detailreviewstructure/{{$course -> id}}'>View Flow</a></td> -->
 
                             
 

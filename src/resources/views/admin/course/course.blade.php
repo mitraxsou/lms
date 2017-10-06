@@ -43,7 +43,9 @@
 
                           
 
-                          <td><a  href="/admin/course/{{$course->id}}/edit"><img src="/edit.png" height="20px" width="20px"></img></a></td>
+                          
+                          <td><a  href="/admin/course/{{$course->id}}/edit"><img src="../edit.png" height="20px" width="20px"></img></a></td>
+
                           <td><a class="btn btn-success" href="/admin/course/publish/{{$course->id}}">Publish</a></td>
                           <td>
                             <span class="label label-info">Edit Required
