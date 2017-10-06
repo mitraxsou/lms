@@ -194,13 +194,17 @@ class ReviewController extends Controller
             ['subtopics.content_id','=',$id1]
             ])
          ->first();
+
          if(count($course)){
-        
+
+      
          return view('admin.review.contentshow', compact('course1','video'));
      }
         }
         
+
     
+
          return view('admin.review.notfoundcategory');
      
 
@@ -209,7 +213,7 @@ class ReviewController extends Controller
          )->first();*/
          //dd($course1);
         
-         return view('admin.review.contentshow', compact('course1','video'));
+        // return view('admin.review.contentshow', compact('course1','video'));
 
     }
     public function feedback(Request $request)
