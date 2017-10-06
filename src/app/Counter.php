@@ -115,4 +115,38 @@ class Counter
         return $course;
         
     }
+    public function mycourse()
+    {
+        $auth=Auth::guard('admin')->user()->id;
+       
+        $courses=[];
+        /*
+        $category=DB::table('admin_category')
+            ->where('admin_id','=',$auth)
+            ->first();*/
+
+        $coursesarr = DB::table('courses')->join('admin_course','id','=','admin_course.course_id')->select('courses.id','courses.name','courses.description')->where([['admin_id', $auth]])->orderBy('id')->get();
+        
+        if(count($coursesarr)>0)
+        {
+            foreach ($coursesarr as $course) {
+            
+            $course2 = DB::table('subtopics')->where([
+                ['course_id', '=', $course->id],
+                ['review_status','=','Edit Required']
+             ])->count();
+            $course1 = DB::table('subtopics')->where([
+                ['course_id', '=', $course->id],
+                ['review_status','=','Correct']
+             ])->count();
+           if($course2>0  or $course1>0)
+           {
+            return 1;
+           }
+           else{
+            return 0;
+           }
+         }
+     }
+    }
 }

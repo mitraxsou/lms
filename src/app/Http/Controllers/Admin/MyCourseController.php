@@ -122,6 +122,10 @@ class MyCourseController extends Controller
     public function feedback(Request $request)
     {
           //dd($request);
+      $this->validate($request,[
+            'comment'=>'required',
+            
+        ]);
           $var=Auth::guard('admin')->user()->id;
           
           $course = Admin::find($var);
@@ -129,7 +133,7 @@ class MyCourseController extends Controller
 
            DB::table('feedback')->insert(['fid' =>request('fid'),'comment'=>request('comment'),'commenter'=>$name,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
           alert()->success('Comment sent !');
-          return redirect('/admin/mycourse/'.request('cid'));
+          return back();
     }
 
     public function showSubTopic($cid,$tid)

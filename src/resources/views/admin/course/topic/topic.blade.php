@@ -1,6 +1,7 @@
 @extends('admin.layouts')
 
 @section('content')
+@inject('countera','App\NotifyCa')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
  
@@ -201,7 +202,40 @@
                            
                             <td>  <p><a href="/admin/course/{{$index->course_id}}/{{$index->tid}}/createsubtopic">+add more subindexes</a></p></td> <!--course chnging-->
                             <td><a class="btn btn-warning" href="/admin/course/{{$course->id}}/topic/{{$index->tid}}/edit">Edit</a></td>
-
+                            <td>
+                                <span class="label label-info">Edit Required
+                                 @if($countera->edittopic($index->course_id,$index->tid)>0)
+                                <span style="border-radius: 25px;
+                                    display: inline;
+                                    background-color: red;
+                                    width: auto;
+                                    padding: 0 4px;
+                                    line-height: 21px;
+                                    color: #fff;
+                                    -moz-animation: blink 4s ease-in-out infinite;
+                                    animation: blink 4s ease-in-out infinite;
+                                    left: 44px;
+                                    top: 17px;
+                                    ">{{$countera->edittopic($index->course_id,$index->tid)}}</span>
+                                 @endif
+                            </span><br>
+                            <span class="label label-info">Good to Go
+                                @if($countera->correcttopic($index->course_id,$index->tid)>0)
+                                <span style="border-radius: 25px;
+                                    display: inline;
+                                    background-color: red;
+                                    width: auto;
+                                    padding: 0 4px;
+                                    line-height: 21px;
+                                    color: #fff;
+                                    -moz-animation: blink 4s ease-in-out infinite;
+                                    animation: blink 4s ease-in-out infinite;
+                                    left: 44px;
+                                    top: 17px;
+                                    ">{{$countera->correcttopic($index->course_id,$index->tid)}}</span>
+                                 @endif
+                            </span>
+                            </td>
                            
                              <div  >
                              @foreach ($indexes_sub as $index1)
@@ -222,28 +256,32 @@
 
                                                 <!-- <td><a class='btn btn-primary' href='/admin/mycourse/editmaking/{{$index1->course_id}}/{{$index1->tid}}/{{ $index1 -> sub_tid }}'>Edit Content</a></td> 
                                                  -->
-                                                 <td><a class='btn btn-primary' href='/admin/mycourse/review/{{ $index1 -> course_id }}/{{ $index1 -> tid }}/{{ $index1 -> sub_tid }}'>Review Content</a></td> 
-                                                  <td><a class="btn btn-danger" href="/admin/mycourse/delete/{{ $index1 -> course_id }}/{{ $index1 -> tid }}/{{ $index1 -> sub_tid }}">Delete</a></td>
+                                                 <td><a class='btn btn-primary btn-sm' href='/admin/mycourse/review/{{ $index1 -> course_id }}/{{ $index1 -> tid }}/{{ $index1 -> sub_tid }}'>Review Content</a></td> 
+                                                 <td></td>
+                                                  <td><a class="btn btn-danger btn-sm" href="/admin/mycourse/delete/{{ $index1 -> course_id }}/{{ $index1 -> tid }}/{{ $index1 -> sub_tid }}">Delete</a></td>
 
                                                 @elseif($index1 -> review_status == 'Edit Required')
                                                 <!-- <td><a class='btn btn-primary' href='/admin/mycourse/editmaking/{{$index1->course_id}}/{{$index1->tid}}/{{ $index1 -> sub_tid }}' disabled>Edit Content</a></td> --> 
-                                                <td><a class='btn btn-danger' href='/admin/mycourse/edit/{{ $index1 -> course_id }}/{{ $index1 -> tid }}/{{ $index1 -> sub_tid }}'>View to Edit</a></td>
-                                                 <td><a class="btn btn-danger" href="/admin/mycourse/delete/{{ $index1 -> course_id }}/{{ $index1 -> tid }}/{{ $index1 -> sub_tid }}">Delete</a></td>
+                                                <td><a class='btn btn-danger btn-sm' href='/admin/mycourse/edit/{{ $index1 -> course_id }}/{{ $index1 -> tid }}/{{ $index1 -> sub_tid }}'>View to Edit</a></td>
+                                                <td></td>
+                                                 <td><a class="btn btn-danger btn-sm" href="/admin/mycourse/delete/{{ $index1 -> course_id }}/{{ $index1 -> tid }}/{{ $index1 -> sub_tid }}">Delete</a></td>
 
 
                                                 @elseif($index1 -> review_status == 'Correct' )
                                                 <!-- <td><a class='btn btn-primary' href='/admin/mycourse/editmaking/{{$index1->course_id}}/{{$index1->tid}}/{{ $index1 -> sub_tid }}' disabled>Edit Content</a></td> 
-                                                 --><td><a class='btn btn-success' disabled href='#'>Reviewed</a></td>
-                                                    <td><a class="btn btn-warning" href="/admin/mycourse/askdelete/{{ $index1 -> course_id }}/{{ $index1 -> tid }}/{{ $index1 -> sub_tid }}">Request Delete</a></td>
+                                                 --><td><a class='btn btn-success btn-sm' disabled href='#'>Reviewed</a></td>
+                                                 <td></td>
+                                                    <td><a class="btn btn-warning btn-sm" href="/admin/mycourse/askdelete/{{ $index1 -> course_id }}/{{ $index1 -> tid }}/{{ $index1 -> sub_tid }}">Request Delete</a></td>
 
                                                 @elseif($index1 -> review_status == 'Request' )
-                                                      <td><a class='btn btn-success' disabled href='#'>Reviewed</a></td>
-                                                      <td><a class="btn btn-warning" disabled href="/admin/mycourse/askdelete/{{ $index1 -> course_id }}/{{ $index1 -> tid }}/{{ $index1 -> sub_tid }}">Request Delete</a></td>
+                                                      <td><a class='btn btn-success btn-sm' disabled href='#'>Reviewed</a></td>
+                                                      <td></td>
+                                                      <td><a class="btn btn-warning btn-sm" disabled href="/admin/mycourse/askdelete/{{ $index1 -> course_id }}/{{ $index1 -> tid }}/{{ $index1 -> sub_tid }}">Request Delete</a></td>
 
                                                      
                                                 @elseif($index1 -> review_status == 'Reviewing')
                                                <!--  <td><a class='btn btn-primary' href='/admin/mycourse/editmaking/{{$index1->course_id}}/{{$index1->tid}}/{{ $index1 -> sub_tid }}' disabled>Edit Content</a></td> --> 
-                                                <td><a class='btn btn-default' disabled href='/admin/mycourse/{{ $index1 -> course_id }}/{{ $index1 -> tid }}/{{ $index1 -> sub_tid }}'>Reviewing</a></td>
+                                                <td><a class='btn btn-default btn-sm' disabled href='/admin/mycourse/{{ $index1 -> course_id }}/{{ $index1 -> tid }}/{{ $index1 -> sub_tid }}'>Reviewing</a></td>
                                          @endif
                                  
                              

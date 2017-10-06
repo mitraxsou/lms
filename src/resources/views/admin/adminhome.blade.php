@@ -114,7 +114,11 @@
                                 <li><a href="/admin/createcourse">Create Course</a></li>
                                 @endif
                                 
-                                <li><a href="/admin/mycourse">My Courses</a></li>
+                                <li><a href="/admin/mycourse">My Courses
+                                @if($countera->mycourse()>0)
+                                <img src="bell1.gif" width="19px" height="17px"></span>
+                                 @endif
+                             </a></li>
                                 <li><a href="/admin/categories">Categories</a></li>
                                   @if(Auth::guard('admin')->user()->hasRole('review admin'))
                                   
