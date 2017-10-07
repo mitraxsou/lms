@@ -109,8 +109,7 @@ class PublishController extends Controller
         $id=request('course_id');
         $updte = DB::table('publish_course')->where([
                  ['course_id' ,'=', $id]
-         ])->update(['publish_status' => 'Published',
-                    'feedback'=>'Okay']);
+         ])->update(['publish_status' => 'Published']);
 
          //create();
          $course1= DB::table('publish_course')->where([
