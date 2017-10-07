@@ -80,7 +80,7 @@ class PublishController extends Controller
           
           $course = Admin::find($var);
           $name=$course->first_name.' '.$course->last_name;
-
+          dd();
            DB::table('feedback')->insert(['fid' =>request('fid'),'comment'=>request('comment'),'commenter'=>$name,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
 
         $id=request('cid');
@@ -137,7 +137,7 @@ class PublishController extends Controller
         $updte = DB::table('publish_course')->where([
                  ['course_id' ,'=', $id]
          ])->update(['publish_status' => 'Edit',
-                    'feedback'=>request('feedback')]);
+                    'unpublishfeedback'=>request('feedback')]);
 
          //create();
          $course1= DB::table('publish_course')->where([
@@ -165,7 +165,7 @@ class PublishController extends Controller
         $updte = DB::table('publish_course')->where([
                  ['course_id' ,'=', $id]
          ])->update(['publish_status' => 'Edit',
-                    'feedback'=>request('feedback')]);
+                    'unpublishfeedback'=>request('feedback')]);
 
          //create();
          $course1= DB::table('publish_course')->where([

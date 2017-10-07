@@ -29,7 +29,7 @@ class CourseController extends Controller
             'publish_course.publish_status','courses.id','courses.name','courses.description')
             ->where('publish_course.publish_status','=', 'Published')->get();
 
-
+        
     	return view('admin.course.viewonly.course' , compact('courses','index'));
     }
 

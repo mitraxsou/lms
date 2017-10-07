@@ -116,9 +116,61 @@
                                 
                                 <li><a href="/admin/mycourse">My Courses
                                 @if($countera->mycourse()>0)
-                                <img src="bell1.gif" width="19px" height="17px"></span>
+                                 <span style="border-radius: 25px;
+                                    display: inline;
+                                    background-color: red;
+                                    width: auto;
+                                    padding: 0 4px;
+                                    line-height: 21px;
+                                    color: #fff;
+                                    -moz-animation: blink 4s ease-in-out infinite;
+                                    animation: blink 4s ease-in-out infinite;
+                                    left: 44px;
+                                    top: 17px;
+                                    ">New</span>
+                             <!--    <img src="bell1.gif" width="19px" height="17px"></span>
+ -->                                 @endif
+                             </a>   
+                                    <ul>
+                                        <li>
+                                            <span class="label label-info">Published
+                                 @if($countera->published()>0)
+                                <span style="border-radius: 25px;
+                                    display: inline;
+                                    background-color:  #4267b2;
+                                    width: auto;
+                                    padding: 0 4px;
+                                    line-height: 21px;
+                                    color: #fff;
+                                    -moz-animation: blink 4s ease-in-out infinite;
+                                    animation: blink 4s ease-in-out infinite;
+                                    left: 44px;
+                                    top: 17px;
+                                    ">{{$countera->published()}}</span>
                                  @endif
-                             </a></li>
+                            </span><br>
+                                        </li>
+                                        <li>
+                                            <span class="label label-info">Unpublished
+                                 @if($countera->unpublished()>0)
+                                <span style="border-radius: 25px;
+                                    display: inline;
+                                    background-color: red;
+                                    width: auto;
+                                    padding: 0 4px;
+                                    line-height: 21px;
+                                    color: #fff;
+                                    -moz-animation: blink 4s ease-in-out infinite;
+                                    animation: blink 4s ease-in-out infinite;
+                                    left: 44px;
+                                    top: 17px;
+                                    ">{{$countera->unpublished()}}</span>
+                                 @endif
+                            </span><br>
+                                        </li>
+                                    </ul>
+
+                                    </li>
                                 <li><a href="/admin/categories">Categories</a></li>
                                   @if(Auth::guard('admin')->user()->hasRole('review admin'))
                                   

@@ -66,7 +66,7 @@
                                 @if($countera->correct($course -> id)>0)
                                 <span style="border-radius: 25px;
                                     display: inline;
-                                    background-color: red;
+                                    background-color:  #4267b2;
                                     width: auto;
                                     padding: 0 4px;
                                     line-height: 21px;
@@ -146,19 +146,21 @@
 
                              <td><a class="btn btn-default" href="#" disabled>Publishing</a></td>
 
-                                 @elseif($pb -> publish_status == 'Published')
-                                   <td><a class="btn btn-success" href="#" disabled>Published</a></td>
+                                     @elseif($pb -> publish_status == 'Published')
+                                       <td><a class="btn btn-success" href="#" disabled>Published</a></td>
 
 
-
-                                @elseif($pb -> publish_status == 'Edit')
-                                
-                                <td><a class="btn btn-danger " href="/admin/publishedit/{{$pb->course_id}}">Change Description</a>
-                                </td>
-                                <div class="form-group">
-                                 <td><textarea >{{$pb->feedback}}</textarea></td>
-                                 </div>
-                              
+                                      @elseif($pb -> publish_status == 'Super Reviewed')
+                                        <td><a class="btn btn-default" href="#" disabled>Publishing</a></td>
+                                    
+                                      @elseif($pb -> publish_status == 'Edit')
+                                      
+                                      <td><a class="btn btn-danger btn-sm " href="/admin/publishedit/{{$pb->course_id}}">Edit Course</a>
+                                      </td>
+                                      <div class="form-group">
+                                       <td>{{$pb->unpublishfeedback}}</td>
+                                       </div>
+                                    
                             @endif
                           
                          

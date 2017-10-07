@@ -27,7 +27,7 @@
 
                         <th>View</th>
                          @if( ! empty($publish))
-                        <th>Feedback</th>
+                        
                          @endif
                 			</tr>
               			</thead>
@@ -43,7 +43,7 @@
                           
                          @if( ! empty($publish))
                           <td>  
-                           
+                       <!--     
                 @if(Auth::guard('admin')->user()->hasRole('super'))
                   <form method="POST" action="/admin/feedbackcorrect" >
                   {{ csrf_field() }}
@@ -51,10 +51,9 @@
                    
 
                         <button type="submit" name="Correct" class="btn btn-success pull-right">Good to Go</button>
-                           <!-- <input type="button" name="Correct" class="btn btn-danger " value="Edit required" onclick="editshow()"> -->
-                    
+                           
                   </form>
-                  @endif
+                  @endif -->
                    <div class="form-group" id="edit" style="display:none;">
 
                     </div>

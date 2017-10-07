@@ -149,4 +149,45 @@ class Counter
          }
      }
     }
+
+    public function published()
+    {
+        $count=0;
+         $auth=Auth::guard('admin')->user()->id;
+         $coursesarr = DB::table('courses')->join('admin_course','id','=','admin_course.course_id')->select('courses.id','courses.name','courses.description')->where([['admin_id', $auth]])->orderBy('id')->get();
+        if(count($coursesarr)>0)
+        {
+                foreach ($coursesarr as $course) {
+                 
+                $count =$count+ DB::table('publish_course')->where([
+                    ['publish_status', '=', 'Published'],
+                    ['course_id', '=', $course->id]
+                 ])->count();
+               
+            }
+        }
+        return $count;
+         
+        
+    }
+
+    public function unpublished()
+    {
+         $count=0;
+        $auth=Auth::guard('admin')->user()->id;
+         $coursesarr = DB::table('courses')->join('admin_course','id','=','admin_course.course_id')->select('courses.id','courses.name','courses.description')->where([['admin_id', $auth]])->orderBy('id')->get();
+        if(count($coursesarr)>0)
+        {
+                foreach ($coursesarr as $course) {
+                 
+                $count =$count+ DB::table('publish_course')->where([
+                    ['publish_status', '=', 'Edit'],
+                    ['course_id', '=', $course->id]
+                 ])->count();
+               
+            }
+        }
+         return $count;
+        
+    }
 }

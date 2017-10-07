@@ -26,7 +26,7 @@ class MyCourseController extends Controller
          $publish=DB::table('publish_course')->join('courses','course_id','=','courses.id')
          ->join('admin_course','publish_course.course_id','=','admin_course.course_id')
          ->select(
-            'publish_course.publish_status','publish_course.feedback','publish_course.course_id','courses.name','courses.description')->where('admin_id', $auth)->orderBy('publish_course.course_id')->get();
+            'publish_course.publish_status','publish_course.feedback','publish_course.unpublishfeedback','publish_course.course_id','courses.name','courses.description')->where('admin_id', $auth)->orderBy('publish_course.course_id')->get();
 
 
          foreach ($coursesarr as $course) {
