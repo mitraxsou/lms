@@ -49,7 +49,7 @@
                 <ul>
                     @foreach($categories as $c)
                         <li>
-                            <input type="checkbox" value="{{$c->id}}" alt="{{$c->name}}" title="{{$c->name}}" class="custom-control-input">
+                            
                             <span class="custom-control-description">{{$c->name}}</span>
                             <ul>
                             @foreach($c->childCategories as $child)

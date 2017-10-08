@@ -13,6 +13,7 @@
             @foreach($ques as $que)
             <div class="panel panel-success">
               <div class="panel-heading">
+                <span style="float: right;"><a class="btn-sm btn-warning" href="/admin/question/{{$que->ques_id}}/edit">Edit</a></span>
               <p>Level: {{$que->level}}</p>
               <h5>{!!$que->question!!}</h5></div>
 

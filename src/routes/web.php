@@ -202,6 +202,9 @@ Route::group(['middleware' => 'adminauth'], function()
 	Route::get('/admin/removecategory/{id}',['middleware'=>['adminrole:super'],'uses'=> 'Admin\CategoryController@destroy']);
 	Route::get('/admin/category/{category}', 'Admin\CategoryController@show');
 
+	//Category to show for Course and Review Admin
+	Route::get('/admin/mycategory','Admin\CategoryController@mycategory');
+
 	/***************Reviewing - Soumi********/
 	Route::get('/admin/reviewcourse', 'Admin\ReviewController@create');
 	Route::get('/admin/review/{cid}/{tid}/{stid}/{review}', 'Admin\ReviewController@review');
@@ -229,6 +232,8 @@ Route::group(['middleware' => 'adminauth'], function()
 	Route::get('/admin/quizid/{quiz}/{question}','Admin\QuestionController@show');
 	Route::get('/admin/{quiz}/createquestion','Admin\QuestionController@create');
 	Route::post('/admin/ques/{quiz}/storequestion','Admin\QuestionController@store');
+	Route::get('/admin/question/{ques}/edit','Admin\QuestionController@edit');
+	Route::patch('/admin/question/{ques}/editquestion','Admin\QuestionController@update');
 
 
 });

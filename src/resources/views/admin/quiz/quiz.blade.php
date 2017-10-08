@@ -31,7 +31,7 @@
           <thead>
             <tr>
               <th>ID</th>
-              <th>Name</th>
+              <th>Subtopic</th>
               <th>Quiz</th>
             </tr>
           </thead>

@@ -123,7 +123,7 @@ class ReviewController extends Controller
         
         if($course_category->category_id==$category->category_id)
         {
-            $falg=true;
+            $flag=true;
          $course1 = DB::table('content')->where(
             'content_id',$id1
          )->first();
