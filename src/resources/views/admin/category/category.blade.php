@@ -20,13 +20,13 @@
                     <div class="card">
                       <div class="card-header" role="tab" id="headingOne">
                         <h3 class="mb-0">
-                          <a data-toggle="collapse" href="#{{$category->name}}" aria-expanded="true" aria-controls="{{$category->name}}" style="text-decoration: none">+
-                          </a>{{ $category->name }} 
+                          <a data-toggle="collapse" href="#{{$category->id}}" aria-expanded="true" aria-controls="{{$category->name}}" style="text-decoration: none">
+                          {{ $category->name }}</a>
                           <a style="float: right" class="btn btn-primary" href="/admin/category/{{$category->id}}">View</a>
                         </h3>
                       </div>
 
-                    <div id="{{$category->name}}" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div id="{{$category->id}}" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
                       <div class="card-body">
                           @foreach($category->childCategories as $child)
                           <ul class="list-group">
