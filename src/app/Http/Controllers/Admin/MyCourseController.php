@@ -16,6 +16,8 @@ class MyCourseController extends Controller
 {
     public function index()
     {
+
+        
         $courses=[];
         $j=0;$i=0;
     	$auth=Auth::guard('admin')->user()->id;
@@ -85,6 +87,7 @@ class MyCourseController extends Controller
                         $indexes_sub = DB::table('subtopics')->where([['course_id', $id]
                                                                     ])->get();
                         $feedback = DB::table('feedback')->where('fid', $course->feedback)->get();
+
             	       return view('admin.course.topic.topic' , compact('course','indexes','indexes_sub','index','feedback'));
                     }
                     else
@@ -126,6 +129,7 @@ class MyCourseController extends Controller
             'comment'=>'required',
             
         ]);
+      $read=DB::table('feedback')->where('fid', request('fid'))->update(['read' => 1]);
           $var=Auth::guard('admin')->user()->id;
           
           $course = Admin::find($var);

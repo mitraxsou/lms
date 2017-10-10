@@ -65,6 +65,89 @@ class Counter
         return $course;
         
     }
+    public function comment()
+    {
+       $auth=Auth::guard('admin')->user()->id;
+       $course=0;
+        
+        $category1=DB::table('admin_course')
+            ->where('admin_id','=',$auth)
+            ->pluck('course_id');
+
+         $temp = DB::table('courses')->join('feedback', 'feedback.fid', '=', 'courses.feedback')
+            ->where('read',0)
+            ->whereIn('courses.id',$category1)->get();
+        
+             
+        // foreach ($temp as $category)
+        // {
+               
+        // $temp = DB::table('course')
+        //             ->join('course_category', 'course_category.course_id', '=', 'course_structure.course_id')
+        //             ->where([
+        //             ['review_status', '=', 'Reviewing'],
+        //             ['course_category.category_id','=',$category->category_id]
+        //             ])
+
+        //             ->count(DB::raw('DISTINCT course_structure.course_id'));
+
+        // $course+=$temp;
+        // }
+            return $temp;
+        
+    }
+    public function commentreview()
+    {
+       $auth=Auth::guard('admin')->user()->id;
+       $course=[];
+        $i=0;
+        $category1=DB::table('admin_category')
+            ->where('admin_id','=',$auth)
+            ->pluck('category_id');
+
+         $temp = DB::table('courses')
+            ->join('feedback', 'feedback.fid', '=', 'courses.feedback')
+            ->join('course_category', 'courses.id', '=', 'course_category.course_id')
+            ->join('subtopics', 'subtopics.course_id', '=', 'courses.id')
+            ->where('subtopics.review_status','Reviewing')
+            ->whereIn('course_category.category_id',$category1)->get();
+        
+        $temp1 = DB::table('publish_course')
+            ->join('feedback', 'feedback.fid', '=', 'publish_course.feedback')
+            ->join('course_category', 'publish_course.course_id', '=', 'course_category.course_id')
+            ->join('courses', 'courses.id', '=', 'publish_course.course_id')
+            ->where('read',0)
+            ->whereIn('course_category.category_id',$category1)->get();
+            
+        foreach($temp as $t)
+        {
+            $course[$i]=$t;
+            $i++;
+        }
+
+        foreach($temp1 as $t)
+        {
+            $course[$i]=$t;
+            $i++;
+        }
+             
+        
+            return $course;
+        
+        
+    }
+    public function commentpublish()
+    {
+       $auth=Auth::guard('admin')->user()->id;
+       $course=0;
+       $temp = DB::table('publish_course')
+            ->join('feedback', 'feedback.fid', '=', 'publish_course.feedback')
+            ->join('courses', 'courses.id', '=', 'publish_course.course_id')
+            ->where('read',0)
+            ->get();
+        return $temp;
+        
+    }
     public function lessonSuperPublish()
     {
         $course = DB::table('publish_course')->where([

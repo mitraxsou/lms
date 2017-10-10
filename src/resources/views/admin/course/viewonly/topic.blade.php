@@ -18,10 +18,11 @@
                 @if(Auth::guard('admin')->user()->hasRole('super'))
                   <form method="POST" action="/admin/feedbackcorrect" >
                   {{ csrf_field() }}
-                  <input type="hidden" name="course_id" value="{{ $course -> id }}">
-                   
+                  <input type="hidden" name="course_id" value="{{ $publish -> course_id }}">
+                   @if($publish -> publish_status != 'Published')
 
                         <button type="submit" name="Correct" class="btn btn-success pull-right">Good to Go</button>
+                    @endif
                            <!-- <input type="button" name="Correct" class="btn btn-danger " value="Edit required" onclick="editshow()"> -->
                     
                   </form>

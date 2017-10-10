@@ -329,14 +329,17 @@ class ReviewController extends Controller
             ->get();
          
         $course=DB::table('course_structure')
-            ->where('review_status','=','Reviewing')
             ->get();
-        $tempcourses = DB::table('courses')->join('course_structure','courses.id','=','course_structure.course_id')->select('courses.id','courses.name','courses.description','course_structure.demo_content','course_structure.tempstructure','course_structure.review_status')->where('course_structure.review_status','=' ,'Reviewing')->get();
+        $tempcourses = DB::table('courses')->join('course_structure','courses.id','=','course_structure.course_id')->select('courses.id','courses.name','courses.description','course_structure.demo_content','course_structure.tempstructure','course_structure.review_status')
+        ->get();
         $i=0;
         foreach ($tempcourses as $key)
         {
           //  dd($key->id);
+            if($key->review_status=='Reviewing')
+            {
              $course_category=DB::table('course_category')
+            
             ->where('course_id','=',$key->id)
             ->first();
            // dd($course_category);
@@ -348,6 +351,28 @@ class ReviewController extends Controller
                     $courses[$i]=$key;
                     $i++;
                  }
+             }
+            }
+        }
+        foreach ($tempcourses as $key)
+        {
+          //  dd($key->id);
+            if($key->review_status!='Reviewing')
+            {
+             $course_category=DB::table('course_category')
+            
+            ->where('course_id','=',$key->id)
+            ->first();
+           // dd($course_category);
+            foreach ($category1 as $category)
+            {
+         
+                 if($course_category->category_id==$category->category_id)
+                 {
+                    $courses[$i]=$key;
+                    $i++;
+                 }
+             }
             }
         }
         //dd(count($courses));
