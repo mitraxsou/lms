@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Course;
 use App\Admin;
-
+use Auth;
 use Illuminate\Support\Facades\DB;
 use DateTime;
 use Carbon\Carbon;
@@ -27,6 +27,40 @@ class ContentController extends Controller
          ])->first();
 
          return view('admin.course.content.changecontenttype',compact('course','course1'));
+    }
+    public function viewcontent($id)
+    {
+
+         $auth=Auth::guard('admin')->user()->id;
+       
+        
+        $category1=DB::table('admin_category')
+            ->where('admin_id','=',$auth)
+            ->get();
+         foreach ($category1 as $category)
+        {
+         
+             $course = DB::table('subtopics')
+             ->join('course_category', 'course_category.course_id', '=', 'subtopics.course_id')
+             ->where([['course_category.category_id','=',$category->category_id],
+                ['subtopics.content_id','=',$id]
+                ])
+             ->first();
+        }
+         if(count($course)){
+        $course1 = DB::table('subtopics')->where([
+                 ['content_id', '=', $id]
+         ])->first();
+         
+         $course=  DB::table('content')->where([
+                 ['content_id', '=', $id],
+         ])->first();
+
+         return view('admin.review.viewcontent',compact('course','course1'));
+     }
+     else{
+         return view('admin.review.notfoundcategory');
+     }
     }
 
     public function deleteContent($contid)
@@ -57,12 +91,19 @@ class ContentController extends Controller
 	            $s3->delete($course->content);
 	            DB::table('content')->where([
 	                 ['content_id', '=', $course->content_id],
-	         ])->update(['content'=>"",'content_type'=>""]);
+	           ])->update(['content'=>"",'content_type'=>""]);
+
+                DB::table('subtopics')->where([
+                    ['sub_tid', '=', $course1->sub_tid],
+                    ['tid', '=', $course1->tid],
+                    ['course_id', '=', $course1->course_id]
+                ])->update(['review_status' => 'Not Reviewed']);
 	        }
 	        catch(S3Exception $se)
 	        {
 	            return redirect()->back()->with('failure','Some exception occured');
 	        }
+
 	        return redirect('/admin/mycourse/contentselection/'.$course1->course_id.'/'.$course1->tid.'/'.$course1->sub_tid);
 	     }
 	 }

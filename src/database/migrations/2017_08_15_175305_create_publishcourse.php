@@ -18,7 +18,7 @@ class CreatePublishcourse extends Migration
            $table->increments('id');
            $table->integer('course_id')->references('id')->on('courses')->onDelete('cascade');
            $table->string('publish_status')->default('Not Published');
-           $table->string('feedback');
+           $table->integer('feedback')->nullable();
         });
     }
 

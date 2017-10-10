@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 use DB;
+use Auth;
 use App;
+use App\Admin;
+use Carbon\Carbon;
 use App\Mail\PublishMail;
+use App\Mail\UnpublishMail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -36,10 +40,11 @@ class PublishController extends Controller
         return redirect()->back()->with('alert', 'You have few contents not reviewed yet, please review and then publish '.$mailbody->name.'!');
        }
        elseif ($temp1>0){
-
+           $current = abs( crc32( uniqid() ) );
             DB::table('publish_course')->insert([
             'course_id'=>$id,
-            'publish_status'=>'Not Published'
+            'publish_status'=>'Not Published',
+            'feedback'=>$current
             ]);
 
             $user=App\Admin::where('id',1)->first();
@@ -47,7 +52,7 @@ class PublishController extends Controller
 
            \Mail::to($user)->send(new PublishMail($mailbody));
            alert()->success('Successfully sent for publishing!')->persistent("Close this");
-           return redirect('/admin/mycourse');
+            return redirect()->back()->with('alert', 'Your course is published Successfully!');
        }
        elseif($temp1==0 && $temp==0){
        
@@ -57,13 +62,45 @@ class PublishController extends Controller
     }
     public function create()
     {
-        $course1= DB::table('publish_course')->where([
-       	'publish_status'=>'Not Published'
-       	])->pluck('course_id');
+        $course1= DB::table('publish_course')->where(
+       	'publish_status','Super Reviewed'
+       	)
+        ->pluck('course_id');
        //	dd($course1);
         $courses= DB::table('courses')->whereIn(
        	'id',$course1
        	)->get();
+        $publish=true;
+        return view('admin.course.viewonly.course', compact('courses','publish'));
+    }
+    public function feedbackpublish(Request $request)
+    {
+          //dd($request);
+          $var=Auth::guard('admin')->user()->id;
+          
+          $course = Admin::find($var);
+          $name=$course->first_name.' '.$course->last_name;
+
+           DB::table('feedback')->insert(['fid' =>request('fid'),'comment'=>request('comment'),'commenter'=>$name,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
+
+        $id=request('cid');
+        $updte = DB::table('publish_course')->where([
+                 ['course_id' ,'=', $id]
+         ])->update(['publish_status' => 'Super Reviewed']);
+          alert()->success('Comment sent !');
+
+          return redirect('/admin/course/'.request('cid'));
+    }
+    public function createList()
+    {
+        $course1= DB::table('publish_course')->where(
+        'publish_status','Not Published'
+        )->orWhere('publish_status','Super Reviewed')
+        ->pluck('course_id');
+       // dd($course1);
+        $courses= DB::table('courses')->whereIn(
+        'id',$course1
+        )->get();
         $publish=true;
         return view('admin.course.viewonly.course', compact('courses','publish'));
     }
@@ -139,7 +176,7 @@ class PublishController extends Controller
                      ['id' ,'=', $id]
              ])->first();
          $user = DB::table('admins')->join('admin_course','id','=','admin_course.admin_id')->select('admins.id','admins.first_name','admins.email')->where('admin_course.course_id', $id)->first();
-         \Mail::to($user)->send(new UnPublishMail($mailbody));
+         \Mail::to($user)->send(new UnpublishMail($mailbody));
          alert()->info('Course Unpublihed');
         return redirect('/admin/course');
     }

@@ -1,5 +1,6 @@
-# README #
 
+# README #
+Realese sprint 1
 This README would normally document whatever steps are necessary to get your application up and running.
 
 ### What is this repository for? ###
@@ -48,7 +49,3 @@ Step 2: Connect your existing repository to Bitbucket
 
 * Repo owner or admin
 * Other community or team contact# My project's README
-
-#Release version
-
-* Initial successful release v1 at alpha.portal.iandwe.in

@@ -11,12 +11,9 @@
                 <div class="panel-heading">Create Course</div>
 
                 <div class="panel-body">
-                    <form method="POST" action="/admin/{course}/createtopic" enctype="multipart/form-data">
+                    <form method="POST" action="/admin/{course}/createtopic" >
                     {{ csrf_field() }}
-                        <div class="form-group">
-                            <label>Topic ID</label>
-                            <input type="number" name="tid" class="form-control">
-                        </div>
+                        
                         <div class="form-group">
                             <label>Course ID</label>
                             <input type="number" name="cid" value= "{{$course->id}}" class="form-control" readonly>
@@ -34,10 +31,14 @@
                             <input type="file" name="tfile" id="tfile" class="form-control">
                         </div> -->
                         <div class="form-group">
-                            <div class="col-md-offset-4 ">
-                                <button type="submit" class="btn btn-primary">Submit
+                       
+                            
+                                <button type="submit" class="btn btn-primary pull-right">Submit
                                 </button>
-                            </div>
+                                <button type="reset" class="btn btn-warning pull-left">Reset
+                                </button>
+                            
+                       
                         </div>
                         @if(count($errors))
                             <div class="alert alert-danger">

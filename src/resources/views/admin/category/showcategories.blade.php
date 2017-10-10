@@ -14,10 +14,10 @@
                     @if(Auth::guard('admin')->user()->hasRole('super'))
                     <div style="float: right;"><a class="btn btn-warning" href="/admin/category/{{$cat->id}}/edit">Edit</a></div>
                     @endif
-                	<h3>{{ $cat -> id }}</h3>
-                	<h4>{{ $cat -> name }}</h4>
-                    <h4>{{$cat->description}}</h4>
-                    <h4>{{$cat->parent_id}}</h4>
+                	<h4>Category Id : {{ $cat -> id }}</h4>
+                	<h4>Category Name : {{ $cat -> name }}</h4>
+                    <h4>Category Description : {{$cat->description}}</h4>
+                    
                 </div>
             </div>
         </div>

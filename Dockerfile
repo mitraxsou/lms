@@ -49,6 +49,8 @@ COPY ./config/phpconfig $PHP_INI
 # install all PHP dependencies
 RUN composer install --no-interaction
 
+#adding zizaco to vendor
+COPY ./config/vendorextra /var/www/html/vendor/
 
 RUN php artisan cache:clear 
 RUN php artisan clear-compiled

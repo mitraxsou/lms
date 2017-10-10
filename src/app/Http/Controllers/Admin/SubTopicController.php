@@ -40,7 +40,7 @@ class SubTopicController extends Controller
       
          DB::table('subtopics')->where([['Sub_tid',$stid],['tid', $tid],['course_id',$cid]])->update(['name'=>request('name'),'description'=>request('description'),'updated_at'=>Carbon::now()]);
         alert()->success('Content updated successfully');
-        return redirect('/admin/mycourse/'.$cid.'/'.$tid);//->with('sweetalert','Subtopic updated successfully.');
+        return redirect('/admin/mycourse/'.$cid);//->with('sweetalert','Subtopic updated successfully.');
     }
 
     public function contentshow($id,$id1,$id2)
@@ -65,7 +65,7 @@ class SubTopicController extends Controller
         
 
         $this->validate(request(),[
-            'stid' => 'required',
+            
             'tid'=> 'required',
             'cid'=> 'required',
             'name' => 'required',
@@ -110,14 +110,16 @@ class SubTopicController extends Controller
             ]);
         }
                 
-
+         $nextId = DB::table('subtopics')->where([['course_id',request('cid')],
+            ['tid',request('tid')]
+            ])->max('sub_tid')+1;
         $current = abs( crc32( uniqid() ) ); //1551585806
 
         
          DB::table('subtopics')->insert([
             'tid'=>request('tid'),
             'course_id'=>request('cid'),
-            'sub_tid'=>request('stid'),
+            'sub_tid'=>$nextId,
             'name'=>request('name'),
             'description'=>request('description'),
             //'stfilename'=>request('description'),
@@ -173,9 +175,24 @@ class SubTopicController extends Controller
                  ['course_id', '=', $cid]
          ])->delete();
         alert()->success('Content deleted successfully');
-        return redirect('/admin/mycourse/'.$cid.'/'.$tid);
+        return redirect('/admin/mycourse/'.$cid);
     }
-     public function editcontent($id,$id1,$id2)
+     public function askdestroy($cid, $tid, $stid)
+    {
+        $course1 = DB::table('subtopics')->where([
+                 ['sub_tid', '=', $stid],
+                 ['tid', '=', $tid],
+                 ['course_id', '=', $cid]
+         ])->first();
+         $updte = DB::table('subtopics')->where([
+                    ['sub_tid', '=', request('sub_tid')],
+                 ['tid', '=', request('tid')],
+                 ['course_id', '=', request('course_id')]
+         ])->update(['review_status' => 'Request']);
+        alert()->info('Request sent');
+        return redirect('/admin/mycourse/'.$cid);
+    }
+    public function editcontent($id,$id1,$id2)
     {
          $course1 = DB::table('subtopics')->where([
                  ['sub_tid', '=', $id2],
@@ -186,8 +203,26 @@ class SubTopicController extends Controller
          $course=  DB::table('content')->where([
                  ['content_id', '=', $course1->content_id],
          ])->first();
-        return view('admin.course.content.editcontent', compact('course','course1'));
+
+          $s3=Storage::disk('s3');
+
+        $kp = env('CLOUDFRONT_KEY_PAIRID');
+        $cloudfront=\Aws\CloudFront\CloudFrontClient::factory([
+            'region'=>env('AWS_REGION'),
+            'version'=>'2017-03-25'
+        ]);
+        $cf_url=env('CLOUDFRONT_URL');
+        $cf_expiry= new DateTime('+2 minutes');
+        $video= $cloudfront->getSignedUrl([
+            'url'=>"{$cf_url}/{$course->content}",
+            'expires'=>$cf_expiry->getTimestamp(),
+            'private_key' =>base_path('/pk-APKAJZNXFGELO6O2EZMQ.pem'),
+            'key_pair_id' =>'APKAJZNXFGELO6O2EZMQ'
+            ]);
+            
+        return view('admin.course.content.editcontent', compact('course','course1','video'));
     }
+
     public function editmaking($id,$id1,$id2)
     {
          $course1 = DB::table('subtopics')->where([
@@ -215,9 +250,10 @@ class SubTopicController extends Controller
             'key_pair_id' =>'APKAJZNXFGELO6O2EZMQ'
             ]);
         // alert()->message('Sweet Alert with message.');
-        return view('admin.course.editmaking', compact('course','course1'));
+        return view('admin.course.editmaking', compact('course','course1','video'));
     }
-     public function editcontentmaking(Request $request)
+
+    public function editcontentmaking(Request $request)
     {
 
        // dd(request('descriptionsummer'));
@@ -232,7 +268,7 @@ class SubTopicController extends Controller
         
        // return view('editsummer');
         alert()->success('Edit done Successfully');
-        return redirect('admin/mycourse/'.request('course_id').'/'.request('tid'))->with(compact('course','indexes'));
+        return redirect('admin/mycourse/'.request('course_id'))->with(compact('course','indexes'));
     }
 
     public function reviewcontent($id,$id1,$id2)
@@ -265,8 +301,9 @@ class SubTopicController extends Controller
        // return view('editsummer');
         /*return redirect('admin/mycourse/'.$id.$id1)->with(compact('course','indexes'));*/
         alert()->success('Content Sent for Reviewing!!');
-         return redirect('admin/mycourse/'.$id.'/'.$id1)->with(compact('course','indexes'));
+         return redirect('admin/mycourse/'.$id)->with(compact('course','indexes'));
     }
+    
     public function removeVideo($cid, $tid, $stid)
     {
         $course1 = DB::table('subtopics')->where([

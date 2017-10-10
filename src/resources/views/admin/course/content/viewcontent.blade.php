@@ -18,7 +18,7 @@
               <a class="btn btn-warning" href="/admin/mycourse/editmaking/{{$course1->course_id}}/{{$course1->tid}}/{{$course1->sub_tid}}">Edit content</a>
               @endif
               @if($course->content_type != "")
-                <a class="btn btn-default" href="/admin/mycourse/contentdelete/{{$course->content_id}}">Change content type</a>
+                <a class="btn btn-default" href="/admin/mycourse/contentdelete/{{$course->content_id}}">Remake content </a>
               @else
                 <a class="btn btn-default" href="/admin/mycourse/contentselection/{{$course1->course_id}}/{{$course1->tid}}/{{$course1->sub_tid}}">Add content</a>
               @endif
@@ -35,7 +35,9 @@
       <div class="panel-body">
       <fieldset>
         @if($course->content_type=="video")
-          <video controls >
+          <video controls style="height: 500px;
+                                 width: 600px;
+                                 margin-left: 250px;" >
             <source src="{{$video}}" type="" >
           </video>
         @else

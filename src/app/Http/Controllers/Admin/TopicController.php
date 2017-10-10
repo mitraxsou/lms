@@ -60,15 +60,15 @@ class TopicController extends Controller
         // ]);
 
         $this->validate(request(),[
-            'tid' => 'required',
+            
             'cid'=> 'required',
             'name' => 'required',
             'description'=>'required',
             ]);
         $cid = request('cid');
-        
-
-        DB::table('topic')->insert(['course_id'=>request('cid'),'tid'=>request('tid'),'name'=>request('name'),'description'=>request('description'),'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]
+        $nextId = DB::table('topic')->where('course_id',$cid)->max('tid')+1;
+        //dd($nextId);
+        DB::table('topic')->insert(['tid'=>$nextId,'course_id'=>request('cid'),'name'=>request('name'),'description'=>request('description'),'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]
             );
     alert()->success('Successful!!
         You will find the topic in this list.')->persistent("Close this");

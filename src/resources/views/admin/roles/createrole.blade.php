@@ -34,10 +34,11 @@
                         @endforeach
                 		</div>
                         <div class="form-group">
-                			<div class="col-md-offset-4 ">
-                				<button type="submit" class="btn btn-primary">Submit
-                				</button>
-                			</div>
+                			 <button type="submit" class="btn btn-primary pull-right">Submit
+                                </button>
+                                <button type="reset" class="btn btn-warning pull-left">Reset
+                                </button>
+                            
                 		</div>
                         @if(count($errors))
                             <div class="alert alert-danger">

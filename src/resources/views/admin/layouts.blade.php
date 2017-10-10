@@ -4,6 +4,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="cache-control" content="private, max-age=0, no-cache">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="0">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -18,6 +21,7 @@
   <!-- <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> -->
     <link href="/css/multipicker.min.css" rel="stylesheet">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <link href="/css/animate.css" rel="stylesheet">
 
   <link href="/css/summernote.css" rel="stylesheet">
   
@@ -27,19 +31,6 @@
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
-
-    <script type="text/javascript">
-            $(function() {
-                $("#days").multiPicker({ selector : "li" });
-
-                $("#days-vertical").multiPicker({
-                    selector   : "checkbox",
-                    cssOptions : {
-                        size : "medium",
-                    }
-                });
-            });
-        </script>
     
 </head>
 <body>
@@ -60,6 +51,7 @@
                     <a class="navbar-brand" href="{{ url('/adminhome') }}">
                          Admin IandWe
                     </a>
+                    
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -79,6 +71,13 @@
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                @if(Auth::guard('admin')->user()->hasRole('super'))
+                               <label> Super Admin : </label>
+                                @elseif(Auth::guard('admin')->user()->hasRole('course admin'))
+                               <label> Course Admin : </label>
+                                @elseif(Auth::guard('admin')->user()->hasRole('review admin'))
+                                <label>  Review Admin : </label>
+                                @endif
                                     {{ Auth::guard('admin')->user()->first_name }} <span class="caret"></span>
                                 </a>
 
@@ -103,6 +102,9 @@
         </nav>
 
         @yield('content')
+        <script type="text/javascript">
+        @yield('scripts1')
+    </script>
         <script type="text/javascript">
         @yield('scripts2')
     </script>

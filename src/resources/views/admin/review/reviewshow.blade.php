@@ -19,6 +19,8 @@
       </div>
       <div class="panel-body">
       <fieldset>
+      @if(empty($status))
+      @if(count($course1) >0 )
                   <table class="table table-striped" data-effect="fade">
                     <thead>
                       <tr>
@@ -31,24 +33,59 @@
                       </tr>
                     </thead>
                     <tbody>
-                      @if(count($course1) >0 )
+                      
                         @foreach ($course1 as $course)
                         <tr>
                             <td>{{ $course -> sub_tid}}</td>
                             <td>{{ $course -> tid}}</td>
                             <td>{{ $course -> name }}</td>
                             <td>{{ $course -> description }}</td>
-                             <td><a class='btn btn-primary' href='/admin/review/{{ $course -> sub_tid}}/{{ $course -> content_id }}'>View Flow</a></td>
+                             <td><a class='btn btn-primary' href='/admin/review/{{ $course -> course_id}}/{{ $course -> tid}}/{{ $course -> sub_tid}}/{{ $course -> content_id }}'>View Flow</a></td>
                         </tr>    
                         @endforeach
                       @else
                         <p>Not any indexes yet</p>
                       @endif
                       </tbody>
-                    </table>
-                </fieldset>
-                </div>
-          </div>
+                  </table>
+          @else
+                  <table class="table table-striped" data-effect="fade">
+                    <thead>
+                      <tr>
+                          <th>ID</th>
+                          <th>Corse Name</th> 
+                          <th>Course Description </th>
+                          <th>Status</th>
+                          <th>View</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @if(count($courses) >0 )
+                        @foreach ($courses as $course)
+                        <tr>
+                            <td>{{ $course -> id}}</td>
+                            <td>{{ $course -> name }}</td>
+                            <td>
+                             {{ $course -> description }}
+                            
+                            </td>
+                             <td>{{ $course -> review_status}}</td>
+
+                             <td><a class='btn btn-primary' href='/admin/detailreviewstructure/{{$course -> id}}'>View Flow</a></td>
+
+                            
+
+                        </tr>    
+                        @endforeach
+                      @else
+                        <p>Not any indexes yet</p>
+                      @endif
+                      </tbody>
+                  </table>
+          @endif
+          </fieldset>
+        </div>
+      </div>
        
     </div>
 </div>

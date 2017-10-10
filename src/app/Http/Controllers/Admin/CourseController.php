@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Course;
-
+use App\Category;
 use Gate;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Http\Requests\FileRequest;
 use App\Http\Controllers\Controller;
 
 class CourseController extends Controller
@@ -22,7 +21,10 @@ class CourseController extends Controller
 
     public function index()
     {
-    	$courses= Course::all();
+    	$courses=DB::table('courses')->join('publish_course','courses.id','=','publish_course.course_id')->select(
+            'publish_course.publish_status','courses.id','courses.name','courses.description')
+            ->where('publish_course.publish_status','=', 'Published')->get();
+
         $index=DB::table('courses')->join('publish_course','courses.id','=','publish_course.course_id')->select(
             'publish_course.publish_status','courses.id','courses.name','courses.description')
             ->where('publish_course.publish_status','=', 'Published')->get();
@@ -56,44 +58,59 @@ class CourseController extends Controller
               # code...
             //}
           }
-        //  dd($arr);
                 //
               # code...
+        //  dd($arr);
           }
          
     # code...
           
           
            // dd($indexes_sub);
-        return view('admin.course.viewonly.topic' , compact('course','indexes','indexes_sub'));
+           $feedback = DB::table('feedback')->join('publish_course','feedback','=','fid')->where('publish_course.course_id', $id)->get();
+        $publish= DB::table('publish_course')->where('course_id', $id)->first();
+        //dd($publish);
+        return view('admin.course.viewonly.topic' , compact('course','indexes','indexes_sub','feedback','publish'));
         
     }
     public function create()
     {
         $var=Auth::guard('admin')->user()->id;
+        $categories = Category::all()->whereNotIn('parent_id',0);
         //echo $var;
-        return view('admin.course.createcourse');
+        return view('admin.course.createcourse',compact('var','categories'));
     }
 
-    public function store(FileRequest $request)
+    public function store(Request $request)
     {
+        $this->validate($request,[
+            'category' => 'required',
+            'name'=> 'required|unique:courses',
+            'description'=>'required|min:10',
+        ]);
+
+        //dd($request);
+
         $course = new Course;
 
-        $course->id=request('id');
+
+        
         $course->name=request('name');
         $course->description=request('description');
-        //$course->cfilename=request('cfile');
+        $current1 = mt_rand(10000000,99999999);
         $var=Auth::guard('admin')->user()->id;
-
-        $imageName = $course->name.'.'. $request->file('cfile')->getClientOriginalExtension();
-
-        $path=$request->file('cfile')->move(base_path().'/public/images/catalog',$imageName);
-        $course->cfilename='/images/catalog/'.$imageName;
+        $course->feedback=$current1;
         $course->save();
-        
-        DB::table('admin_course')->insert(['course_id' =>request('id'),'admin_id'=>$var,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
+       
+       //Bind the course with admin
+        DB::table('admin_course')->insert(['course_id' =>$course->id,'admin_id'=>$var,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
+       
+       //Set the default values of course structure
+        DB::table('course_structure')->insert(['course_id' =>$course->id,'fixedstructure'=>null,'tempstructure'=>null,'feedback'=>$current1]);
 
-        DB::table('course_structure')->insert(['course_id' =>request('id'),'fixedstructure'=>null,'tempstructure'=>null]);
+        //Bind the course with category 
+        DB::table('course_category')->insert(['course_id' =>$course->id,'category_id'=>request('category'),'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
+
         return redirect('/admin/mycourse')->with('message','Course Added !');
     }
 
@@ -109,7 +126,7 @@ class CourseController extends Controller
             }
             else
             {
-                abort(403,'Not Authorized');
+                return view('errors.403');
             }
         }
     }
@@ -138,7 +155,7 @@ class CourseController extends Controller
                 return redirect('/admin/mycourse')->with('success','Course updated successfully.');
             }
             else{
-                abort(403,'Not Authorized');
+                return view('errors.403');
             }
        // }
     }

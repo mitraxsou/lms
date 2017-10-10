@@ -106,6 +106,7 @@
                                       <table class="table table-striped" data-effect="fade" style="color:black;">
                                         <thead>
                                           <tr>
+                                          
                                               <th>Course</th>
                                               <th>Description</th>
                                               <th>Register</th>
