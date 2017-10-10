@@ -23,7 +23,7 @@
                             <ul>
                             @foreach($cat as $c)
                                 <li>
-                                    <input type="checkbox" value="{{$c->id}}" alt="{{$c->name}}" title="{{$c->name}}">{{$c->name}}
+                                    {{$c->name}}
                                     <ul>
                                        @foreach($c->childCategories as $child)
                                        <li>

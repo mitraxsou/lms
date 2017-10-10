@@ -235,6 +235,8 @@ Route::group(['middleware' => 'adminauth'], function()
 	Route::get('/admin/question/{ques}/edit','Admin\QuestionController@edit');
 	Route::patch('/admin/question/{ques}/editquestion','Admin\QuestionController@update');
 
+//Quiz Review
+	Route::get('/admin/quiz/review/{quizid}','Admin\QuizController@reviewquiz');
 
 });
 

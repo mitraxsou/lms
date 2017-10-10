@@ -107,6 +107,9 @@ class ReviewController extends Controller
         alert()->info('Course Rejected');
         return redirect('/admin/reviewcourse');
     }
+
+// Content send for the reveiw
+    
     public function review($cid,$tid,$sid,$id1)
     {
          $auth=Auth::guard('admin')->user()->id;
@@ -152,10 +155,11 @@ class ReviewController extends Controller
 
                return view('admin.review.notfoundcategory');
                // alert()->info('No courses found for your catgory');
-                
-            
+                    
 
     }
+
+ //Content   
     public function content($id1)
     {
         
@@ -192,15 +196,19 @@ class ReviewController extends Controller
             ['subtopics.content_id','=',$id1]
             ])
          ->first();
-        }
-         if(count($course)){
+
+         //dd($course);
+         if(count($course)>0){
         
          return view('admin.review.contentshow', compact('course1','video'));
-     }
-     else{
+            }
+        else{
          return view('admin.review.notfoundcategory');
-     }
+        }
 
+        }
+
+         
          /*$course1 = DB::table('content')->join('subtopics','subtopics.content_id','=','content.content_id')->select('subtopics.sub_tid','subtopics.tid','subtopics.course_id','subtopics.name','subtopics.description','content.content','content.content_id','content.content_type')->where(
             'content.content_id',$id1
          )->first();*/

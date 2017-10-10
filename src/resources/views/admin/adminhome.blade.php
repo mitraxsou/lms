@@ -97,8 +97,9 @@
                                 <li><a href="/admin/mycourse">My Courses</a></li>
                                 @if(Auth::guard('admin')->user()->hasRole('super'))
                                     <li><a href="/admin/categories">Categories</a></li>
-                                @else
+                                @elseif(Auth::guard('admin')->user()->hasRole('review admin'))
                                     <li><a href="/admin/mycategory">My Categories</a></li>
+                                @else
                                 @endif
                                   @if(Auth::guard('admin')->user()->hasRole('review admin'))
                                   
@@ -118,6 +119,7 @@
                                     ">{{$countera->lesson()}}</span>
                                 @endif
                                 </a></li>
+
                                 <li><a href="/admin/reviewstr">Review Structure
                                  @if($countera->lessonstr()>0)
                                 <span style="border-radius: 25px;

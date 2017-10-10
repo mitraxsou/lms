@@ -68,5 +68,24 @@ class QuizController extends Controller
         return redirect('/admin/'.$course.'/'.$topic.'/'.$stid.'/showquiz');
     }
 
+    public function reviewquiz($qid)
+    {
+        $quizzes = DB::table('quiz')->where('quiz_id',$qid)->first();
+        
+        DB::table('quiz')->where('quiz_id','=',$qid)->update(['review_status' => 'Reviewing']);
+        if(count($quizzes)>0)
+        {
+            
+            $questions = DB::table('questions')->where('quiz_id',$qid)->get();
+            $easy = DB::table('questions')->where([['quiz_id',$qid],['level','=','easy']])->get();
+            $moderate = DB::table('questions')->where([['quiz_id',$qid],['level','=','moderate']])->get();
+            $difficult = DB::table('questions')->where([['quiz_id',$qid],['level','=','difficult']])->get();
+
+            alert()->success('Content Sent for Reviewing!!');
+            return redirect('admin/'.$quizzes->course_id.'/'.$quizzes->tid.'/'.$quizzes->sub_tid.'/showquiz')->with(compact('quizzes','questions','easy','moderate','difficult'));
+            
+        } 
+        
+    }
 
 }
