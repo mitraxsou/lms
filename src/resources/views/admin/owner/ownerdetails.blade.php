@@ -34,7 +34,7 @@
                     <br/>
                     <h4>Categories</h4>
                     @if(count($admin->categories)>0)
-                        <p><a href="/admin/owners/assigncategory/edit/{{$admin->id}}">Edit</a></p>
+                        <p><a href="/admin/owners/assigncategory/edit/{{$admin->id}}">Edit Categories</a></p>
                         @foreach($admin->categories as $cat)
                             <h4 class="label label-default">{{$cat->name}}</h4>
                         @endforeach

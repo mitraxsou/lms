@@ -119,7 +119,13 @@
                                 <img src="bell1.gif" width="19px" height="17px"></span>
                                  @endif
                              </a></li>
-                                <li><a href="/admin/categories">Categories</a></li>
+                               @if(Auth::guard('admin')->user()->hasRole('super'))
+                                    <li><a href="/admin/categories">Categories</a></li>
+                                @elseif(Auth::guard('admin')->user()->hasRole('review admin'))
+                                    <li><a href="/admin/mycategory">My Categories</a></li>
+                                @else
+                                @endif
+
                                   @if(Auth::guard('admin')->user()->hasRole('review admin'))
                                   
                                 <li><a href="/admin/reviewcourse">Review Content
@@ -138,6 +144,7 @@
                                     ">{{$countera->lesson()}}</span>
                                 @endif
                                 </a></li>
+
                                   <li><a href="/admin/reviewdeletionrequest">Requests for Deletion
                                  @if($countera->del()>0)
                                 <span style="border-radius: 25px;
@@ -154,6 +161,7 @@
                                     ">{{$countera->del()}}</span>
                                 @endif
                                 </a></li>
+
                                 <li><a href="/admin/reviewstr">Review Structure
                                  @if($countera->lessonstr()>0)
                                 <span style="border-radius: 25px;

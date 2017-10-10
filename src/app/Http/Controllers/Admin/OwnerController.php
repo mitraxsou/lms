@@ -147,7 +147,6 @@ class OwnerController extends Controller
 
     public function storemulti(Request $request)
     {
-        //dd($request);
         $this->validate($request,[
             'fname'=>'required',
             'lname'=>'required',

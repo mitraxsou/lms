@@ -189,6 +189,7 @@
                           <th>Name</th>
                         <th>Description</th>
                         <th>See Sub-Topics</th>
+                        <th>Quiz</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -201,6 +202,10 @@
                             <td>{{ $index -> description}}</td>
                            
                             <td>  <p><a href="/admin/course/{{$index->course_id}}/{{$index->tid}}/createsubtopic">+add more subindexes</a></p></td> <!--course chnging-->
+
+                            <td><a href="/admin/{{$index->course_id}}/{{$index->tid}}/quiz">See Quiz</a></td>
+                            <!--Quiz related to each topic-->
+
                             <td><a class="btn btn-warning" href="/admin/course/{{$course->id}}/topic/{{$index->tid}}/edit">Edit</a></td>
                             <td>
                                 <span class="label label-info">Edit Required
