@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRoleAdminTable extends Migration
+class CreateAdminCategoryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateRoleAdminTable extends Migration
      */
     public function up()
     {
-        //
-        Schema::create('role_admin',function(Blueprint $table){
+        Schema::create('admin_category',function(Blueprint $table){
             $table->integer('admin_id');
-            $table->integer('role_id');
             $table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
-            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
+            $table->integer('category_id');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->unique(['admin_id','category_id']);
             $table->timestamps();
         });
     }
