@@ -125,6 +125,7 @@ Route::group(['middleware' => 'adminauth'], function()
 	});
 	
 	/***********************Course URLs************/
+	Route::get('/commentread/{id}' , 'Admin\CourseController@comment');
 	Route::get('/admin/course' , 'Admin\CourseController@index');
 	Route::get('/admin/course/{course}', 'Admin\CourseController@show');
 	Route::get('/admin/createcourse' ,['middleware'=>['adminpermission:create_course'],'uses'=>  'Admin\CourseController@create']);

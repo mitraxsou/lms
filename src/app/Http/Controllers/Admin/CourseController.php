@@ -29,10 +29,9 @@ class CourseController extends Controller
             'publish_course.publish_status','courses.id','courses.name','courses.description')
             ->where('publish_course.publish_status','=', 'Published')->get();
 
-
+        
     	return view('admin.course.viewonly.course' , compact('courses','index'));
     }
-
     public function show($id)
     {
     	$course = Course::find($id);
@@ -69,7 +68,8 @@ class CourseController extends Controller
            // dd($indexes_sub);
            $feedback = DB::table('feedback')->join('publish_course','feedback','=','fid')->where('publish_course.course_id', $id)->get();
         $publish= DB::table('publish_course')->where('course_id', $id)->first();
-        //dd($publish);
+
+        //dd($id);
         return view('admin.course.viewonly.topic' , compact('course','indexes','indexes_sub','feedback','publish'));
         
     }
@@ -162,6 +162,13 @@ class CourseController extends Controller
 
     public function destroy($id)
     {
+        
+    }
+
+    public function comment($id)
+    {
+        $read=DB::table('feedback')->where('id',$id)->update(['read' => 1]);
+        return back();
         
     }
 }
