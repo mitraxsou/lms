@@ -18,6 +18,7 @@ class CreateFeedback extends Migration
             $table->integer('fid');
             $table->string('comment');
             $table->string('commentor');
+            $table->integer('read')->default(0);
             $table->timestamps();
             $table->primary('id');
         });

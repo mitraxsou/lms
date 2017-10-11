@@ -20,6 +20,8 @@ class CreateQuizTable extends Migration
             $table->integer('tid');
             $table->foreign('tid')->references('tid')->on('topic')->onDelete('cascade');
             $table->integer('course_id');
+            $table->mediumText('review_status')->nullable();
+            $table->mediumText('feedback')->nullable();
             $table->foreign('course_id')->references('course_id')->on('courses')->onDelete('cascade');
             $table->timestamps();
             $table->primary('quiz_id');

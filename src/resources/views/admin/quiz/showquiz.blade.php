@@ -29,8 +29,8 @@
                         <p><a class="btn btn-primary" href="/admin/quiz/{{$quizzes->quiz_id}}/questions">View Questions</a></p>
                         @if($quizzes->review_status == 'Not Reviewed')
                             <p><a class="btn btn-primary" href="/admin/quiz/review/{{$quizzes->quiz_id}}">Review</a></p>
-                        @elseif($quizzes->review_status == 'Edit Required')
-                            <p><a class="btn btn-primary" href="">View to edit</a></p>
+                        @elseif($quizzes->review_status == 'Edit')
+                            <p><a class="btn btn-warning" href="/admin/viewedit/{{$quizzes->quiz_id}}">View to edit</a></p>
                         @elseif($quizzes->review_status == 'Correct')
                             <p><a class="btn btn-success" disabled href="#">Reviewed</a></p>
                         @elseif($quizzes->review_status == 'Reviewing')

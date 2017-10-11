@@ -243,6 +243,11 @@ Route::group(['middleware' => 'adminauth'], function()
 
 //Quiz Review
 	Route::get('/admin/quiz/review/{quizid}','Admin\QuizController@reviewquiz');
+	Route::get('/admin/reviewquiz', 'Admin\QuizController@displayquiz');
+	Route::get('/admin/reviewquizcorrect/{id}', 'Admin\QuizController@reviewquizcorrect');
+	Route::post('/admin/reviewquizedit', 'Admin\QuizController@reviewquizedit');
+	Route::get('/admin/reviewquiz/{id}', 'Admin\QuizController@displayquizdetails');
+	Route::get('/admin/viewedit/{id}','Admin\QuizController@viewquiz');
 
 });
 

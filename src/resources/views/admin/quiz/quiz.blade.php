@@ -42,6 +42,7 @@
                 <td>{{$subtopic->sub_tid}}</td>
                 <td>{{$subtopic->name}}</td>
                 <td><a class="btn btn-default" href="/admin/{{$subtopic->course_id}}/{{$subtopic->tid}}/{{$subtopic->sub_tid}}/showquiz">Quiz</a></td>
+                <td>{{$subtopic->review_status}}</td>
               </tr>
             @endforeach
           @else

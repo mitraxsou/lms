@@ -461,7 +461,7 @@
                                 @else
                                 @endif
                                   @if(Auth::guard('admin')->user()->hasRole('review admin'))
-                                  
+                                  <li><a href="/admin/reviewquiz">Review Quiz</a></li>
                                 <li><a href="/admin/reviewcourse">Review Content
                                  @if($countera->lesson()>0)
                                 <span style="border-radius: 25px;
