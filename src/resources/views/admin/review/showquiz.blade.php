@@ -25,10 +25,10 @@
                   <table class="table table-striped" data-effect="fade">
                     <thead>
                       <tr>
-                          <th>ID</th>
-                          <th>Topic</th> 
-                           <th>Name </th>
-                          <th>Description</th>
+                          <th>Course Name</th>
+                          <th>Topic ID</th> 
+                           <th>Quiz ID </th>
+                          <th>View</th>
                         
                         
                       </tr>
@@ -37,10 +37,11 @@
                       
                         @foreach ($quiz as $course)
                         <tr>
-                            <td>{{ $course -> sub_tid}}</td>
+                            <td>{{ $course -> name}}</td>
                             <td>{{ $course -> tid}}</td>
-                             <td><a class='btn btn-primary' href='/admin/reviewquiz/{{ $course -> quiz_id}}'>{{ $course -> quiz_id }}</a></td>
-                            <td>{{ $course -> course_id }}</td>
+                            <td>{{ $course -> quiz_id }}</td>
+                             <td><a class='btn btn-primary' href='/admin/reviewquiz/{{ $course -> quiz_id}}'>View Quiz</a></td>
+                            
                         </tr>    
                         @endforeach
                       @else
@@ -54,7 +55,10 @@
           <div class="panel-heading">
                  <div class="row">
               <div class="col-md-8">
-                       <label> Quiz List </label>
+                Course Name : <label>  {{$course->name}}</label><br> 
+                Topic Name : <label>  {{$topic->name}}</label><br>
+                Chapter Name :      <label>  {{$subtopics->name}} </label><br>
+
               </div>
               <div class="col-md-2">
                    <input type="button" name="Correct" class="btn btn-danger pull-left" value="Edit required" data-toggle="modal" data-target="#myModal">
@@ -76,7 +80,7 @@
                                             </div>
                                             <div class="form-group">
                                               <label> Feedback</label>
-                                              <input type="text" name="feedback" id="feedback" class="form-control">
+                                              <textarea name="feedback" id="feedback" class="form-control" placeholder="Write your feedback.."></textarea>
                                             </div>
                                             <div class="form-group">
                                               <div class="col-md-offset-4 ">
@@ -105,6 +109,7 @@
                         	<div class="panel-heading">
                         	Question:	{{$course->question}}
                         	</div>
+                           @if(($course->ques_type) == "tf")
                         	<div class="panel-body">
                         	Options a): {{$course->a}} <br>
                         	Options b): {{$course->b}} <br>
@@ -112,6 +117,30 @@
                         	<div class="panel-heading">
                         	Answer : {{$course->correct}} <br>
                         	</div>
+                         
+
+                          @elseif(($course->ques_type) == "mcq1")
+                          <div class="panel-body">
+                          Options a): {{$course->a}} <br>
+                          Options b): {{$course->b}} <br>
+                          Options c): {{$course->c}} <br>
+                          Options d): {{$course->d}} <br>
+                          </div>
+                          <div class="panel-heading">
+                          Answer : {{$course->correct}} <br>
+                          </div>
+                          @elseif(($course->ques_type) == "mcqmul")
+                          <div class="panel-body">
+                          Options a): {{$course->a}} <br>
+                          Options b): {{$course->b}} <br>
+                          Options c): {{$course->c}} <br>
+                          Options d): {{$course->d}} <br>
+                          </div>
+                          <div class="panel-heading">
+                          Answer : {{$course->correct}} <br>
+                          </div>
+
+                          @endif
                         </div>
                         
                         @endforeach

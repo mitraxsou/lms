@@ -22,7 +22,7 @@
                     <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                               Comments
+                               Discussions
                                @if(count($countera->comment())>0)
                                 <span style="border-radius: 25px;
                                     display: inline;
@@ -85,7 +85,7 @@
                                     <div class="modal-content">
                                       <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Comments</h4>
+                                        <h4 class="modal-title">Discussions</h4>
                                       </div>
                                       <div class="modal-body">
                                          @foreach ($countera->comment() as $index)
@@ -113,7 +113,7 @@
                     <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                               Comments
+                               Discussions
                                @if(count($countera->commentreview())>0)
                                 <span style="border-radius: 25px;
                                     display: inline;
@@ -179,7 +179,7 @@
                                     <div class="modal-content">
                                       <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Comments</h4>
+                                        <h4 class="modal-title">Discussions</h4>
                                       </div>
                                       <div class="modal-body">
                                          @foreach ($countera->commentreview() as $index)
@@ -208,7 +208,7 @@
                     <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                               Comments
+                               Discussions
                                @if(count($countera->commentpublish())>0)
                                 <span style="border-radius: 25px;
                                     display: inline;
@@ -271,7 +271,7 @@
                                     <div class="modal-content">
                                       <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Comments</h4>
+                                        <h4 class="modal-title">Discussions</h4>
                                       </div>
                                       <div class="modal-body">
                                          @foreach ($countera->commentpublish() as $index)
@@ -461,7 +461,23 @@
                                 @else
                                 @endif
                                   @if(Auth::guard('admin')->user()->hasRole('review admin'))
-                                  <li><a href="/admin/reviewquiz">Review Quiz</a></li>
+                                  <li><a href="/admin/reviewquiz">Review Quiz
+                                     @if($countera->quiznumber()>0)
+                                <span style="border-radius: 25px;
+                                    display: inline;
+                                    background-color: red;
+                                    width: auto;
+                                    padding: 0 4px;
+                                    line-height: 21px;
+                                    color: #fff;
+                                    -moz-animation: blink 4s ease-in-out infinite;
+                                    animation: blink 4s ease-in-out infinite;
+                                    left: 44px;
+                                    top: 17px;
+                                    ">{{$countera->quiznumber()}}</span>
+                                @endif
+
+                                  </a></li>
                                 <li><a href="/admin/reviewcourse">Review Content
                                  @if($countera->lesson()>0)
                                 <span style="border-radius: 25px;

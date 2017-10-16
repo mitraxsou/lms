@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <article>
-            <p><a href='/admin/quiz/{{$quiz->quiz_id}}/questions'>&larr; back to Questions</a></p>
+            <p><a href='/admin/{{$quiz->course_id}}/{{$quiz->tid}}/{{$quiz->sub_tid}}/showquiz'>&larr; back to Questions</a></p>
         </article>
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-success">

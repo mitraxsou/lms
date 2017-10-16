@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Course;
+use App\Admin;
+use App\Mail\Feedback;
+use App\Mail\QuizREview;
 use Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -17,7 +20,7 @@ class QuizController extends Controller
     	$topic = DB::table('topic')->where([['tid',$tid],['course_id',$cid]])->first();
     	$subtopics = DB::table('subtopics')->where([['tid', $tid],['course_id',$cid]])->orderBy('sub_tid')->get();
     	$quizzes = DB::table('quiz')->where([['tid', $tid],['course_id',$cid]])->orderBy('sub_tid')->get();
-    	return view('admin.quiz.quiz',compact('course','topic','subtopics','$quizzes'));
+    	return view('admin.quiz.quiz',compact('course','topic','subtopics','quizzes'));
     }
 
     public function show($cid,$tid,$stid)
@@ -71,6 +74,12 @@ class QuizController extends Controller
 
     public function reviewquiz($qid)
     {
+        $category=DB::table('quiz')->join('course_category','course_category.course_id','=','quiz.course_id')->where('quiz_id','=',$qid)->pluck('category_id');
+        $category1=DB::table('admins')->join('admin_category','admin_category.admin_id','=','admins.id')
+        ->join('role_admin','role_admin.admin_id','=','admins.id')
+        ->where([['admin_category.category_id','=',$category],['role_admin.role_id','=',3]])->pluck('admins.id');
+        $course = Admin::find($category1);
+       // dd($course);
         $quizzes = DB::table('quiz')->where('quiz_id',$qid)->first();
         
         DB::table('quiz')->where('quiz_id','=',$qid)->update(['review_status' => 'Reviewing']);
@@ -81,7 +90,10 @@ class QuizController extends Controller
             $easy = DB::table('questions')->where([['quiz_id',$qid],['level','=','easy']])->get();
             $moderate = DB::table('questions')->where([['quiz_id',$qid],['level','=','moderate']])->get();
             $difficult = DB::table('questions')->where([['quiz_id',$qid],['level','=','difficult']])->get();
-
+            $mailbody = DB::table('quiz')->where([
+                     ['quiz_id' ,'=', $qid]
+             ])->first();
+              \Mail::to($course)->send(new QuizREview($mailbody));
             alert()->success('Content Sent for Reviewing!!');
             return redirect('admin/'.$quizzes->course_id.'/'.$quizzes->tid.'/'.$quizzes->sub_tid.'/showquiz')->with(compact('quizzes','questions','easy','moderate','difficult'));
             
@@ -94,6 +106,13 @@ class QuizController extends Controller
         //dd(request('feedback'));
         DB::table('quiz')->where('quiz_id','=',request('qid'))
         ->update(['review_status' => 'Edit','feedback' => request('feedback')]);
+       // $course = Admin::find($var);
+        $user=DB::table('quiz')->join('admin_course','admin_course.course_id','=','quiz.course_id')->where('quiz_id','=',request('qid'))->pluck('admin_id');
+        $course = Admin::find($user);
+         $mailbody = DB::table('quiz')->where([
+                     ['quiz_id' ,'=', request('qid')]
+             ])->first();
+        \Mail::to($course)->send(new QuizREview($mailbody));
         alert()->info('Feedback taken');
      return redirect('/admin/reviewquiz');   
         
@@ -105,6 +124,13 @@ class QuizController extends Controller
         
         DB::table('quiz')->where('quiz_id','=',$id)
         ->update(['review_status' => 'Correct','feedback' => 'Okay']);
+         $user=DB::table('quiz')->join('admin_course','admin_course.course_id','=','quiz.course_id')->where('quiz_id','=',request('qid'))->pluck('admin_id');
+        $course = Admin::find($user);
+         $mailbody = DB::table('quiz')->where([
+                     ['quiz_id' ,'=', $id]
+             ])->first();
+        \Mail::to($course)->send(new QuizREview($mailbody));
+       
         alert()->info('Quiz Corrected');
      return redirect('/admin/reviewquiz');   
         
@@ -139,7 +165,8 @@ class QuizController extends Controller
             ->pluck('category_id');
          $quiz = DB::table('quiz')
          ->join('course_category','course_category.course_id','=','quiz.course_id')
-         ->where([['review_status','Reviewing']])
+         ->join('courses','courses.id','=','quiz.course_id')
+         ->where([['quiz.review_status','Reviewing']])
          ->whereIn('course_category.category_id',$category1)
          ->get();
          return view('admin.review.showquiz',compact('quiz'));
@@ -174,12 +201,21 @@ class QuizController extends Controller
          ->join('course_category','course_category.course_id','=','quiz.course_id')
          ->where([['review_status','Reviewing'],['quiz.quiz_id',$id]])
          ->whereIn('course_category.category_id',$category1)
-         ->get();
+         ->first();
+         $subtopics= DB::table('subtopics')
+         ->where([['course_id',$quiz->course_id],['tid',$quiz->tid],['sub_tid',$quiz->sub_tid]])
+         ->first();
+         $topic= DB::table('topic')
+         ->where([['tid',$quiz->tid],['course_id',$quiz->course_id]])
+         ->first();
+         $course= DB::table('courses')
+         ->where([['id',$quiz->course_id]])
+         ->first();
          if(count($quiz)>0)
         {
         $questions = DB::table('questions')->where('quiz_id',$id)->get();
          $status=$id;
-        return view('admin.review.showquiz',compact('questions','status'));
+        return view('admin.review.showquiz',compact('questions','status','subtopics','topic','course'));
         }
         else
         {

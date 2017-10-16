@@ -65,6 +65,14 @@ class Counter
         return $course;
         
     }
+    public function quiznumber()
+    {
+        $course = DB::table('quiz')->where([
+            ['review_status', '=', 'Reviewing']
+         ])->count();
+        return $course;
+        
+    }
     public function comment()
     {
        $auth=Auth::guard('admin')->user()->id;

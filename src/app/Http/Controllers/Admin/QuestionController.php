@@ -131,14 +131,15 @@ class QuestionController extends Controller
          $tid = $var->tid;
          $stid = $var->sub_tid;
 
-         return redirect('/admin/quiz/'.$quiz_id.'/questions');
+         return redirect('/admin/'.$cid.$tid.$stid.'/showquiz');
    }
 
    public function edit($qid)
    {
       $ques = DB::table('questions')->where('ques_id','=',$qid)->first();
-      //dd($ques);
-      return view('admin.question.edit',compact('ques'));
+      $var = DB::table('quiz')->where('quiz_id','=',$ques->quiz_id)->first();
+    //  dd($var);
+      return view('admin.question.edit',compact('ques','var'));
    }
 
    public function update(Request $request , $qid)
@@ -229,7 +230,9 @@ class QuestionController extends Controller
          $quiz = $question->quiz_id;
          //dd($quiz);
          $var = DB::table('quiz')->where('quiz_id','=',$quiz)->first();
-
-         return redirect('/admin/quiz/'.$quiz.'/questions');
+         $cid = $var->course_id;
+         $tid = $var->tid;
+         $stid = $var->sub_tid;
+         return redirect('/admin/'.$cid.$tid.$stid.'/showquiz');
    }
 }

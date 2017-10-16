@@ -61,6 +61,49 @@ class NotifyCa
          }
     }
 
+    public function quiz($id)
+    {
+        $auth=Auth::guard('admin')->user()->id;
+       
+        $courses=[];
+        /*
+        $category=DB::table('admin_category')
+            ->where('admin_id','=',$auth)
+            ->first();*/
+
+        $coursesarr = DB::table('courses')->join('admin_course','id','=','admin_course.course_id')->select('courses.id','courses.name','courses.description')->where([['admin_id', $auth],['admin_course.course_id',$id]])->orderBy('id')->get();
+        if(count($coursesarr)>0)
+        {
+            $course = DB::table('quiz')->where([
+                ['review_status','=','Edit'],
+                ['course_id','=',$id]
+             ])->count();
+            return $course;
+           // dd($id);
+         }
+    }
+    public function quiztopic($id,$id1)
+    {
+        $auth=Auth::guard('admin')->user()->id;
+       
+        $courses=[];
+        /*
+        $category=DB::table('admin_category')
+            ->where('admin_id','=',$auth)
+            ->first();*/
+
+        $coursesarr = DB::table('courses')->join('admin_course','id','=','admin_course.course_id')->select('courses.id','courses.name','courses.description')->where([['admin_id', $auth],['admin_course.course_id',$id]])->orderBy('id')->get();
+        if(count($coursesarr)>0)
+        {
+            $course = DB::table('quiz')->where([
+                ['review_status','=','Edit'],
+                  ['tid','=',$id1],
+                ['course_id','=',$id]
+             ])->count();
+            return $course;
+           // dd($id);
+         }
+    }
      public function edittopic($id,$id1)
     {
         $auth=Auth::guard('admin')->user()->id;
@@ -120,6 +163,37 @@ class NotifyCa
         {
             $course = DB::table('courses')->join('feedback','feedback','=','feedback.fid')->where('courses.id',$id)->count();
             return $course;
+           // dd($id);
+         }
+    }
+     public function status($id,$id1,$id2)
+    {
+        $auth=Auth::guard('admin')->user()->id;
+       
+        $courses=[];
+        /*
+        $category=DB::table('admin_category')
+            ->where('admin_id','=',$auth)
+            ->first();*/
+        $status="";
+
+        $coursesarr = DB::table('courses')->join('admin_course','id','=','admin_course.course_id')->select('courses.id','courses.name','courses.description')->where([['admin_id', $auth],['admin_course.course_id',$id]])->orderBy('id')->get();
+        if(count($coursesarr)>0)
+        {
+            $course = DB::table('quiz')->where([
+                ['sub_tid','=',$id2],
+                  ['tid','=',$id1],
+                ['course_id','=',$id]
+             ])->first();
+            if($course!=null){
+
+            return $course->review_status;
+            
+            }
+        else{
+                $course="Not Created";
+            }
+            return $status;
            // dd($id);
          }
     }

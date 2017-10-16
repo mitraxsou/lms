@@ -208,6 +208,23 @@
 
                             <td><a class="btn btn-warning" href="/admin/course/{{$course->id}}/topic/{{$index->tid}}/edit">Edit</a></td>
                             <td>
+
+                                <span class="label label-info">Quiz Notifications
+                                 @if($countera->quiztopic($index->course_id,$index->tid)>0)
+                                <span style="border-radius: 25px;
+                                    display: inline;
+                                    background-color: red;
+                                    width: auto;
+                                    padding: 0 4px;
+                                    line-height: 21px;
+                                    color: #fff;
+                                    -moz-animation: blink 4s ease-in-out infinite;
+                                    animation: blink 4s ease-in-out infinite;
+                                    left: 44px;
+                                    top: 17px;
+                                    ">{{$countera->quiztopic($index->course_id,$index->tid)}}</span>
+                                 @endif
+                            </span><br>
                                 <span class="label label-info">Edit Required
                                  @if($countera->edittopic($index->course_id,$index->tid)>0)
                                 <span style="border-radius: 25px;

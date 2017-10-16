@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <article>
-            <p><a href='/admin/quiz/{{$ques->quiz_id}}/questions'>&larr; back to Questions</a></p>
+            <p><a href='/admin/{{$var->course_id}}/{{$var->tid}}/{{$var->sub_tid}}/showquiz'>&larr; back to Questions</a></p>
         </article>
         <div class="col-md-8 col-md-offset-2">
         	<div class="panel panel-warning">
@@ -13,9 +13,10 @@
         		</div>
         		<div class="panel-body">
 	        		<form method="POST" action="/admin/question/{{$ques->ques_id}}/editquestion" enctype="multipart/form-data">
+	        			 <input type="hidden" name="qtype1"  value="{{$ques->ques_type}}">
 	                {{ csrf_field() }}
 	                {{ method_field('PATCH') }}
-	                <p>{{$ques->ques_type}} || Level : {{$ques->level}}</p>
+	               
 	                	 <div class="form-group">
                             <label>Level</label>
                             <select name="level" class="form-control">

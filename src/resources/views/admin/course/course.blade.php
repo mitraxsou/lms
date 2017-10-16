@@ -48,6 +48,23 @@
 
                           <td><a class="btn btn-success" href="/admin/course/publish/{{$course->id}}">Publish</a></td>
                           <td>
+
+                            <span class="label label-info">Quiz Notifications
+                                 @if($countera->quiz($course -> id)>0)
+                                <span style="border-radius: 25px;
+                                    display: inline;
+                                    background-color: red;
+                                    width: auto;
+                                    padding: 0 4px;
+                                    line-height: 21px;
+                                    color: #fff;
+                                    -moz-animation: blink 4s ease-in-out infinite;
+                                    animation: blink 4s ease-in-out infinite;
+                                    left: 44px;
+                                    top: 17px;
+                                    ">{{$countera->quiz($course -> id)}}</span>
+                                 @endif
+                            </span><br>
                             <span class="label label-info">Edit Required
                                  @if($countera->edit($course -> id)>0)
                                 <span style="border-radius: 25px;
