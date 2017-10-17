@@ -179,15 +179,18 @@ class SubTopicController extends Controller
     }
      public function askdestroy($cid, $tid, $stid)
     {
+
         $course1 = DB::table('subtopics')->where([
                  ['sub_tid', '=', $stid],
                  ['tid', '=', $tid],
                  ['course_id', '=', $cid]
          ])->first();
+        //dd($course1);
+        
          $updte = DB::table('subtopics')->where([
-                    ['sub_tid', '=', request('sub_tid')],
-                 ['tid', '=', request('tid')],
-                 ['course_id', '=', request('course_id')]
+                    ['sub_tid', '=', $stid],
+                 ['tid', '=', $tid],
+                 ['course_id', '=',$cid]
          ])->update(['review_status' => 'Request']);
         alert()->info('Request sent');
         return redirect('/admin/mycourse/'.$cid);

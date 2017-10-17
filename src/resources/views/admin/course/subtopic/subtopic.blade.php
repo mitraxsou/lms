@@ -101,7 +101,7 @@
                                     <td><a class='btn btn-primary' href='/admin/mycourse/editmaking/{{$index->course_id}}/{{$index->tid}}/{{ $index -> sub_tid }}' disabled>Edit Content</a></td> 
                                     <td><a class='btn btn-default' disabled href='/admin/mycourse/{{ $index -> course_id }}/{{ $index -> tid }}/{{ $index -> sub_tid }}'>Reviewing</a></td>
                              @endif
-                              <td><a class="btn btn-danger" href="/admin/mycourse/delete/{{ $index -> course_id }}/{{ $index -> tid }}/{{ $index -> sub_tid }}">Delete</a></td>
+                             
                         </tr>    
                            <!-- course chnging-->
                         </tr>    

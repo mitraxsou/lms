@@ -293,12 +293,12 @@
                                                 <!-- <td><a class='btn btn-primary' href='/admin/mycourse/editmaking/{{$index1->course_id}}/{{$index1->tid}}/{{ $index1 -> sub_tid }}' disabled>Edit Content</a></td> 
                                                  --><td><a class='btn btn-success btn-sm' disabled href='#'>Reviewed</a></td>
                                                  <td></td>
-                                                    <td><a class="btn btn-warning btn-sm" href="/admin/mycourse/askdelete/{{ $index1 -> course_id }}/{{ $index1 -> tid }}/{{ $index1 -> sub_tid }}">Request Delete</a></td>
+                                                    <td><a class="btn btn-warning btn-sm" href="/admin/mycourse/askdelete/{{ $index1 -> course_id }}/{{ $index1 -> tid }}/{{ $index1 -> sub_tid }}">Request </a></td>
 
                                                 @elseif($index1 -> review_status == 'Request' )
                                                       <td><a class='btn btn-success btn-sm' disabled href='#'>Reviewed</a></td>
                                                       <td></td>
-                                                      <td><a class="btn btn-warning btn-sm" disabled href="/admin/mycourse/askdelete/{{ $index1 -> course_id }}/{{ $index1 -> tid }}/{{ $index1 -> sub_tid }}">Request Delete</a></td>
+                                                      <td><a class="btn btn-warning btn-sm" disabled href="/admin/mycourse/askdelete/{{ $index1 -> course_id }}/{{ $index1 -> tid }}/{{ $index1 -> sub_tid }}"> Delete Requested</a></td>
 
                                                      
                                                 @elseif($index1 -> review_status == 'Reviewing')
