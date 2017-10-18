@@ -129,7 +129,7 @@ class MyCourseController extends Controller
             'comment'=>'required',
             
         ]);
-      $read=DB::table('feedback')->where('fid', request('fid'))->update(['read' => 1]);
+          $read=DB::table('feedback')->where('fid', request('fid'))->update(['read' => 1]);
           $var=Auth::guard('admin')->user()->id;
           
           $course = Admin::find($var);

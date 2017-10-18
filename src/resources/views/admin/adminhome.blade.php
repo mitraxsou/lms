@@ -66,7 +66,7 @@
                                         <div class="well well-sm" style="margin-bottom: 1px;">
                                         <div class="row">
                                             <div class="col-sm-8">
-                                            <b>{{$index->comment}}</b> in {{$index->name}} 
+                                            <b>{{$index->comment}}</b> commented by <b>{{$index->commenter}}</b> in {{$index->name}} 
                                             </div>
                                            
                                        </div>
@@ -158,9 +158,10 @@
                                         <div class="row">
                                             <div class="col-sm-8">
                                                 @if(empty($index->review_status))
-                                            <b>{{$index->comment}}</b> in {{$index->name}} in <b>Publish Category</b>
+                                            <b>{{$index->comment}}</b> commented by <b>{{$index->commenter}}</b> in Publish Course
                                                 @else
-                                            <b>{{$index->comment}}</b> in {{$index->name}} in <b>Review Category</b>
+                                                <b>{{$index->comment}}</b> commented by <b>{{$index->commenter}}</b> in Review Category
+                                            
                                             </div>
                                                 @endif
                                        </div>
@@ -252,7 +253,7 @@
                                         <div class="well well-sm" style="margin-bottom: 1px;">
                                         <div class="row">
                                             <div class="col-sm-8">
-                                            <b>{{$index->comment}}</b> in {{$index->name}} 
+                                            <b>{{$index->comment}}</b> commented by <b>{{$index->commenter}}</b> in Publish Course
                                             </div>
                                            
                                        </div>

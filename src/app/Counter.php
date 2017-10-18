@@ -76,14 +76,16 @@ class Counter
     public function comment()
     {
        $auth=Auth::guard('admin')->user()->id;
-       $course=0;
-        
+       $course = Admin::find($auth);
+        $name=$course->first_name.' '.$course->last_name;
+       
+      //  $fn=Auth::guard('admin')->user()->first_name.' '.Auth::guard('admin')->user()->last_name;
         $category1=DB::table('admin_course')
             ->where('admin_id','=',$auth)
             ->pluck('course_id');
-
+        //    dd($name);
          $temp = DB::table('courses')->join('feedback', 'feedback.fid', '=', 'courses.feedback')
-            ->where('read',0)
+            ->where([['read',0],['commenter','!=',$name]])
             ->whereIn('courses.id',$category1)->get();
         
              
@@ -107,7 +109,8 @@ class Counter
     public function commentreview()
     {
        $auth=Auth::guard('admin')->user()->id;
-       $course=[];
+       $courses = Admin::find($auth);
+       $name=$courses->first_name.' '.$courses->last_name;
         $i=0;
         $category1=DB::table('admin_category')
             ->where('admin_id','=',$auth)
@@ -117,14 +120,14 @@ class Counter
             ->join('feedback', 'feedback.fid', '=', 'courses.feedback')
             ->join('course_category', 'courses.id', '=', 'course_category.course_id')
             ->join('subtopics', 'subtopics.course_id', '=', 'courses.id')
-            ->where('subtopics.review_status','Reviewing')
+            ->where([['feedback.read',0],['feedback.commenter','!=',$name],['subtopics.review_status','Reviewing']])
             ->whereIn('course_category.category_id',$category1)->get();
-        
+       // dd($temp);
         $temp1 = DB::table('publish_course')
             ->join('feedback', 'feedback.fid', '=', 'publish_course.feedback')
             ->join('course_category', 'publish_course.course_id', '=', 'course_category.course_id')
             ->join('courses', 'courses.id', '=', 'publish_course.course_id')
-            ->where('read',0)
+            ->where([['read',0],['commenter','!=',$name]])
             ->whereIn('course_category.category_id',$category1)->get();
             
         foreach($temp as $t)
@@ -147,11 +150,13 @@ class Counter
     public function commentpublish()
     {
        $auth=Auth::guard('admin')->user()->id;
-       $course=0;
+        $course = Admin::find($auth);
+        $name=$course->first_name.' '.$course->last_name;
+       //$course=0;
        $temp = DB::table('publish_course')
             ->join('feedback', 'feedback.fid', '=', 'publish_course.feedback')
             ->join('courses', 'courses.id', '=', 'publish_course.course_id')
-            ->where('read',0)
+            ->where([['read',0],['commenter','!=',$name]])
             ->get();
         return $temp;
         

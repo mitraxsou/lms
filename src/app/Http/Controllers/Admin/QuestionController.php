@@ -131,7 +131,7 @@ class QuestionController extends Controller
          $tid = $var->tid;
          $stid = $var->sub_tid;
 
-         return redirect('/admin/'.$cid.$tid.$stid.'/showquiz');
+         return redirect('/admin/'.$cid.'/'.$tid.'/'.$stid.'/showquiz');
    }
 
    public function edit($qid)
@@ -233,6 +233,6 @@ class QuestionController extends Controller
          $cid = $var->course_id;
          $tid = $var->tid;
          $stid = $var->sub_tid;
-         return redirect('/admin/'.$cid.$tid.$stid.'/showquiz');
+         return redirect('/admin/'.$cid.'/'.$tid.'/'.$stid.'/showquiz');
    }
 }
