@@ -34,11 +34,14 @@
               			<tbody>
 
                     	@foreach ($courses as $course)
-                			<tr>
+                      @if($course->publish_status=='Super Reviewed')
+                			<tr class="danger">
                   				<td>{{ $course -> course_id }}</td>
                   				<td>{{ $course -> name }}</td>
                   				<td>{{ $course -> description }}</td>
+                          
                           <td>{{ $course->publish_status }}</td>
+                         
                           <td><a class='btn btn-primary' href='/admin/course/{{ $course -> course_id }}' on>View</a></td>
                           
                          @if( ! empty($publish))
@@ -61,7 +64,21 @@
                 
                            </td>
                           @endif
-                			</tr>    
+                			</tr> 
+                      @elseif($course->publish_status=='Published')
+                      <tr >
+                          <td>{{ $course -> course_id }}</td>
+                          <td>{{ $course -> name }}</td>
+                          <td>{{ $course -> description }}</td>
+                          
+                          <td>{{ $course->publish_status }}</td>
+                         
+                          <td><a class='btn btn-primary' href='/admin/course/{{ $course -> course_id }}' on>View</a></td>
+                          
+                        
+                      </tr>  
+
+                       @endif
                     	@endforeach
                     	</tbody>
                     </table>

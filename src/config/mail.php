@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'soumi.msit@gmail.com'),
-        'name' => env('MAIL_FROM_NAME', 'I and We(notifier)'),
+        'address' => env('MAIL_FROM_ADDRESS', 'support@iandwe.in'),
+        'name' => env('MAIL_FROM_NAME', 'I and We Portal(notifier)'),
     ],
 
     /*

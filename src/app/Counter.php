@@ -148,9 +148,31 @@ class Counter
     }
     public function lessonSuperPublish()
     {
-        $course = DB::table('publish_course')->where([
+        /*$course = DB::table('publish_course')->where([
             ['publish_status', '=', 'Super Reviewed']
          ])->count();
+        */
+
+        $auth=Auth::guard('admin')->user()->id;
+       $course=0;
+        $courses=[];
+        $category1=DB::table('admin_category')
+            ->where('admin_id','=',$auth)
+            ->get();
+        foreach ($category1 as $category)
+        {
+               
+        $temp = DB::table('publish_course')
+                    ->join('course_category', 'course_category.course_id', '=', 'publish_course.course_id')
+                    ->where([
+                    ['publish_status', '=', 'Super Reviewed'],
+                    ['course_category.category_id','=',$category->category_id]
+                    ])
+                    ->count();
+
+        $course+=$temp;
+        }
+
         return $course;
         
     }

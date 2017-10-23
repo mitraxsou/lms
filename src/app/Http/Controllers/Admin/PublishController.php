@@ -62,14 +62,45 @@ class PublishController extends Controller
     }
     public function create()
     {
-        $course1= DB::table('publish_course')
-        ->pluck('course_id');
-       //	dd($course1);
+        
+       //	dd($course1
+        $auth=Auth::guard('admin')->user()->id;
+        $course=[];
+       // $courses=[];
+        $category1=DB::table('admin_category')
+            ->join('role_admin','role_admin.admin_id','=','admin_category.admin_id')
+            ->where([['admin_category.admin_id','=',$auth],['role_admin.role_id','!=',1]])
+            ->get();
+        $i=0;
+        foreach ($category1 as $category)
+        {
+         
+         $course[$i] = DB::table('publish_course')
+                    ->join('courses', 'courses.id', '=', 'publish_course.course_id')
+                    ->join('course_category', 'course_category.course_id', '=', 'publish_course.course_id')
+                    ->where([
+                    ['course_category.category_id','=',$category->category_id]
+                    ])->get();
+          $i++;
+        
+        }
+        $courses=$course[0];
+       //  $i=0;
+/*        foreach ($course as $temp)
+        {
+
+        $courses[$i]= DB::table('courses')
+        ->where(
+        'courses.id',$temp
+        )->get(); 
+        $i++;
+        }
+*//*
         $courses= DB::table('courses')
-        ->join('publish_course','course_id','=','courses.id')
         ->whereIn(
-       	'courses.id',$course1
-       	)->get();
+        'courses.id',$course
+        )->get(); */
+     //     dd($courses);
         $publish=true;
         return view('admin.course.viewonly.course', compact('courses','publish'));
     }
