@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use Auth;
 
 class CategoryController extends Controller
 {
@@ -23,6 +24,13 @@ class CategoryController extends Controller
         return view('admin.category.category',compact('categories'));
     }
 
+    public function mycategory()
+    {
+        $var=Auth::guard('admin')->user();
+        //$category= $var->categories->get();
+        //dd($var);
+        return view('admin.category.mycategory',compact('var'));
+    }
     /**
      * Show the form for creating a new resource.
      *

@@ -28,7 +28,7 @@
                     <h5>Add Categories</h5>
                     <ul>
                         @foreach($cat as $ct)
-                            <li><a href="/admin/owners/category/add/{{$admin->id}}/{{$ct->id}}"><button class="btn-xs btn-success">+</button></a>{{$ct->name}}
+                            <li>{{$ct->name}}
                                 <ul>
                                     @foreach($ct->childCategories as $child)
                                         <li><a href="/admin/owners/category/add/{{$admin->id}}/{{$child->id}}"><button class="btn-xs btn-success">+</button></a>{{$child->name}}</li>

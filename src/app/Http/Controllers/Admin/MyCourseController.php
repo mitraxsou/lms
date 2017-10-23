@@ -16,6 +16,8 @@ class MyCourseController extends Controller
 {
     public function index()
     {
+
+        
         $courses=[];
         $j=0;$i=0;
     	$auth=Auth::guard('admin')->user()->id;
@@ -26,7 +28,7 @@ class MyCourseController extends Controller
          $publish=DB::table('publish_course')->join('courses','course_id','=','courses.id')
          ->join('admin_course','publish_course.course_id','=','admin_course.course_id')
          ->select(
-            'publish_course.publish_status','publish_course.feedback','publish_course.course_id','courses.name','courses.description')->where('admin_id', $auth)->orderBy('publish_course.course_id')->get();
+            'publish_course.publish_status','publish_course.feedback','publish_course.unpublishfeedback','publish_course.course_id','courses.name','courses.description')->where('admin_id', $auth)->orderBy('publish_course.course_id')->get();
 
 
          foreach ($coursesarr as $course) {
@@ -85,6 +87,7 @@ class MyCourseController extends Controller
                         $indexes_sub = DB::table('subtopics')->where([['course_id', $id]
                                                                     ])->get();
                         $feedback = DB::table('feedback')->where('fid', $course->feedback)->get();
+
             	       return view('admin.course.topic.topic' , compact('course','indexes','indexes_sub','index','feedback'));
                     }
                     else
@@ -122,6 +125,11 @@ class MyCourseController extends Controller
     public function feedback(Request $request)
     {
           //dd($request);
+      $this->validate($request,[
+            'comment'=>'required',
+            
+        ]);
+      $read=DB::table('feedback')->where('fid', request('fid'))->update(['read' => 1]);
           $var=Auth::guard('admin')->user()->id;
           
           $course = Admin::find($var);
@@ -129,7 +137,7 @@ class MyCourseController extends Controller
 
            DB::table('feedback')->insert(['fid' =>request('fid'),'comment'=>request('comment'),'commenter'=>$name,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
           alert()->success('Comment sent !');
-          return redirect('/admin/mycourse/'.request('cid'));
+          return back();
     }
 
     public function showSubTopic($cid,$tid)

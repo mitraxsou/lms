@@ -20,8 +20,9 @@
       <div class="panel-body">
       <fieldset>
 
-             @if(count($feedback)>0)
-                <div class="well well-sm">
+            <div class="well well-sm">
+              @if(count($feedback)>0)
+                
                 <label>Feedback</label> <br> 
                 <div class="form-group "   >
                     
@@ -29,6 +30,7 @@
                           <span><label>{{$feed->commenter}} : </label> {{$feed->comment}}</span><br>
                           @endforeach
                 </div>
+                @endif
                 <div class="form-group "   >
                     <form method="POST"  action="/admin/feedback/{{$course->feedback}}" >
                       {{ csrf_field() }}
@@ -47,9 +49,18 @@
                           
                         </div> -->
                     </form>
+                     @if(count($errors))
+                        <div class="alert alert-danger">
+                            <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach 
+                            </ul>
+                        </div>
+                    @endif
                 </div>
                 </div>
-                @endif
+                
                 
        @if(count($courses) >0 )
                   <table class="table table-striped" data-effect="fade">
@@ -69,7 +80,7 @@
                           <tr> <td>Description</td> <td>{{ $course1 -> description }}</td></tr>
                           <tr> <td>Structure</td>  <td>{!! $course1 -> tempstructure !!}</td></tr>
                           <tr> <td>Demo</td> <td>{!! $course1 -> demo_content !!}</td></tr>
-                          @if($course1 -> review_status!='Okay')
+                          @if($course1 -> review_status=='Reviewing')
                           <tr>  <td><a class="btn btn-success" href="/admin/structuresuccess/{{$course1->id}}">Good to Go!</a></td>
                             <td>
                               <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">Edit Required</button>

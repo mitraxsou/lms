@@ -8,9 +8,9 @@
         {{ csrf_field() }}
             <!-- progressbar -->
             <ul id="progressbar">
-                <li class="active">Personal Details</li>
-                <li>Social Profiles</li>
-                <li>Account Setup</li>
+                <li class="active">Role Select</li>
+                <li>Personal Profiles</li>
+                <li>Category Select</li>
             </ul>
             @if(count($errors))
                 <div class="alert alert-danger">
@@ -22,15 +22,6 @@
                 </div>
             @endif
             <!-- fieldsets -->
-            <fieldset id="personal">
-                <h2 class="fs-title">Personal Details</h2>
-                <h3 class="fs-subtitle">Tell us something more about you</h3>
-                <input type="text" name="fname" id="fname" placeholder="First Name *" required="" />
-                <input type="text" name="lname" id="lname" placeholder="Last Name *" required="" />
-                <input type="email" name="email" id="email" placeholder="Email *" required="" />
-                <input type="text" name="password" id="password" placeholder="Password *" required="" />
-                <input type="button" name="next" class="next action-button" value="Next"/>
-            </fieldset>
             <fieldset>
                 <h2 class="fs-title">Assign Roles</h2>
                 <h3 class="fs-subtitle">Assign role to the user</h3>
@@ -42,6 +33,16 @@
                 <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
                 <input type="button" name="next" class="next action-button" value="Next"/>
             </fieldset>
+            <fieldset id="personal">
+                <h2 class="fs-title">Personal Details</h2>
+                <h3 class="fs-subtitle">Tell us something more about you</h3>
+                <input type="text" name="fname" id="fname" placeholder="First Name *" required="" />
+                <input type="text" name="lname" id="lname" placeholder="Last Name *" required="" />
+                <input type="email" name="email" id="email" placeholder="Email *" required="" />
+                <input type="text" name="password" id="password" placeholder="Password *" required="" />
+                <input type="button" name="next" class="next action-button" value="Next"/>
+            </fieldset>
+            
             <fieldset>
                 <h2 class="fs-title">Choose Categories</h2>
                 <h3 class="fs-subtitle">select categories</h3>
@@ -49,7 +50,7 @@
                 <ul>
                     @foreach($categories as $c)
                         <li>
-                            <input type="checkbox" value="{{$c->id}}" alt="{{$c->name}}" title="{{$c->name}}" class="custom-control-input">
+                            
                             <span class="custom-control-description">{{$c->name}}</span>
                             <ul>
                             @foreach($c->childCategories as $child)

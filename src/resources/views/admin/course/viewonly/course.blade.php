@@ -27,7 +27,7 @@
 
                         <th>View</th>
                          @if( ! empty($publish))
-                        <th>Feedback</th>
+                        
                          @endif
                 			</tr>
               			</thead>
@@ -35,15 +35,15 @@
 
                     	@foreach ($courses as $course)
                 			<tr>
-                  				<td>{{ $course -> id }}</td>
+                  				<td>{{ $course -> course_id }}</td>
                   				<td>{{ $course -> name }}</td>
-                  				<td>{{ $course -> description}}</td>
-
-                          <td><a class='btn btn-primary' href='/admin/course/{{ $course -> id }}' on>View</a></td>
+                  				<td>{{ $course -> description }}</td>
+                          <td>{{ $course->publish_status }}</td>
+                          <td><a class='btn btn-primary' href='/admin/course/{{ $course -> course_id }}' on>View</a></td>
                           
                          @if( ! empty($publish))
                           <td>  
-                           
+                       <!--     
                 @if(Auth::guard('admin')->user()->hasRole('super'))
                   <form method="POST" action="/admin/feedbackcorrect" >
                   {{ csrf_field() }}
@@ -51,10 +51,9 @@
                    
 
                         <button type="submit" name="Correct" class="btn btn-success pull-right">Good to Go</button>
-                           <!-- <input type="button" name="Correct" class="btn btn-danger " value="Edit required" onclick="editshow()"> -->
-                    
+                           
                   </form>
-                  @endif
+                  @endif -->
                    <div class="form-group" id="edit" style="display:none;">
 
                     </div>
@@ -144,7 +143,9 @@
                                     <label for="sel1">Select Course:</label> 
                                     <select name="course_id" id="course_id">
                                     @foreach ($courses as $course)
+                                    @if($course->publish_status=='Super Reviewed')
                                       <option value="{{$course->id}}">{{$course->name}}</option>
+                                    @endif
                                     @endforeach
                                     </select></label>
                                     <br>

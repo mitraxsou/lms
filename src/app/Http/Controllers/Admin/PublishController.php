@@ -62,13 +62,13 @@ class PublishController extends Controller
     }
     public function create()
     {
-        $course1= DB::table('publish_course')->where(
-       	'publish_status','Super Reviewed'
-       	)
+        $course1= DB::table('publish_course')
         ->pluck('course_id');
        //	dd($course1);
-        $courses= DB::table('courses')->whereIn(
-       	'id',$course1
+        $courses= DB::table('courses')
+        ->join('publish_course','course_id','=','courses.id')
+        ->whereIn(
+       	'courses.id',$course1
        	)->get();
         $publish=true;
         return view('admin.course.viewonly.course', compact('courses','publish'));
@@ -80,7 +80,7 @@ class PublishController extends Controller
           
           $course = Admin::find($var);
           $name=$course->first_name.' '.$course->last_name;
-
+          
            DB::table('feedback')->insert(['fid' =>request('fid'),'comment'=>request('comment'),'commenter'=>$name,'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]);
 
         $id=request('cid');
@@ -92,14 +92,19 @@ class PublishController extends Controller
           return redirect('/admin/course/'.request('cid'));
     }
     public function createList()
-    {
+    {/*
         $course1= DB::table('publish_course')->where(
         'publish_status','Not Published'
         )->orWhere('publish_status','Super Reviewed')
+        ->pluck('course_id');*/
+
+        $course1= DB::table('publish_course')
         ->pluck('course_id');
        // dd($course1);
-        $courses= DB::table('courses')->whereIn(
-        'id',$course1
+        $courses= DB::table('courses')
+        ->join('publish_course','course_id','=','courses.id')
+        ->whereIn(
+        'courses.id',$course1
         )->get();
         $publish=true;
         return view('admin.course.viewonly.course', compact('courses','publish'));
@@ -109,13 +114,14 @@ class PublishController extends Controller
         $id=request('course_id');
         $updte = DB::table('publish_course')->where([
                  ['course_id' ,'=', $id]
-         ])->update(['publish_status' => 'Published',
-                    'feedback'=>'Okay']);
+         ])->update(['publish_status' => 'Published']);
 
          //create();
          $course1= DB::table('publish_course')->where([
         'publish_status'=>'Not Published'
         ])->pluck('course_id');
+        $read=DB::table('feedback')->join('publish_course','feedback','=','fid')->where('publish_course.course_id', request('course_id'))->update(['read' => 1]);
+
        /*// dd($course1);
         $courses= DB::table('courses')->whereIn(
         'id',$course1
@@ -138,7 +144,7 @@ class PublishController extends Controller
         $updte = DB::table('publish_course')->where([
                  ['course_id' ,'=', $id]
          ])->update(['publish_status' => 'Edit',
-                    'feedback'=>request('feedback')]);
+                    'unpublishfeedback'=>request('feedback')]);
 
          //create();
          $course1= DB::table('publish_course')->where([
@@ -166,7 +172,7 @@ class PublishController extends Controller
         $updte = DB::table('publish_course')->where([
                  ['course_id' ,'=', $id]
          ])->update(['publish_status' => 'Edit',
-                    'feedback'=>request('feedback')]);
+                    'unpublishfeedback'=>request('feedback')]);
 
          //create();
          $course1= DB::table('publish_course')->where([

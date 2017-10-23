@@ -11,8 +11,26 @@
       <div class="col-md-12">
        <div class="panel panel-success">
               <div class="panel-heading">
-                  Comments
-                        
+                  <div class="row">
+                  <div class="col col-md-6">Comments</div>
+                  <div class="col-md-6">
+                      
+                @if(Auth::guard('admin')->user()->hasRole('super'))
+                  <form method="POST" action="/admin/feedbackcorrect" >
+                  {{ csrf_field() }}
+                  <input type="hidden" name="course_id" value="{{ $publish -> course_id }}">
+                   @if($publish -> publish_status != 'Published')
+
+                        <button type="submit" name="Correct" class="btn btn-success pull-right">Good to Go</button>
+                    @endif
+                           <!-- <input type="button" name="Correct" class="btn btn-danger " value="Edit required" onclick="editshow()"> -->
+                    
+                  </form>
+                  @endif
+
+
+                  </div>
+                  </div>
 
               </div>
               <div class="panel-body">
@@ -29,7 +47,7 @@
                       {{ csrf_field() }}
                          <label>Your Comment : </label>
                          <span>
-                           <input type="hidden" name="fid" value="{{$course->feedback}}">
+                           <input type="hidden" name="fid" value="{{$publish->feedback}}">
                            <input type="hidden" name="cid" value="{{$course->id}}">
                            <input type="textarea" name="comment" id="comment" class="form-control">
                           <br/>

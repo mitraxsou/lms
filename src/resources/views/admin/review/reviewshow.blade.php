@@ -38,9 +38,9 @@
                         <tr>
                             <td>{{ $course -> sub_tid}}</td>
                             <td>{{ $course -> tid}}</td>
-                            <td>{{ $course -> name }}</td>
-                            <td>{{ $course -> description }}</td>
-                             <td><a class='btn btn-primary' href='/admin/review/{{ $course -> course_id}}/{{ $course -> tid}}/{{ $course -> sub_tid}}/{{ $course -> content_id }}'>View Flow</a></td>
+                             <td><a class='btn btn-primary' href='/admin/review/{{ $course -> course_id}}/{{ $course -> tid}}/{{ $course -> sub_tid}}/{{ $course -> content_id }}'>{{ $course -> name }}</a></td>
+                            <td>{{ $course -> description }}</td><!-- 
+                             <td><a class='btn btn-primary' href='/admin/review/{{ $course -> course_id}}/{{ $course -> tid}}/{{ $course -> sub_tid}}/{{ $course -> content_id }}'>View Flow</a></td> -->
                         </tr>    
                         @endforeach
                       @else
@@ -52,30 +52,47 @@
                   <table class="table table-striped" data-effect="fade">
                     <thead>
                       <tr>
-                          <th>ID</th>
+                          
                           <th>Corse Name</th> 
                           <th>Course Description </th>
                           <th>Status</th>
-                          <th>View</th>
+                          
                       </tr>
                     </thead>
                     <tbody>
                       @if(count($courses) >0 )
                         @foreach ($courses as $course)
-                        <tr>
-                            <td>{{ $course -> id}}</td>
-                            <td>{{ $course -> name }}</td>
+                        @if ( $course -> review_status=='Reviewing')
+                        <tr class="info">
+                            
+                            <td><a  href='/admin/detailreviewstructure/{{$course -> id}}'>{{ $course -> name }}</a></td>
                             <td>
                              {{ $course -> description }}
                             
                             </td>
-                             <td>{{ $course -> review_status}}</td>
-
-                             <td><a class='btn btn-primary' href='/admin/detailreviewstructure/{{$course -> id}}'>View Flow</a></td>
+                           
+                             <td class="panel-success">{{ $course -> review_status}}</td>
+                             
+                          </tr>    
+                          @else
+                          <tr>
+                            <td>{{ $course -> id}}</td>
+                            <td><a  href='/admin/detailreviewstructure/{{$course -> id}}'>{{ $course -> name }}</a></td>
+                            <td>
+                             {{ $course -> description }}
+                            
+                            </td>
+                           
+                             <td class="panel-success">{{ $course -> review_status}}</td>
+                             
+                          </tr>    
+                            @endif
+<!--                        
+                             <td><a class='btn btn-primary' href='/admin/detailreviewstructure/{{$course -> id}}'>View Flow</a></td> -->
 
                             
 
-                        </tr>    
+                        
                         @endforeach
                       @else
                         <p>Not any indexes yet</p>

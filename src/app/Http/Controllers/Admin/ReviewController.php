@@ -108,6 +108,9 @@ class ReviewController extends Controller
         alert()->info('Course Rejected');
         return redirect('/admin/reviewcourse');
     }
+
+// Content send for the reveiw
+    
     public function review($cid,$tid,$sid,$id1)
     {
          $auth=Auth::guard('admin')->user()->id;
@@ -124,7 +127,7 @@ class ReviewController extends Controller
         
         if($course_category->category_id==$category->category_id)
         {
-            $falg=true;
+            $flag=true;
          $course1 = DB::table('content')->where(
             'content_id',$id1
          )->first();
@@ -153,10 +156,11 @@ class ReviewController extends Controller
 
                return view('admin.review.notfoundcategory');
                // alert()->info('No courses found for your catgory');
-                
-            
+                    
 
     }
+
+ //Content   
     public function content($id1)
     {
         
@@ -166,6 +170,7 @@ class ReviewController extends Controller
         $category1=DB::table('admin_category')
             ->where('admin_id','=',$auth)
             ->get();
+
         foreach ($category1 as $category) {
             # code...
          $course1 = DB::table('content')->join('subtopics','subtopics.content_id','=','content.content_id')->select('subtopics.sub_tid','subtopics.tid','subtopics.course_id','subtopics.name','subtopics.description','content.content','content.content_id','content.content_type')->where(
@@ -193,16 +198,23 @@ class ReviewController extends Controller
             ['subtopics.content_id','=',$id1]
             ])
          ->first();
-          if(count($course)){
-        
+
+
+         if(count($course)){
+
+      
          return view('admin.review.contentshow', compact('course1','video'));
      }
         }
         
-     
+
+    
+
          return view('admin.review.notfoundcategory');
      
+        }
 
+         
          /*$course1 = DB::table('content')->join('subtopics','subtopics.content_id','=','content.content_id')->select('subtopics.sub_tid','subtopics.tid','subtopics.course_id','subtopics.name','subtopics.description','content.content','content.content_id','content.content_type')->where(
             'content.content_id',$id1
          )->first();*/
@@ -210,7 +222,7 @@ class ReviewController extends Controller
         
         // return view('admin.review.contentshow', compact('course1','video'));
 
-    }
+    
     public function feedback(Request $request)
     {
         $this->validate(request(),[
@@ -330,14 +342,17 @@ class ReviewController extends Controller
             ->get();
          
         $course=DB::table('course_structure')
-            ->where('review_status','=','Reviewing')
             ->get();
-        $tempcourses = DB::table('courses')->join('course_structure','courses.id','=','course_structure.course_id')->select('courses.id','courses.name','courses.description','course_structure.demo_content','course_structure.tempstructure','course_structure.review_status')->where('course_structure.review_status','=' ,'Reviewing')->get();
+        $tempcourses = DB::table('courses')->join('course_structure','courses.id','=','course_structure.course_id')->select('courses.id','courses.name','courses.description','course_structure.demo_content','course_structure.tempstructure','course_structure.review_status')
+        ->get();
         $i=0;
         foreach ($tempcourses as $key)
         {
           //  dd($key->id);
+            if($key->review_status=='Reviewing')
+            {
              $course_category=DB::table('course_category')
+            
             ->where('course_id','=',$key->id)
             ->first();
            // dd($course_category);
@@ -349,6 +364,28 @@ class ReviewController extends Controller
                     $courses[$i]=$key;
                     $i++;
                  }
+             }
+            }
+        }
+        foreach ($tempcourses as $key)
+        {
+          //  dd($key->id);
+            if($key->review_status!='Reviewing')
+            {
+             $course_category=DB::table('course_category')
+            
+            ->where('course_id','=',$key->id)
+            ->first();
+           // dd($course_category);
+            foreach ($category1 as $category)
+            {
+         
+                 if($course_category->category_id==$category->category_id)
+                 {
+                    $courses[$i]=$key;
+                    $i++;
+                 }
+             }
             }
         }
         //dd(count($courses));
