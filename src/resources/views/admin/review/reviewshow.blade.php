@@ -28,7 +28,7 @@
                           <th>Topic</th> 
                            <th>Name </th>
                           <th>Description</th>
-                        <th>View Content</th>
+                        
                         
                       </tr>
                     </thead>

@@ -88,21 +88,6 @@ class Counter
             ->where([['read',0],['commenter','!=',$name]])
             ->whereIn('courses.id',$category1)->get();
         
-             
-        // foreach ($temp as $category)
-        // {
-               
-        // $temp = DB::table('course')
-        //             ->join('course_category', 'course_category.course_id', '=', 'course_structure.course_id')
-        //             ->where([
-        //             ['review_status', '=', 'Reviewing'],
-        //             ['course_category.category_id','=',$category->category_id]
-        //             ])
-
-        //             ->count(DB::raw('DISTINCT course_structure.course_id'));
-
-        // $course+=$temp;
-        // }
             return $temp;
         
     }
@@ -243,7 +228,7 @@ class Counter
             return 0;
            }
          }
-     }
+        }
     }
 
     public function published()
