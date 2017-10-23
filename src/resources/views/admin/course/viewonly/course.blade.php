@@ -34,7 +34,7 @@
               			<tbody>
 
                     	@foreach ($courses as $course)
-                      @if($course->publish_status=='Super Reviewed')
+                      @if($course->publish_status=='Super Reviewed' and Auth::guard('admin')->user()->hasRole('review admin'))
                 			<tr class="danger">
                   				<td>{{ $course -> course_id }}</td>
                   				<td>{{ $course -> name }}</td>
@@ -77,7 +77,30 @@
                           
                         
                       </tr>  
-
+                      @elseif($course->publish_status=='Not Published' and Auth::guard('admin')->user()->hasRole('super'))
+                      <tr class="danger" >
+                          <td>{{ $course -> course_id }}</td>
+                          <td>{{ $course -> name }}</td>
+                          <td>{{ $course -> description }}</td>
+                          
+                          <td>{{ $course->publish_status }}</td>
+                         
+                          <td><a class='btn btn-primary' href='/admin/course/{{ $course -> course_id }}' on>View</a></td>
+                          
+                        
+                      </tr>  
+                       @elseif($course->publish_status=='Super Reviewed' and Auth::guard('admin')->user()->hasRole('super'))
+                      <tr class="warning" >
+                          <td>{{ $course -> course_id }}</td>
+                          <td>{{ $course -> name }}</td>
+                          <td>{{ $course -> description }}</td>
+                          
+                          <td>{{ $course->publish_status }}</td>
+                         
+                          <td><a class='btn btn-primary' href='/admin/course/{{ $course -> course_id }}' on>View</a></td>
+                          
+                        
+                      </tr> 
                        @endif
                     	@endforeach
                     	</tbody>
