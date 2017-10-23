@@ -19,9 +19,9 @@ class CoursePolicy
      * @param  \App\Course  $course
      * @return mixed
      */
-    public function view(Admin $admin, Course $course)
+    public function view(User $user, Course $course)
     {
-
+        return $user->courses->contains($course);
     }
 
     /**

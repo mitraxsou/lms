@@ -246,11 +246,21 @@ Route::group(['middleware' => 'adminauth'], function()
 
 });
 
-Route::group(['middleware' => 'guestauth'], function()
+Route::group(['middleware' => 'auth'], function()
 {
 	Route::get('/studentreg/{course}', 'Student\CourseController@create');
 	Route::post('/coursereg', 'Student\CourseController@store');
 	Route::get('/course/{course}', 'Student\CourseController@view');
+	Route::get('/course/{course}/{topic}','Student\CourseController@viewsubtopic');
+	Route::get('/course/{course}/{topic}/{subtopic}','Student\CourseController@viewcontent');
+
 	Route::get('/student/read/{id}','Student\StudentController@read');
+
+	Route::get('course/preview/{course}','CourseController@preview');
+
+	//Registration or purchase of a course.
+
+	Route::get('course/{cid}/enroll','Student\EnrollController@create');
+	Route::post('course/{cid}/enroll','Student\EnrollController@store');
 
 });

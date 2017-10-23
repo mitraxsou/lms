@@ -18,6 +18,7 @@ class CourseController extends Controller
         $this->middleware('adminauth')
     }
     
+
     public function show(Course $course)
     {
        // $this->authorize('view', $course);
@@ -32,5 +33,11 @@ class CourseController extends Controller
     {
     	$courses= Course::all();
     	return view('admin.course' , compact('courses'));
+    }
+
+    public function preview(Course $course)
+    {
+        $preview = DB::table('topic')->where('course_id',$course)->get();
+        dd($preview);
     }
 }

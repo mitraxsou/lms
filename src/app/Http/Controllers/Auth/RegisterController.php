@@ -36,7 +36,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware();
+        $this->middleware('guest');
     }
 
     /**
@@ -68,8 +68,8 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
-     protected function guard()
-    {
-        return Auth::guard();
-    }
+    //  protected function guard()
+    // {
+    //     return Auth::guard();
+    // }
 }

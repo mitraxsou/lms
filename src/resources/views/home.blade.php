@@ -16,7 +16,7 @@
             </div>
         
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Currently Enrolled in Courses
@@ -43,11 +43,29 @@
                     </div>
                 </div>
 
-                <div class="col-sm-6">
+                <div class="col-sm-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Other Courses
+                            All Courses
                         </div>
+                        @if(count($index)>0)
+                                @foreach($index as $in)
+                        
+                            
+                                <p><a href="/course/{{$in->id}}"> {{$in->name}}</a></p>
+                                    
+                        @endforeach 
+                        @else
+                            <div class="panel-body">
+                               No Courses yet!
+
+                            </div>
+                            @endif
+
+                        </div>
+                    </div>
+
+<!-- 
                          @if(count($index)>0)
                            @foreach($index as $co)
                          <div class="panel-body">
@@ -62,7 +80,7 @@
                          No Courses yet!
 
                          </div>
-                         @endif
+                         @endif -->
 
                         </div>
                     </div>
