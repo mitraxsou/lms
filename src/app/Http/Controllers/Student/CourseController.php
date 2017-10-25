@@ -112,7 +112,21 @@ class CourseController extends Controller
             else
                 $agla = [];
         }
-        //dd($agla);
+
+        $ntopic=0;
+
+        if(count($agla)>0)
+        {
+
+        }
+        else{
+            $ntopic = DB::table('subtopics')->where([
+                ['sub_tid','=',1],
+                ['tid','=', ($tid+1)],
+                ['course_id','=',$cid]
+            ])->first();
+        }
+        //dd($ntopic);
 
         $cont = DB::table('content')->where('content_id' , $subtopic->content_id)->first();
 
@@ -132,7 +146,24 @@ class CourseController extends Controller
             'key_pair_id' =>'APKAJZNXFGELO6O2EZMQ'
             ]);
 
-        return view('student.contentshow', compact('subtopic','topic','course','cont', 'video','pichla', 'agla'));
+
+        /* ***** For checking the progress of the course we need to see the progress table where the status of subtopic is provided. ******/
+        $uid=Auth::guard()->user()->id;
+
+        $progress = DB::table('progress')->where([
+            ['user_id','=',$uid],
+            ['course_id','=',$cid],
+            ['tid','=', $tid],
+            ['sub_tid','=',$stid]
+        ])->first();
+
+        //dd($progress);
+        if($progress->status == 'incomplete')
+        {
+            DB::table('progress')->where([['user_id',$uid],['course_id',$cid],['tid',$tid],['sub_tid',$stid]])->update(['status'=>'inprogress','updated_at'=>Carbon::now()]);
+        }
+
+        return view('student.contentshow', compact('subtopic','topic','course','cont', 'video','pichla', 'agla','ntopic','progress'));
     }
 
     public function read($id)

@@ -48,7 +48,24 @@
           {!!$cont->content!!}
         @endif
       </fieldset>
+      
       </div>
+
+      <span style="text-align: center;">
+        <p>
+        @if($progress->status == 'incomplete'|| $progress->status == 'inprogress')
+        
+          <a href="/course/markcomplete/{{$subtopic->course_id}}/{{$subtopic->tid}}/{{$subtopic->sub_tid}}" class="btn btn-primary">Ok.Got It!</a>
+          
+        @else
+          <a href="" class="btn btn-success" disabled>Completed</a>
+        @endif
+        </p>
+      </span>
+      
+      @if(count($agla)==0)
+        <span style="text-align: right"><p><button class="btn btn-success">next topic</button><a href="/course/{{$ntopic->course_id}}/{{$ntopic->tid}}/{{$ntopic->sub_tid}}"> {{$ntopic->name}} ></a></p></span>
+      @endif
        </div>
        </div>
 

@@ -263,4 +263,7 @@ Route::group(['middleware' => 'auth'], function()
 	Route::get('course/{cid}/enroll','Student\EnrollController@create');
 	Route::post('course/{cid}/enroll','Student\EnrollController@store');
 
+	//Mark complete as progress
+	Route::get('course/markcomplete/{cid}/{tid}/{stid}','Student\ProgressController@markComplete');
+
 });

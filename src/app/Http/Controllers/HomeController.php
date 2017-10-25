@@ -75,8 +75,21 @@ class HomeController extends Controller
                 ['publish_course.publish_status', '=','Published']
                 ])->whereNotIn('courses.id', $var)
                 ->get();
-       // dd($index);
-        return view('home', compact('user','cour','courses','index','cats'));
+
+            $k=0;
+
+        foreach($cour as $co)
+        {
+            $progress[$k] = DB::table('progress')->where([
+                ['user_id' ,'=',$user->id],
+                ['course_id','=',$co->id],
+                ['status','=','inprogress']
+            ])->first();
+
+            $k++;
+        }
+        // dd($progress);
+        return view('home', compact('user','cour','courses','index','cats','progress'));
     }
     
 }

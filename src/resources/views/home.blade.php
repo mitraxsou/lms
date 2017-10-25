@@ -3,6 +3,7 @@
 @section('title', 'Dashboard');
 
 @section('content')
+
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -30,10 +31,15 @@
                                 <br/>
                                 <span>Course Name : <b>{{ $co->name }}</b> 
                                  <a href="course/{{ $co->id }}">Read</a>
+                                 @foreach($progress as $prog)
+                                    @if($prog->course_id == $co->id)
+                                        <p><a class="btn btn-success" href="/course/{{$prog->course_id}}/{{$prog->tid}}/{{$prog->sub_tid}}">Continue</a></p>
+                                    @endif
+                                 @endforeach
                                 </span>
-                           
                         </div>
-                         @endforeach 
+                         @endforeach
+
                          @else
                          <div class="panel-body">
                          No Courses yet!
