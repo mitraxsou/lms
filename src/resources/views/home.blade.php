@@ -31,11 +31,14 @@
                                 <br/>
                                 <span>Course Name : <b>{{ $co->name }}</b> 
                                  <a href="course/{{ $co->id }}">Read</a>
-                                 @foreach($progress as $prog)
-                                    @if($prog->course_id == $co->id)
-                                        <p><a class="btn btn-success" href="/course/{{$prog->course_id}}/{{$prog->tid}}/{{$prog->sub_tid}}">Continue</a></p>
-                                    @endif
-                                 @endforeach
+                                 @if(($progress)>0)
+                                     @foreach($progress as $prog)
+                                        @if($prog->course_id == $co->id)
+                                            <p><a class="btn btn-success" href="/course/{{$prog->course_id}}/{{$prog->tid}}/{{$prog->sub_tid}}">Continue</a></p>
+                                        @endif
+                                     @endforeach
+                                 
+                                 @endif
                                 </span>
                         </div>
                          @endforeach

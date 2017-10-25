@@ -88,7 +88,12 @@ class HomeController extends Controller
 
             $k++;
         }
-        // dd($progress);
+        //dd($progress);
+
+        if($progress[0]==null){
+            $progress = null;
+            //dd($progress);
+        }
         return view('home', compact('user','cour','courses','index','cats','progress'));
     }
     

@@ -59,7 +59,7 @@ class EnrollController extends Controller
             $user->courses()->save($course);
 
             //Proc to add course to the progress table against the user 
-            DB::select('exec sp_addprogress(?,?)',array($user->id, $course->id));
+            DB::statement('call sp_addprogress(?,?)',array($user->id, $course->id));
 
             return redirect('/course/'.$cid->id)->with('message','You have been enrolled successfully');
         }

@@ -18,7 +18,7 @@
       	<div class="panel-body">
       		<div class="row">
       			
-      			<form method="POST" action="/course/{{$cid->id}}/enroll">
+      			<form method="POST" action="/course/enroll/{{$cid->id}}">
       				{{ csrf_field() }}
       				<div class="form-group" class="control-label">
       					<input type="text" class="form-control" name="studId" value="{{$user->id}}" readonly>

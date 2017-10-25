@@ -87,7 +87,7 @@
                 </fieldset>
                 </div>
                 <div class="col-sm-6">
-                  <a href="/course/{{$course->id}}/enroll" class="btn btn-primary btn-lg">Register</a>
+                  <a href="/course/enroll/{{$course->id}}" class="btn btn-primary btn-lg">Register</a>
                 </div>
                 @endcannot
        </div>
