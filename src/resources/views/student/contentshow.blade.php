@@ -7,10 +7,19 @@
     <article>
         <p><a href='/course/{{$subtopic->course_id}}/{{$subtopic->tid}}'>&larr; back to {{$topic->name}}</a></p>
       </article>
-      
-
+      <div >
+       @if((session()->has('incorrect')) )
+       @if( session('incorrect')=='Passed')
+       <div class="alert alert-success">You have cleared the quiz successfully!</div>
+       @else
+        <div class="alert alert-danger">You didn't clear the quiz. Try again.</div>
+       
+      @endif
+      @endif
+      </div>
        <div class="panel-group">
       <div class="panel panel-success">
+
       <div class="panel-heading">
           <div class="row">
             <div class="col-sm-12">
@@ -55,7 +64,7 @@
         <p>
         @if($progress->status == 'incomplete'|| $progress->status == 'inprogress')
         
-          <a href="/course/markcomplete/{{$subtopic->course_id}}/{{$subtopic->tid}}/{{$subtopic->sub_tid}}" class="btn btn-primary">Ok.Got It!</a>
+          <a href="/course/markcomplete/{{$subtopic->course_id}}/{{$subtopic->tid}}/{{$subtopic->sub_tid}}" class="btn btn-primary">Continue to Quiz!</a>
           
         @else
           <a href="" class="btn btn-success" disabled>Completed</a>
@@ -64,7 +73,11 @@
       </span>
       
       @if(count($agla)==0)
-        <span style="text-align: right"><p><button class="btn btn-success">next topic</button><a href="/course/{{$ntopic->course_id}}/{{$ntopic->tid}}/{{$ntopic->sub_tid}}"> {{$ntopic->name}} ></a></p></span>
+        <span style="text-align: right">
+          @if(count($ntopic)>0)
+            <p><button class="btn btn-success">next topic</button><a href="/course/{{$ntopic->course_id}}/{{$ntopic->tid}}/{{$ntopic->sub_tid}}"> {{$ntopic->name}} ></a></p>
+          @endif
+        </span>
       @endif
        </div>
        </div>
