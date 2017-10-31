@@ -34,11 +34,11 @@
                     <textarea id="summernote" name="summernote" class="form-control"></textarea>
                   </div>
                   <div class="form-group" style="display: none" id="vd">
-                        <label>Title</label>
+                        <label>Title<i >*</i></label>
                           <input type="text" name="title" class="form-control">
                       
                       
-                        <label>Video</label>
+                        <label>Video(Upload .mp4 only,max size - 200MB)</label>
                           <input type="file" name="video" id="fileUpload" class="form-control">
                   </div>
                   <div class="form-group">

@@ -118,29 +118,17 @@
       </div>
     @else
     <div class="row">
-      <div class="col-md-8">
-       <div class="panel panel-success">
-              <div class="panel-heading">
-                        Final Structure
-                        
 
-              </div>
-              <div class="panel-body">
-             {!!$index->fixedstructure!!}
-              </div>
-        </div>
-      </div>
-      
-      <div class="col-md-4">
+      <div class="col-md-6">
        <div class="panel panel-success">
               <div class="panel-heading">
                   Comments
                         
 
               </div>
-              <div class="well well-sm">
+              <div class="well well-sm" style="margin-bottom: 0px;">
                 
-                <div class="form-group "   >
+                <div class="form-group " style="overflow-y: scroll; height:80px;"  >
                     
                           @foreach ($feedback as $feed)
                           <span><label>{{$feed->commenter}} : </label> {{$feed->comment}}</span><br>
@@ -154,20 +142,56 @@
                            <input type="hidden" name="fid" value="{{$course->feedback}}">
                            <input type="hidden" name="cid" value="{{$course->id}}">
                            <input type="textarea" name="comment" id="comment" class="form-control">
-                          <br/>
+                          <br>
                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
                           </span> 
-                         <!-- <div class="form-group">
-                                <button type="reset" class="btn btn-warning pull-left">Reset
-                                </button>
-                            
-                          
-                        </div> -->
+                         
                     </form>
                 </div>
                 </div>
         </div>
       </div>
+      <div class="col-md-6" >
+       <div class="panel panel-success">
+              <div class="panel-heading">
+                        Final Structure
+                        
+
+              </div>
+              <div class="panel-body" >
+                 <div class="well well-sm" style="overflow-y: scroll; height:150px;">
+                <p>{!!$index->fixedstructure!!}</p> 
+
+              </div>
+              <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal">View Full Structure</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"> Course Structure</h4>
+        </div>
+        <div class="modal-body">
+          <p>{!!$index->fixedstructure!!}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+ 
+
+
+              </div>
+        </div>
+      </div>
+      
 
     </div>
     @endif

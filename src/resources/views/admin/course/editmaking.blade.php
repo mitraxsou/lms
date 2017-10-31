@@ -42,7 +42,7 @@
       <div class="panel-body">
       <fieldset>
 
-     <a class="btn btn-default" href="/admin/mycourse/contentdelete/{{$course1->content_id}}">Change content type</a>
+     
         <form method="POST" action="/admin/editsubtopicmaking/{{$course1->content_id}}" >
                   {{ csrf_field() }}
                     <input type="hidden" name="tid" value= "{{$course1->tid}}" class="form-control" readonly>
