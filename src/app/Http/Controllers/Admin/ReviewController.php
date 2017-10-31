@@ -492,7 +492,7 @@ class ReviewController extends Controller
         //dd($temp->tempstructure);
           $updte = DB::table('course_structure')->where([
                     ['course_id', '=', $id]
-         ])->update(['fixedstructure' => $temp->tempstructure ,'review_status'=>'Okay','feedback'=>null]);
+         ])->update(['fixedstructure' => $temp->tempstructure ,'review_status'=>'Okay']);
          //dd($updte);
 
             $mailbody = DB::table('courses')->where([
