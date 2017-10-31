@@ -9,11 +9,16 @@
       </article>
       <div >
        @if((session()->has('incorrect')) )
-       @if( session('incorrect')=='Passed')
-       <div class="alert alert-success">You have cleared the quiz successfully!</div>
-       @else
-        <div class="alert alert-danger">You didn't clear the quiz. Try again.</div>
-       
+       @if(!is_array(Session::get('incorrect')))
+              <div class="alert alert-success">You have cleared the quiz successfully!</div>
+      @else      
+       <div class="alert alert-danger">You didn't clear the quiz. Try again.
+        <ul>
+      @foreach(Session::get('incorrect') as $test)
+      <li><p>{!!$test!!}</p><br></li>
+      @endforeach
+    </ul>
+      </div>
       @endif
       @endif
       </div>

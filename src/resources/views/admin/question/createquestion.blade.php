@@ -37,8 +37,8 @@
 
                         <div class="form-group" id="truefalse" style="display: none">
                             <div class="form-group">
-                                <label>Ques type</label>
-                                <input type="text" name="qtype1" class="form-control" value="tf">
+                                <!-- <label>Ques type</label> -->
+                                <input type="hidden" name="qtype1" class="form-control" value="tf">
                             </div>
                             <div class="form-group">
                                 <label>Statement</label>
@@ -70,8 +70,8 @@
                         </div>
                         <div class="form-group" id="mcqone" style="display: none">
                             <div class="form-group">
-                                <label>Ques type</label>
-                                <input type="text" name="qtype2" class="form-control" value="mcq1">
+                                <!-- <label>Ques type</label> -->
+                                <input type="hidden" name="qtype2" class="form-control" value="mcq1">
                             </div>
                             <div class="form-group">
                                 <label>Statement</label>
@@ -113,8 +113,8 @@
                         </div>
                         <div class="form-group" id="mcqmulti" style="display: none">
                             <div class="form-group">
-                                <label>Ques type</label>
-                                <input type="text" name="qtype3" class="form-control" value="mcqmul">
+                                <!-- <label>Ques type</label> -->
+                                <input type="hidden" name="qtype3" class="form-control" value="mcqmul">
                             </div>
                             <div class="form-group">
                                 <label>Statement</label>
@@ -156,8 +156,8 @@
                         </div>
                         <div class="form-group" id="match" style="display: none">
                             <div class="form-group">
-                                <label>Ques type</label>
-                                <input type="text" name="qtype4" class="form-control" value="matchmake">
+                                <!-- <label>Ques type</label> -->
+                                <input type="hidden" name="qtype4" class="form-control" value="matchmake">
                             </div>
                             <div class="form-group">
                                 <label>Statement</label>

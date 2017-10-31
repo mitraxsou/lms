@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 use DB;
 use App\User;
+use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
 
 class ProgressController extends Controller
@@ -32,7 +33,9 @@ class ProgressController extends Controller
     	$user =  User::find(Auth::id());
     	$uid = $user->id;
     	$ans=[];
+        $wrong=[];
     	$i=0;
+        $j=0;
     	$count=0;
     	//dd(request('71596362'));
     	//dd(request('id'));
@@ -45,20 +48,29 @@ class ProgressController extends Controller
     		{
     			$count++;
     		}
+            else{
+                    $wrong[$j]=DB::table('questions')->where('ques_id',$ques->ques_id)->pluck('question');
+                    $j++;
+            }
     		//$i++;
     	}
     	//dd($count);
     	if($count>=2)
     	{
     			$incorrect='Passed';
-                DB::table('progress')->where([['user_id',$uid],['course_id',request('cid')],['tid',request('tid')],['sub_tid',request('stid')]])->update(['status'=>'complete','updated_at'=>Carbon::now()]);
+               // Session::put('incorrect', 'Passed');
+               // dd(Session::get('incorrect'));
+                DB::table('progress')->where([['user_id',$uid],['course_id',request('cid')],['tid',request('tid')],['sub_tid',request('stid')]])->update(['status'=>'complete','marks'=>$count,'updated_at'=>Carbon::now()]);
     		alert()->success('Completed Successfully !');
     		return redirect('/course/'.request('cid').'/'.request('tid').'/'.request('stid'))->with('incorrect', 'Passed');
     	}
     	else{
-    		$incorrect='Failed';
+           // dd($wrong);
+    		//$incorrect=$wrong;
     		alert()->info('Incorrect !');
- 				return redirect('/course/'.request('cid').'/'.request('tid').'/'.request('stid'))->with('incorrect', 'Failed');
+         // Session::put('incorrect', $wrong);
+        //  dd(Session::get('incorrect'));
+ 			return redirect('/course/'.request('cid').'/'.request('tid').'/'.request('stid'))->with('incorrect', $wrong);
     	}
     	
     }	
