@@ -37,10 +37,10 @@ class HomeController extends Controller
         $i=0;
         foreach ($user->courses as $course)
         { 
-            $cour= DB::table('courses')->join('publish_course','publish_course.course_id','=','courses.id')->select('courses.id','courses.description','courses.name')->where([
+            $cour[$i]= DB::table('courses')->join('publish_course','publish_course.course_id','=','courses.id')->select('courses.id','courses.description','courses.name')->where([
                 ['publish_course.publish_status', '=','Published'],
                 ['courses.id','=',$course->pivot->course_id]
-                ])->get();
+                ])->first();
             //dd($course->pivot->course_id);
             //dd($temp);
           //  $temp = Course::where([['id','=',$course->pivot->course_id],[]]);
@@ -52,6 +52,8 @@ class HomeController extends Controller
           //  dd($cour);
         }
         
+        //dd($cour);
+
         $courses;
         $j=0;
         $cats = Category::all()->whereNotIn('parent_id',0);
@@ -69,6 +71,7 @@ class HomeController extends Controller
             }
         }
         
+        $progress = [];
 
        $index=  DB::table('courses')->join('publish_course','publish_course.course_id','=','courses.id')->select('courses.id','courses.description','courses.name')
                 ->where([
@@ -89,10 +92,12 @@ class HomeController extends Controller
             $k++;
         }
         //dd($progress);
-
-        if($progress[0]==null){
-            $progress = null;
+        if(count($progress)>0)
+        {
+            if($progress[0]==null){
+                $progress = null;
             //dd($progress);
+            }
         }
         return view('home', compact('user','cour','courses','index','cats','progress'));
     }

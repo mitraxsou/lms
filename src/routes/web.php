@@ -269,7 +269,9 @@ Route::group(['middleware' => 'auth'], function()
 
 	Route::get('course/preview/{course}','CourseController@preview');
 
+
 	//Mark complete as progress
 	Route::get('course/markcomplete/{cid}/{tid}/{stid}','Student\ProgressController@markComplete');
+	Route::post('/student/quiz/{id}','Student\ProgressController@quiz');
 
 });

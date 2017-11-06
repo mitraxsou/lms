@@ -12,7 +12,9 @@
      <div class="panel-group">
       <div class="panel panel-success">
       <div class="panel-heading">
+       
           <div class="row">
+             @if($course1->review_status!='Correct')
               <div style="float: right;">
               @if($course->content!="")
               <a class="btn btn-warning" href="/admin/mycourse/editmaking/{{$course1->course_id}}/{{$course1->tid}}/{{$course1->sub_tid}}">Edit content</a>
@@ -23,12 +25,14 @@
                 <a class="btn btn-default" href="/admin/mycourse/contentselection/{{$course1->course_id}}/{{$course1->tid}}/{{$course1->sub_tid}}">Add content</a>
               @endif
               </div>
+               @endif
               <div class="col-sm-8">
               <h3>{{ $course1->name }}</h3>
                <p><b>Description :</b> {{$course1->description}}</p>
                <h4>{{ $course->content_type }}</h4>
               </div>
           </div>
+
                   
                  
          </div>

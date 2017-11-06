@@ -57,8 +57,12 @@ class CourseController extends Controller
         $course = Course::find($cid);
         $topic = DB::table('topic')->where([['tid', $tid],['course_id',$cid]])->first();
         $subtopic = DB::table('subtopics')->where([['tid', $tid],['course_id',$cid]])->get();
+
         
         dd($topic);
+
+      //  dd($topic);
+
         return view('student.subtopic', compact('topic', 'subtopic','course'));
     }
 

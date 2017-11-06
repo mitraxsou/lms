@@ -26,6 +26,15 @@
   <link href="/css/summernote.css" rel="stylesheet">
   
     <!-- Scripts -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-90646662-8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-90646662-8');
+</script>
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
